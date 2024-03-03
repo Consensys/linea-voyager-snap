@@ -1,0 +1,30 @@
+{
+  "version": "0.1.0",
+  "description": "A snap to view your Attestations created by Verax.",
+  "proposedName": "Verax Attestations",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Consensys/verax-attestations.git"
+  },
+  "source": {
+    "shasum": "rxOoaDwPElqaO9Bml6mFb2pUyY/5/jkaV1fjnT0fn4Y=",
+    "location": {
+      "npm": {
+        "filePath": "dist/bundle.js",
+        "packageName": "@consensys/verax-attestations",
+        "registry": "https://registry.npmjs.org/"
+      }
+    }
+  },
+  "initialPermissions": {
+    "endowment:page-home": {},
+    "endowment:network-access": {},
+    "endowment:rpc": {
+      "dapps": true,
+      "snaps": false
+    },
+    "endowment:ethereum-provider": {},
+    "snap_manageState": {}
+  },
+  "manifestVersion": "0.1"
+}
