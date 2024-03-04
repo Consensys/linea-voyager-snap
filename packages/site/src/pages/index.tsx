@@ -2,10 +2,10 @@ import { useContext } from 'react';
 import styled from 'styled-components';
 
 import {
+  Card,
   ConnectButton,
   InstallFlaskButton,
   ReconnectButton,
-  Card,
 } from '../components';
 import { defaultSnapOrigin } from '../config';
 import { MetamaskActions, MetaMaskContext } from '../hooks';
@@ -13,7 +13,6 @@ import {
   connectSnap,
   getSnap,
   isLocalSnap,
-  sendHello,
   shouldDisplayReconnectButton,
 } from '../utils';
 
@@ -24,6 +23,7 @@ const Container = styled.div`
   flex: 1;
   margin-top: 7.6rem;
   margin-bottom: 7.6rem;
+
   ${({ theme }) => theme.mediaQueries.small} {
     padding-left: 2.4rem;
     padding-right: 2.4rem;
@@ -41,16 +41,6 @@ const Heading = styled.h1`
 
 const Span = styled.span`
   color: ${(props) => props.theme.colors.primary?.default};
-`;
-
-const Subtitle = styled.p`
-  font-size: ${({ theme }) => theme.fontSizes.large};
-  font-weight: 500;
-  margin-top: 0;
-  margin-bottom: 0;
-  ${({ theme }) => theme.mediaQueries.small} {
-    font-size: ${({ theme }) => theme.fontSizes.text};
-  }
 `;
 
 const CardContainer = styled.div`
@@ -77,6 +67,7 @@ const Notice = styled.div`
   & > * {
     margin: 0;
   }
+
   ${({ theme }) => theme.mediaQueries.small} {
     margin-top: 1.2rem;
     padding: 1.6rem;
@@ -93,6 +84,7 @@ const ErrorMessage = styled.div`
   margin-top: 2.4rem;
   max-width: 60rem;
   width: 100%;
+
   ${({ theme }) => theme.mediaQueries.small} {
     padding: 1.6rem;
     margin-bottom: 1.2rem;

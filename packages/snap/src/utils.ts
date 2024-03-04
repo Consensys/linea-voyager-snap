@@ -1,67 +1,43 @@
-import { ManageStateOperation } from "@metamask/snaps-sdk";
-import { Attestation } from "./vars";
+import { ManageStateOperation } from '@metamask/snaps-sdk';
 
-export async function getMyAttestations(address: string) {
-  //  Retreive data uisng API, from Linea for attestations for `address`
-  const plusOneYearMs = 2 * 365 * 24 * 60 * 60 * 60;
-  const attestations = [
-    {
-      id: "1",
-      from: "University of Florida",
-      to: "0x1",
-      attestationDate: Date.now(),
-      expiryDate: Date.now() + plusOneYearMs,
-      content: "You have a Bachelors Degree"
-    },
-    {
-      id: "2",
-      from: "Dept. of Motor Vehicles",
-      to: "0x2",
-      attestationDate: Date.now(),
-      expiryDate: Date.now() + plusOneYearMs,
-      content: "You can Drive"
-    },
-    {
-      id: "3",
-      from: "Ethereum Foundation",
-      to: "0x3",
-      attestationDate: Date.now(),
-      expiryDate: Date.now() + plusOneYearMs,
-      content: "You are a solidity Engineer"
-    },
-    {
-      id: "4",
-      from: "Gitcoin Passport",
-      to: "0x4",
-      attestationDate: Date.now(),
-      expiryDate: Date.now() + plusOneYearMs,
-      content: "You are a Human"
-    },
-  ] as Attestation[];
-  console.log("attestations", attestations);
-  return attestations;
-}
+import type { Attestation } from './types';
 
+/**
+ * Get the address of the connected wallet.
+ * @returns The address of the connected wallet.
+ */
 export async function getAccount() {
   const accounts = await ethereum.request<string[]>({
     method: 'eth_requestAccounts',
   });
 
-  return (accounts as string[])[0] as string;
+  if (!accounts || accounts.length === 0 || !accounts[0]) {
+    throw new Error('Something went wrong while getting the account.');
+  }
+
+  return accounts[0];
 }
 
-export async function getSelectedAttestation(id: string) {
-  const snapState = await snap.request({
-    method: 'snap_manageState',
-    params: {
-      operation: ManageStateOperation.GetState,
-      encrypted: false,
-    },
+/**
+ * Get the current chain ID.
+ * @returns The current chain ID.
+ */
+export async function getChainId() {
+  const chainId = await ethereum.request<string>({
+    method: 'eth_chainId',
   });
-  const attestations = snapState?.attestations as Attestation[];
-  return attestations.find(a => a.id == id);
+
+  if (!chainId) {
+    throw new Error('Something went wrong while getting the chain ID.');
+  }
+
+  return chainId;
 }
 
+/**
+ * Get the attestations from the snap state.
+ * @returns The attestations.
+ */
 export async function getAttestations() {
   const snapState = await snap.request({
     method: 'snap_manageState',
@@ -70,10 +46,18 @@ export async function getAttestations() {
       encrypted: false,
     },
   });
-  const attestations = snapState?.attestations as Attestation[];
-  return attestations;
+
+  if (!snapState) {
+    return [];
+  }
+
+  return snapState.attestations as Attestation[];
 }
 
+/**
+ * Adds the attestations to the snap state.
+ * @param attestations - The attestations to add.
+ */
 export async function setAttestations(attestations: Attestation[]) {
   try {
     await snap.request({
@@ -81,11 +65,12 @@ export async function setAttestations(attestations: Attestation[]) {
       params: {
         operation: ManageStateOperation.UpdateState,
         newState: {
-          attestations: attestations as any[]
+          attestations: attestations as any[],
         },
         encrypted: false,
       },
     });
+  } catch (error) {
+    console.error(`Failed to set attestations in the Snap's state`);
   }
-  catch (err) { }
 }
