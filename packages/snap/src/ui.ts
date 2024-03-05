@@ -1,74 +1,51 @@
-import {
-  button,
-  divider,
-  heading,
-  panel,
-  row,
-  text,
-} from '@metamask/snaps-sdk';
-import { Attestation } from './vars';
-import { getAttestations, getSelectedAttestation } from './utils';
+import { divider, heading, panel, row, text } from '@metamask/snaps-sdk';
 
-export async function showForm_AttestationList() {
+import type { Attestation } from './types';
+import { getAttestations } from './utils';
+
+/**
+ * Show the attestation list page.
+ * @returns The attestation list page.
+ */
+export async function showAttestationList() {
   return {
     content: panel(await contentAttestationListPage()),
   };
 }
 
-export async function showForm_AttestationListRedraw(id: string) {
-  await snap.request({
-    method: 'snap_updateInterface',
-    params: {
-      id,
-      ui: panel(await await contentAttestationListPage()),
-    },
-  });
-}
-
-export async function showForm_AttestationDetail(id: string, attestationId: string) {
-  const attestation = await getSelectedAttestation(attestationId) as Attestation;
-
-  await snap.request({
-    method: 'snap_updateInterface',
-    params: {
-      id,
-      ui: panel(await contentAttestationDetailPage(id, attestationId)),
-    },
-  });
-}
-
+/**
+ * Show the content of the attestation list page.
+ * @returns The content of the attestation list page.
+ */
 async function contentAttestationListPage() {
-  const attestations = await getAttestations()
-  const attaestationItems = attestations.map(a => (
-    button({
-      name: a.id as string,
-      value: a.from as string,
-      buttonType: 'button',
-      variant: 'secondary',
-    })
-  ));
+  const attestations = await getAttestations();
+
+  const attestationItems = await Promise.all(
+    attestations.map(async (attestation) =>
+      contentAttestationDetail(attestation),
+    ),
+  );
+
   return [
-    heading('Your Attestations'),
-    divider(),
-    ...attaestationItems
-  ]
+    heading(`Your ${attestationItems.length} attestations`),
+    ...attestationItems.flat(),
+  ];
 }
 
-async function contentAttestationDetailPage(id: string, attestationId: string) {
-  const attestation = await getSelectedAttestation(attestationId) as Attestation;
+/**
+ * Show the attestation details.
+ * @param attestation - The attestation to show the details for.
+ * @returns The attestation details.
+ */
+async function contentAttestationDetail(attestation: Attestation) {
   return [
-    heading("Attestation Detail"),
     divider(),
-    row("From", text(attestation.from)),
-    row("Attested On", text(new Date(attestation.attestationDate as number).toDateString())),
-    row("Expiry", text(new Date(attestation.expiryDate as number).toDateString())),
-    row("Attestation", text("")),
-    text(attestation.content),
-    button({
-      name: "btnBack",
-      value: "< Back",
-      buttonType: 'button',
-      variant: 'secondary'
-    }),
-  ]
+    row('From', text(attestation.from)),
+    row(
+      'Attested On',
+      text(new Date(attestation.attestationDate).toDateString()),
+    ),
+    row('Expiry', text(new Date(attestation.expiryDate).toDateString())),
+    row('Content', text(attestation.content)),
+  ];
 }
