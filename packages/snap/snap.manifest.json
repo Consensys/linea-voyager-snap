@@ -1,17 +1,17 @@
 {
   "version": "0.1.0",
-  "description": "A snap to view your Attestations created by Verax.",
-  "proposedName": "Verax Attestations",
+  "description": "A snap to view your LXP created by Verax.",
+  "proposedName": "LXP",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Consensys/verax-attestations.git"
+    "url": "https://github.com/Consensys/lxp-snap"
   },
   "source": {
-    "shasum": "gVHkRk0Nf8j+nd7Ynn8AJHkGNAfq4IbMeJOc+I7or+8=",
+    "shasum": "4erAA1vU1mkBaOowFE3fCJ2icj5oNl0kcSUXo1n8s0w=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
-        "packageName": "@consensys/verax-attestations",
+        "packageName": "lxp-snap",
         "registry": "https://registry.npmjs.org/"
       }
     }

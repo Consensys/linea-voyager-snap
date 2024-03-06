@@ -23,7 +23,7 @@
     "lint:fix": "yarn lint:eslint --fix && yarn lint:misc --write",
     "lint:misc": "prettier '**/*.json' '**/*.md' '!**/CHANGELOG.md' '**/*.yml' --ignore-path .gitignore",
     "start": "yarn workspaces foreach --parallel --interlaced --verbose run start",
-    "test": "yarn workspace @consensys/verax-attestations run test"
+    "test": "yarn workspace lxp-snap run test"
   },
   "devDependencies": {
     "@lavamoat/allow-scripts": "^3.0.0",

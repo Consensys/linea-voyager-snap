@@ -121,7 +121,7 @@ const Index = () => {
   return (
     <Container>
       <Heading>
-        <Span>Verax Attestations</Span>
+        <Span>LXP Snap</Span>
       </Heading>
       <CardContainer>
         {state.error && (
