@@ -7,7 +7,7 @@
     "url": "https://github.com/Consensys/verax-attestations.git"
   },
   "source": {
-    "shasum": "I0zsDLDwjTxTtji7F1OQ+m5H+Nn9RIa6wtdqOAg0IbU=",
+    "shasum": "dtytZXVkw3XQ3AEOqPURZdnwF22jlyiVm5uuOOu5dj8=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
@@ -24,7 +24,8 @@
       "snaps": false
     },
     "endowment:ethereum-provider": {},
-    "snap_manageState": {}
+    "snap_manageState": {},
+    "snap_getLocale": {}
   },
   "manifestVersion": "0.1"
 }

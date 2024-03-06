@@ -40,3 +40,20 @@ export type Schema = {
   context: string;
   schema: string;
 };
+
+export type Captions = {
+  locale: string;
+  noAttestations: string;
+  detail: {
+    caption: string;
+    from: string;
+    attestedOn: string;
+    expiry: string;
+    content: string;
+  };
+};
+
+export type SnapState = {
+  captions?: Captions;
+  myAttestations?: Attestation[];
+};

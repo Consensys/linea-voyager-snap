@@ -1,0 +1,11 @@
+{
+  "locale": "en",
+  "noAttestations": "You do not have any attestations.",
+  "detail": {
+    "caption": "Your {count} Attestations",
+    "from": "From",
+    "attestedOn": "Attested On",
+    "expiry": "Expiry",
+    "content": "Content"
+  }
+}

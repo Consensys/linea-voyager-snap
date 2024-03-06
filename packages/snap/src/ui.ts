@@ -1,51 +1,41 @@
 import { divider, heading, panel, row, text } from '@metamask/snaps-sdk';
 
-import type { Attestation } from './types';
-import { getAttestations } from './utils';
+import { getState } from './utils';
 
 /**
  * Show the attestation list page.
  * @returns The attestation list page.
  */
 export async function showAttestationList() {
-  return {
-    content: panel(await contentAttestationListPage()),
-  };
-}
-
-/**
- * Show the content of the attestation list page.
- * @returns The content of the attestation list page.
- */
-async function contentAttestationListPage() {
-  const attestations = await getAttestations();
+  const snapState = await getState();
+  const attestations = snapState?.myAttestations ?? [];
+  const captions = snapState?.captions;
 
   const attestationItems = await Promise.all(
-    attestations.map(async (attestation) =>
-      contentAttestationDetail(attestation),
-    ),
+    attestations.map(async (attestation) => [
+      divider(),
+      row(captions?.detail.from, text(attestation.from)),
+      row(
+        captions?.detail.attestedOn,
+        text(new Date(attestation.attestationDate).toDateString()),
+      ),
+      row(
+        captions?.detail.expiry,
+        text(new Date(attestation.expiryDate).toDateString()),
+      ),
+      row(captions?.detail.content, text(attestation.content)),
+    ]),
   );
 
-  return [
-    heading(`Your ${attestationItems.length} attestations`),
-    ...attestationItems.flat(),
-  ];
-}
+  const headingCaption =
+    attestations.length > 0
+      ? (captions?.detail.caption as string).replace(
+          '{count}',
+          `${attestationItems.length}`,
+        )
+      : (captions?.noAttestations as string);
 
-/**
- * Show the attestation details.
- * @param attestation - The attestation to show the details for.
- * @returns The attestation details.
- */
-async function contentAttestationDetail(attestation: Attestation) {
-  return [
-    divider(),
-    row('From', text(attestation.from)),
-    row(
-      'Attested On',
-      text(new Date(attestation.attestationDate).toDateString()),
-    ),
-    row('Expiry', text(new Date(attestation.expiryDate).toDateString())),
-    row('Content', text(attestation.content)),
-  ];
+  return {
+    content: panel([heading(headingCaption), ...attestationItems.flat()]),
+  };
 }

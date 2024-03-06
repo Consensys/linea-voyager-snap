@@ -1,4 +1,5 @@
 import { fetchAttestations, getPortal, getSchema } from './api';
+import type { Attestation } from './types';
 
 /**
  * Get attestations for an address.
@@ -23,7 +24,7 @@ export async function getAttestationsForAddress(
         attestationDate: parseInt(a.attestedDate, 10) * 1000,
         expiryDate: parseInt(a.expirationDate, 10) * 1000,
         content: schema.name,
-      };
+      } as Attestation;
     }),
   );
 }
