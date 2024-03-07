@@ -1,7 +1,11 @@
 import type { OnHomePageHandler } from '@metamask/snaps-sdk';
 
-import { getAttestationsForAddress } from './service';
-import { showAttestationList } from './ui';
+import {
+  getCurrentActivations,
+  getLxpBalanceForAddress,
+  getPohStatus,
+} from './service';
+import { renderMainUi } from './ui';
 import { getAccount, getChainId, setState } from './utils';
 
 export const onHomePage: OnHomePageHandler = async () => {
@@ -16,14 +20,19 @@ export const onHomePage: OnHomePageHandler = async () => {
     captions = await import(`../locales/en.json`);
   }
 
-  const myAccount = await getAccount();
   const chainId = await getChainId();
-  const myAttestations = await getAttestationsForAddress(chainId, myAccount);
+
+  const myAccount = await getAccount();
+  const myLxpBalance = await getLxpBalanceForAddress(myAccount, chainId);
+  const myPohStatus = await getPohStatus(myAccount);
+  const activations = await getCurrentActivations();
 
   await setState({
     captions,
-    myAttestations,
+    myLxpBalance,
+    myPohStatus,
+    activations,
   });
 
-  return showAttestationList();
+  return renderMainUi(myAccount);
 };

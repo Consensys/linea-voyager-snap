@@ -1,11 +1,13 @@
 {
   "locale": "en",
-  "noAttestations": "You do not have any attestations.",
-  "detail": {
-    "caption": "Your {count} Attestations",
-    "from": "From",
-    "attestedOn": "Attested On",
-    "expiry": "Expiry",
-    "content": "Content"
+  "poh": {
+    "status": "Your POH status:",
+    "verified": "Verified",
+    "notVerified": "Not verified"
+  },
+  "lxp": "You have {count} LXP",
+  "activations": {
+    "number": "There are {count} active LXP activations",
+    "none": "There are no current activation"
   }
 }
