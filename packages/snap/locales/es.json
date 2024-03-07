@@ -1,0 +1,11 @@
+{
+  "locale": "es",
+  "noAttestations": "No tienes certificaciones.",
+  "detail": {
+    "caption": "Tienes {count} Certificaciones",
+    "from": "De",
+    "attestedOn": "Certificado En",
+    "expiry": "Expiracion",
+    "content": "Contenido"
+  }
+}
