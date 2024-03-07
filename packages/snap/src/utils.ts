@@ -72,3 +72,16 @@ export async function getChainId() {
 
   return chainId;
 }
+
+/**
+ * Convert the raw balance to a displayable balance.
+ * @param rawBalance - The raw balance.
+ * @returns The displayable balance.
+ */
+export function convertBalanceToDisplay(rawBalance?: string | null) {
+  if (!rawBalance || rawBalance === '0x') {
+    return 0;
+  }
+
+  return Number(BigInt(rawBalance) / BigInt(10 ** 18));
+}
