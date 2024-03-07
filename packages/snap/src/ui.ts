@@ -9,15 +9,11 @@ import { getState } from './utils';
  */
 export async function renderMainUi(myAccount: string) {
   const snapState = await getState();
-  const attestations = snapState?.myAttestations ?? [];
   const lxpBalance = snapState?.myLxpBalance ?? 0;
   const activations = snapState?.activations ?? [];
   const captions = snapState?.captions;
 
-  const lxpCount =
-    attestations.length > 0
-      ? captions.lxp.replace('{count}', `${lxpBalance}`)
-      : captions.noAttestations;
+  const lxpCount = captions.lxp.replace('{count}', `${lxpBalance}`);
 
   const pohStatus = `${captions?.poh.status} ${
     snapState?.myPohStatus

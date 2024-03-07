@@ -18,6 +18,6 @@ export const fetchPohStatus = async (address: string) => {
 
 export const fetchAllActivations = async () => {
   return getData(
-    `https://linea.build/_next/data/lBB9x4X_1g5kiNOCmMwHZ/activations.json?slug=activations`,
+    `https://linea.build/_next/data/1ZbxS-T6X8ViRBONQ3uVi/activations.json?slug=activations`,
   );
 };
