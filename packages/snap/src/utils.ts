@@ -75,6 +75,13 @@ export function convertBalanceToDisplay(rawBalance?: string | null) {
  */
 export async function loadCaptions() {
   const locale = await snap.request({ method: 'snap_getLocale' });
+  const snapState = await getState();
+  if (snapState?.captions) {
+    if (snapState.captions.locale === locale) {
+      return;
+    }
+  }
+
   let captions: Captions;
   try {
     captions = await import(`../locales/${locale}.json`);
