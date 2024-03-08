@@ -8,6 +8,10 @@
   "lxp": "You have {count} LXP",
   "activations": {
     "number": "There are {count} active LXP activations",
-    "none": "There are no current activation"
+    "none": "There are no current activations"
+  },
+  "lxpAddress": {
+    "heading": "LXP wallet address",
+    "prompt": "Please enter the wallet address linked to your LXP"
   }
 }

@@ -1,6 +1,5 @@
 export type Captions = {
   locale: string;
-  noAttestations: string;
   poh: {
     status: string;
     verified: string;
@@ -10,6 +9,10 @@ export type Captions = {
   activations: {
     number: string;
     none: string;
+  };
+  lxpAddress: {
+    heading: string;
+    prompt: string;
   };
 };
 
@@ -25,7 +28,8 @@ export type Activation = {
 };
 
 export type SnapState = {
-  captions: Captions;
+  captions?: Captions;
+  lxpAddress?: string;
   myLxpBalance?: number;
   myPohStatus?: boolean;
   activations?: Activation[];

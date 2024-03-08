@@ -1,3 +1,4 @@
+import type { DialogParams } from '@metamask/snaps-sdk';
 import { heading, panel, text } from '@metamask/snaps-sdk';
 
 import { getState } from './utils';
@@ -13,27 +14,45 @@ export async function renderMainUi(myAccount: string) {
   const activations = snapState?.activations ?? [];
   const captions = snapState?.captions;
 
-  const lxpCount = captions.lxp.replace('{count}', `${lxpBalance}`);
+  const lxpCount = captions?.lxp.replace('{count}', `${lxpBalance}`);
 
-  const pohStatus = `${captions?.poh.status} ${
+  const pohStatus = `${captions?.poh.status as string} ${
     snapState?.myPohStatus
-      ? `✅ ${captions.poh.verified}`
-      : `❌ ${captions.poh.notVerified}`
+      ? `✅ ${captions?.poh.verified as string}`
+      : `❌ ${captions?.poh.notVerified as string}`
   }`;
 
   const activationsToDisplay =
     activations?.length > 0
-      ? captions.activations.number.replace('{count}', `${activations.length}`)
-      : captions.activations.none;
+      ? captions?.activations.number.replace('{count}', `${activations.length}`)
+      : captions?.activations.none;
 
   return {
     content: panel([
-      heading(lxpCount),
+      heading(lxpCount as string),
       text(`[Lineascan](https://lineascan.build/address/${myAccount})`),
       heading(pohStatus),
       text('[POH page](https://poh.linea.build)'),
-      heading(activationsToDisplay),
+      heading(activationsToDisplay as string),
       text('[Activations page](https://linea.build/activations)'),
     ]),
   };
+}
+
+/**
+ * Render the UI in the onInstall hook.
+ * @returns DialogParams UI for onInstall.
+ */
+export async function renderPromptLxpAddress() {
+  const snapState = await getState();
+  const captions = snapState?.captions;
+
+  return {
+    type: 'prompt',
+    content: panel([
+      heading(captions?.lxpAddress.heading as string),
+      text(captions?.lxpAddress.prompt),
+    ]),
+    placeholder: '0x123...',
+  } as DialogParams;
 }

@@ -46,6 +46,9 @@ export async function getLxpBalanceForAddress(
   address: string,
   chainId: string,
 ) {
+  if (!address) {
+    return 0;
+  }
   if (chainId === '0xe708') {
     return getLxpBalanceFromChain(address);
   }
@@ -58,6 +61,9 @@ export async function getLxpBalanceForAddress(
  * @returns The POH status for the address.
  */
 export async function getPohStatus(address: string) {
+  if (!address) {
+    return false;
+  }
   const pohStatus = await fetchPohStatus(address);
   return pohStatus.poh as boolean;
 }
