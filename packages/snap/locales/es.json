@@ -9,5 +9,9 @@
   "activations": {
     "number": "Hay {count} activationes de LXP activas",
     "none": "No hay activas activaciones de LXP"
+  },
+  "lxpAddress": {
+    "heading": "es-LXP wallet address",
+    "prompt": "es-Please enter the wallet address linked to your LXP"
   }
 }

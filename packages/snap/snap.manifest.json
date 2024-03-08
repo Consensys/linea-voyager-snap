@@ -7,7 +7,7 @@
     "url": "https://github.com/Consensys/lxp-snap"
   },
   "source": {
-    "shasum": "VFRCX/mFHhYsaE+wf6toMghVR7kVrfQmagbnCrg4xdw=",
+    "shasum": "gAaAXIRZwc77sNQoiXFwRTZlackm/CE6+3drduBnSyY=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
@@ -26,7 +26,9 @@
     },
     "endowment:ethereum-provider": {},
     "snap_manageState": {},
-    "snap_getLocale": {}
+    "snap_getLocale": {},
+    "endowment:lifecycle-hooks": {},
+    "snap_dialog": {}
   },
   "manifestVersion": "0.1"
 }

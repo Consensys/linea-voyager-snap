@@ -1,6 +1,6 @@
 import { ManageStateOperation } from '@metamask/snaps-sdk';
 
-import type { SnapState } from './types';
+import type { Captions, SnapState } from './types';
 
 /**
  * Get the snap state.
@@ -42,22 +42,6 @@ export async function setState(state: SnapState): Promise<void> {
 }
 
 /**
- * Get the address of the connected wallet.
- * @returns The address of the connected wallet.
- */
-export async function getAccount() {
-  const accounts = await ethereum.request<string[]>({
-    method: 'eth_requestAccounts',
-  });
-
-  if (!accounts || accounts.length === 0 || !accounts[0]) {
-    throw new Error('Something went wrong while getting the account.');
-  }
-
-  return accounts[0];
-}
-
-/**
  * Get the current chain ID.
  * @returns The current chain ID.
  */
@@ -84,4 +68,23 @@ export function convertBalanceToDisplay(rawBalance?: string | null) {
   }
 
   return Number(BigInt(rawBalance) / BigInt(10 ** 18));
+}
+
+/**
+ * Load the captions based on the locale and save to state.
+ */
+export async function loadCaptions() {
+  const locale = await snap.request({ method: 'snap_getLocale' });
+  let captions: Captions;
+  try {
+    captions = await import(`../locales/${locale}.json`);
+  } catch (error) {
+    console.error(
+      `Cannot find localized files for lang '${locale}'. Switching to default 'en'`,
+    );
+    captions = await import(`../locales/en.json`);
+  }
+  await setState({
+    captions,
+  });
 }
