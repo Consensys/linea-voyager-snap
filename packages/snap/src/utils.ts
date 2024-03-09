@@ -72,12 +72,13 @@ export function convertBalanceToDisplay(rawBalance?: string | null) {
 
 /**
  * Load the captions based on the locale and save to state.
+ * @param force - This forces the loading of captions. (Usecase: If the Captions have changed, irrespective of Locale change).
  */
-export async function loadCaptions() {
+export async function loadCaptions(force = false) {
   const locale = await snap.request({ method: 'snap_getLocale' });
   const snapState = await getState();
   if (snapState?.captions) {
-    if (snapState.captions.locale === locale) {
+    if (!force && snapState.captions.locale === locale) {
       return;
     }
   }

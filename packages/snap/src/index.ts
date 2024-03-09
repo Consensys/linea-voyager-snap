@@ -1,4 +1,8 @@
-import type { OnHomePageHandler, OnInstallHandler } from '@metamask/snaps-sdk';
+import type {
+  OnHomePageHandler,
+  OnInstallHandler,
+  OnUpdateHandler,
+} from '@metamask/snaps-sdk';
 
 import {
   getCurrentActivations,
@@ -18,6 +22,10 @@ export const onInstall: OnInstallHandler = async () => {
   await setState({
     lxpAddress: lxpAddress?.toString() as string,
   });
+};
+
+export const onUpdate: OnUpdateHandler = async () => {
+  await loadCaptions(true);
 };
 
 export const onHomePage: OnHomePageHandler = async () => {
