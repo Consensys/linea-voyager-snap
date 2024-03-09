@@ -1,7 +1,7 @@
 {
   "name": "lxp-snap",
   "version": "0.1.0",
-  "description": "A snap to view your LXP created by Verax.",
+  "description": "View your minted Linea XP balance, POH status, and current activations.",
   "repository": {
     "type": "git",
     "url": "https://github.com/Consensys/lxp-snap"

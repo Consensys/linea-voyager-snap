@@ -6,12 +6,15 @@
     "notVerified": "No verificado"
   },
   "lxp": "Tienes {count} LXP",
+  "balance": "Balance LXP", 
+  "address": "Cuenta",
+  "pohStatus": "Estado de POH",
   "activations": {
     "number": "Hay {count} activationes de LXP activas",
     "none": "No hay activas activaciones de LXP"
   },
   "lxpAddress": {
-    "heading": "es-LXP wallet address",
-    "prompt": "es-Please enter the wallet address linked to your LXP"
+    "heading": "Cuenta que usas para LXP",
+    "prompt": "Ingresa tu cuenta para ver tu balance"
   }
 }
