@@ -8,7 +8,7 @@ export type Captions = {
   lxp: string;
   balance: string;
   address: string;
-  pohStatus: string; 
+  pohStatus: string;
   activations: {
     number: string;
     none: string;
@@ -20,14 +20,22 @@ export type Captions = {
 };
 
 export type Tag = {
-  name: string;
+  sys: {
+    id: string;
+  };
 };
 
 export type Activation = {
   title: string;
   url: string;
-  endDate: string;
-  tags: Tag[];
+  fields: {
+    endDate: {
+      'en-US': string;
+    };
+    tags: {
+      'en-US': Tag[];
+    };
+  };
 };
 
 export type SnapState = {

@@ -1,9 +1,8 @@
 import {
-  fetchAllActivations,
   fetchBalanceFromLineascan,
+  fetchLxpActivations,
   fetchPohStatus,
 } from './api';
-import type { Activation } from './types';
 import { convertBalanceToDisplay } from './utils';
 
 /**
@@ -73,12 +72,5 @@ export async function getPohStatus(address: string) {
  * @returns The current activations.
  */
 export async function getCurrentActivations() {
-  const rawResponse = await fetchAllActivations();
-  const allActivations =
-    rawResponse?.pageProps?.pageLayout?.sections?.[0]?.items?.[0]?.items ?? [];
-  return allActivations.filter((activation: Activation) => {
-    const isCurrent = new Date(activation?.endDate) > new Date();
-    const hasXpTag = activation?.tags?.find((tag) => tag.name === 'Get XP');
-    return isCurrent && hasXpTag;
-  });
+  return fetchLxpActivations();
 }
