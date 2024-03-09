@@ -54,7 +54,8 @@
   "lavamoat": {
     "allowScripts": {
       "@lavamoat/preinstall-always-fail": false,
-      "sharp": true
+      "sharp": true,
+      "eslint-plugin-jest>jest>jest-cli>jest-config>ts-node>@swc/core": false
     }
   }
 }
