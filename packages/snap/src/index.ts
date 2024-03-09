@@ -1,29 +1,36 @@
-import type { OnHomePageHandler } from '@metamask/snaps-sdk';
+import type { OnHomePageHandler, OnInstallHandler } from '@metamask/snaps-sdk';
 
-import { getAttestationsForAddress } from './service';
-import { showAttestationList } from './ui';
-import { getAccount, getChainId, setState } from './utils';
+import { getLxpBalanceForAddress, getPohStatus } from './service';
+import type { Activation } from './types';
+import { renderMainUi, renderPromptLxpAddress } from './ui';
+import { getChainId, getState, loadCaptions, setState } from './utils';
 
-export const onHomePage: OnHomePageHandler = async () => {
-  const locale = await snap.request({ method: 'snap_getLocale' });
-  let captions;
-  try {
-    captions = await import(`../locales/${locale}.json`);
-  } catch (error) {
-    console.error(
-      `Cannot find localized files for lang '${locale}'. Switching to default 'en'`,
-    );
-    captions = await import(`../locales/en.json`);
-  }
-
-  const myAccount = await getAccount();
-  const chainId = await getChainId();
-  const myAttestations = await getAttestationsForAddress(chainId, myAccount);
-
-  await setState({
-    captions,
-    myAttestations,
+export const onInstall: OnInstallHandler = async () => {
+  await loadCaptions();
+  const lxpAddress = await snap.request({
+    method: 'snap_dialog',
+    params: await renderPromptLxpAddress(),
   });
 
-  return showAttestationList();
+  await setState({
+    lxpAddress: lxpAddress?.toString() as string,
+  });
+};
+
+export const onHomePage: OnHomePageHandler = async () => {
+  await loadCaptions();
+  const chainId = await getChainId();
+  const snapState = await getState();
+  const myAccount = snapState.lxpAddress as string;
+  const myLxpBalance = await getLxpBalanceForAddress(myAccount, chainId);
+  const myPohStatus = await getPohStatus(myAccount);
+  const activations = [] as Activation[]; // await getCurrentActivations();
+
+  await setState({
+    myLxpBalance,
+    myPohStatus,
+    activations,
+  });
+
+  return renderMainUi(myAccount);
 };

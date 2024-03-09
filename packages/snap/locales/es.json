@@ -1,11 +1,17 @@
 {
   "locale": "es",
-  "noAttestations": "No tienes certificaciones.",
-  "detail": {
-    "caption": "Tienes {count} Certificaciones",
-    "from": "De",
-    "attestedOn": "Certificado En",
-    "expiry": "Expiracion",
-    "content": "Contenido"
+  "poh": {
+    "status": "Tu estado de POH:",
+    "verified": "Verificado",
+    "notVerified": "No verificado"
+  },
+  "lxp": "Tienes {count} LXP",
+  "activations": {
+    "number": "Hay {count} activationes de LXP activas",
+    "none": "No hay activas activaciones de LXP"
+  },
+  "lxpAddress": {
+    "heading": "es-LXP wallet address",
+    "prompt": "es-Please enter the wallet address linked to your LXP"
   }
 }
