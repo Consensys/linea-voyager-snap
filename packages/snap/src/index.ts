@@ -1,7 +1,10 @@
 import type { OnHomePageHandler, OnInstallHandler } from '@metamask/snaps-sdk';
 
-import { getLxpBalanceForAddress, getPohStatus } from './service';
-import type { Activation } from './types';
+import {
+  getCurrentActivations,
+  getLxpBalanceForAddress,
+  getPohStatus,
+} from './service';
 import { renderMainUi, renderPromptLxpAddress } from './ui';
 import { getChainId, getState, loadCaptions, setState } from './utils';
 
@@ -21,10 +24,11 @@ export const onHomePage: OnHomePageHandler = async () => {
   await loadCaptions();
   const chainId = await getChainId();
   const snapState = await getState();
+  console.log('snapState', JSON.stringify(snapState, null, 2));
   const myAccount = snapState.lxpAddress as string;
   const myLxpBalance = await getLxpBalanceForAddress(myAccount, chainId);
   const myPohStatus = await getPohStatus(myAccount);
-  const activations = [] as Activation[]; // await getCurrentActivations();
+  const activations = await getCurrentActivations();
 
   await setState({
     myLxpBalance,
