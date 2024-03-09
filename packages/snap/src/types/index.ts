@@ -6,6 +6,9 @@ export type Captions = {
     notVerified: string;
   };
   lxp: string;
+  balance: string;
+  address: string;
+  pohStatus: string; 
   activations: {
     number: string;
     none: string;

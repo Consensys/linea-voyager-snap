@@ -6,6 +6,9 @@
     "notVerified": "Non vérifié"
   },
   "lxp": "Vous avez {count} LXP",
+  "balance": "Quantité LXP", 
+  "address": "Adresse",
+  "pohStatus": "Statut POH",
   "activations": {
     "number": "Il y a {count} activations LXP actives",
     "none": "Il n'y a pas d'activation active"
