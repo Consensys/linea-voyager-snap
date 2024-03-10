@@ -54,21 +54,9 @@ export const getSnap = async (
         snap.id === defaultSnapOrigin && (!version || snap.version === version),
     );
   } catch (error) {
-    console.log('Failed to obtain installed snap', error);
+    console.error('Failed to obtain installed snap', error);
     return undefined;
   }
-};
-
-/**
- * Invoke the "hello" method from the example snap.
- * @param provider - The MetaMask inpage provider.
- */
-
-export const sendHello = async (provider: MetaMaskInpageProvider) => {
-  await provider.request({
-    method: 'wallet_invokeSnap',
-    params: { snapId: defaultSnapOrigin, request: { method: 'hello' } },
-  });
 };
 
 export const isLocalSnap = (snapId: string) => snapId.startsWith('local:');

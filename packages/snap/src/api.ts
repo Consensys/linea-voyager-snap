@@ -6,6 +6,18 @@ const getData = async (url: string) => {
   return response.json();
 };
 
+const postData = async (url: string, data: unknown) => {
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+    mode: 'cors',
+  });
+  return response.json();
+};
+
 export const fetchBalanceFromLineascan = async (address: string) => {
   const res = await getData(
     `https://api.lineascan.build/api?module=account&action=tokenbalance&contractaddress=0xd83af4fbD77f3AB65C3B1Dc4B38D7e67AEcf599A&address=${address}&tag=latest`,
@@ -23,4 +35,14 @@ export const fetchLxpActivations = async () => {
     'https://lxp-snap.netlify.app/.netlify/functions/api',
   );
   return result.lxpActivations;
+};
+
+export const postAddressRegistration = async (
+  signature: string,
+  address: string,
+) => {
+  return await postData('https://lxp-snap.netlify.app/.netlify/functions/api', {
+    signature,
+    address,
+  });
 };
