@@ -1,12 +1,16 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import styled from 'styled-components';
 
 import {
   Card,
   ConnectButton,
+  GetLxpAddressButton,
   InstallFlaskButton,
+  PersonalSign,
   ReconnectButton,
+  SetLxpAddressButton,
 } from '../components';
+import { LxpAddressInput } from '../components/Other/Input';
 import { defaultSnapOrigin } from '../config';
 import { MetamaskActions, MetaMaskContext } from '../hooks';
 import {
@@ -95,6 +99,7 @@ const ErrorMessage = styled.div`
 
 const Index = () => {
   const { state, dispatch, provider } = useContext(MetaMaskContext);
+  const [lxpAddressValue, lxpAddressSetValue] = useState('');
 
   const isMetaMaskReady = isLocalSnap(defaultSnapOrigin)
     ? state.isFlask
@@ -116,6 +121,46 @@ const Index = () => {
       console.error(error);
       dispatch({ type: MetamaskActions.SetError, payload: error });
     }
+  };
+
+  const handleGetLxpAddress = async () => {
+    try {
+      const result = await window.ethereum.request<boolean>({
+        method: 'wallet_invokeSnap',
+        params: {
+          snapId: defaultSnapOrigin,
+          request: {
+            method: 'getLxpAddress',
+          },
+        },
+      });
+      console.log('The LXP Address is', result);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleSetLxpAddress = async () => {
+    try {
+      await window.ethereum.request<boolean>({
+        method: 'wallet_invokeSnap',
+        params: {
+          snapId: defaultSnapOrigin,
+          request: {
+            method: 'setLxpAddress',
+            params: {
+              lxpAddress: lxpAddressValue,
+            },
+          },
+        },
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handlePersonalSign = async () => {
+    //  TODO
   };
 
   return (
@@ -157,20 +202,64 @@ const Index = () => {
           />
         )}
         {shouldDisplayReconnectButton(state.installedSnap) && (
-          <Card
-            content={{
-              title: 'Reconnect',
-              description:
-                'While connected to a local running snap this button will always be displayed in order to update the snap if a change is made.',
-              button: (
-                <ReconnectButton
-                  onClick={handleConnectClick}
-                  disabled={!state.installedSnap}
-                />
-              ),
-            }}
-            disabled={!state.installedSnap}
-          />
+          <>
+            <Card
+              content={{
+                title: 'Reconnect',
+                description:
+                  'While connected to a local running snap this button will always be displayed in order to update the snap if a change is made.',
+                button: (
+                  <ReconnectButton
+                    onClick={handleConnectClick}
+                    disabled={!state.installedSnap}
+                  />
+                ),
+              }}
+              disabled={!state.installedSnap}
+            />
+            <Card
+              content={{
+                title: 'Get LXP Address',
+                description: 'Check the wallet address linked to your LXP',
+                button: (
+                  <GetLxpAddressButton
+                    onClick={handleGetLxpAddress}
+                    disabled={!state.installedSnap}
+                  />
+                ),
+              }}
+              disabled={!state.installedSnap}
+            />
+            <Card
+              content={{
+                title: 'Set LXP Address',
+                description:
+                  'Please enter the wallet address linked to your LXP',
+                input: <LxpAddressInput onChangeHandler={lxpAddressSetValue} />,
+                button: (
+                  <SetLxpAddressButton
+                    onClick={handleSetLxpAddress}
+                    disabled={!state.installedSnap}
+                  />
+                ),
+              }}
+              disabled={!state.installedSnap}
+            />
+            <Card
+              content={{
+                title: 'Personal Sign',
+                description:
+                  'Please enter the wallet address linked to your LXP',
+                button: (
+                  <PersonalSign
+                    onClick={handlePersonalSign}
+                    disabled={!state.installedSnap}
+                  />
+                ),
+              }}
+              disabled={!state.installedSnap}
+            />
+          </>
         )}
         <Notice>
           <p>
