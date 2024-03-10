@@ -9,6 +9,7 @@ import {
   getCurrentActivations,
   getLxpBalanceForAddress,
   getPohStatus,
+  registerAddress,
 } from './service';
 import { renderMainUi, renderPromptLxpAddress } from './ui';
 import { getChainId, getState, loadCaptions, setState } from './utils';
@@ -33,7 +34,6 @@ export const onHomePage: OnHomePageHandler = async () => {
   await loadCaptions(true);
   const chainId = await getChainId();
   const snapState = await getState();
-  console.log('snapState', JSON.stringify(snapState, null, 2));
   const myAccount = snapState.lxpAddress as string;
   const myLxpBalance = await getLxpBalanceForAddress(myAccount, chainId);
   const myPohStatus = await getPohStatus(myAccount);
@@ -48,27 +48,28 @@ export const onHomePage: OnHomePageHandler = async () => {
   return renderMainUi(myAccount);
 };
 
-export const onRpcRequest: OnRpcRequestHandler = async ({
-  origin,
-  request,
-}) => {
+export const onRpcRequest: OnRpcRequestHandler = async ({ request }) => {
   const params = request.params as any;
 
   switch (request.method) {
-    case 'getLxpAddress':
+    case 'getLxpAddress': {
       const snapState = await getState();
       return snapState.lxpAddress as string;
+    }
 
-    case 'setLxpAddress':
+    case 'setLxpAddress': {
       const { lxpAddress } = params;
       await setState({
         lxpAddress,
       });
       return lxpAddress;
+    }
 
-    case 'personalSign':
-      //  TODO
-      return '01x32dv8yv...';
+    case 'personalSign': {
+      const { signature } = params;
+      await registerAddress(signature);
+      return { status: 'ok' };
+    }
 
     default:
       throw new Error('Method not found.');

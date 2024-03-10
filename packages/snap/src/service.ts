@@ -2,8 +2,9 @@ import {
   fetchBalanceFromLineascan,
   fetchLxpActivations,
   fetchPohStatus,
+  postAddressRegistration,
 } from './api';
-import { convertBalanceToDisplay } from './utils';
+import { convertBalanceToDisplay, getState } from './utils';
 
 /**
  * Get the LXP balance for an address from Lineascan.
@@ -73,4 +74,18 @@ export async function getPohStatus(address: string) {
  */
 export async function getCurrentActivations() {
   return fetchLxpActivations();
+}
+
+/**
+ * Registers the address as using the snap.
+ * @param signature - The signature to check before registering the address.
+ */
+export async function registerAddress(signature: string) {
+  const { lxpAddress } = await getState();
+
+  if (!lxpAddress) {
+    throw new Error('No LXP address found.');
+  }
+
+  await postAddressRegistration(signature, lxpAddress);
 }

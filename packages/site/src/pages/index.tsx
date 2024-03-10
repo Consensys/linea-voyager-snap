@@ -18,6 +18,8 @@ import {
   getSnap,
   isLocalSnap,
   shouldDisplayReconnectButton,
+  stringToHex,
+  truncateAddress,
 } from '../utils';
 
 const Container = styled.div`
@@ -58,26 +60,6 @@ const CardContainer = styled.div`
   margin-top: 1.5rem;
 `;
 
-const Notice = styled.div`
-  background-color: ${({ theme }) => theme.colors.background?.alternative};
-  border: 1px solid ${({ theme }) => theme.colors.border?.default};
-  color: ${({ theme }) => theme.colors.text?.alternative};
-  border-radius: ${({ theme }) => theme.radii.default};
-  padding: 2.4rem;
-  margin-top: 2.4rem;
-  max-width: 60rem;
-  width: 100%;
-
-  & > * {
-    margin: 0;
-  }
-
-  ${({ theme }) => theme.mediaQueries.small} {
-    margin-top: 1.2rem;
-    padding: 1.6rem;
-  }
-`;
-
 const ErrorMessage = styled.div`
   background-color: ${({ theme }) => theme.colors.error?.muted};
   border: 1px solid ${({ theme }) => theme.colors.error?.default};
@@ -100,6 +82,8 @@ const ErrorMessage = styled.div`
 const Index = () => {
   const { state, dispatch, provider } = useContext(MetaMaskContext);
   const [lxpAddressValue, lxpAddressSetValue] = useState('');
+  const [claimMessage, setClaimMessage] = useState<string>();
+  const [snapLxpAddress, setSnapLxpAddress] = useState<string>();
 
   const isMetaMaskReady = isLocalSnap(defaultSnapOrigin)
     ? state.isFlask
@@ -125,7 +109,7 @@ const Index = () => {
 
   const handleGetLxpAddress = async () => {
     try {
-      const result = await window.ethereum.request<boolean>({
+      const result = await window.ethereum.request<string>({
         method: 'wallet_invokeSnap',
         params: {
           snapId: defaultSnapOrigin,
@@ -134,7 +118,10 @@ const Index = () => {
           },
         },
       });
-      console.log('The LXP Address is', result);
+
+      if (result) {
+        setSnapLxpAddress(result);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -160,9 +147,50 @@ const Index = () => {
   };
 
   const handlePersonalSign = async () => {
-    //  TODO
-  };
+    setClaimMessage('Pending...');
+    try {
+      const accounts = await window.ethereum
+        .request<string[]>({ method: 'eth_requestAccounts' })
+        .catch((error) => {
+          console.error(error);
+        });
 
+      if (!accounts) {
+        return;
+      }
+
+      const account = accounts[0];
+
+      const message = `0x${stringToHex('Example message.')}`;
+
+      const signature = await window.ethereum.request({
+        method: 'personal_sign',
+        params: [message, account],
+      });
+
+      const res = await window.ethereum.request<{ status: string }>({
+        method: 'wallet_invokeSnap',
+        params: {
+          snapId: defaultSnapOrigin,
+          request: {
+            method: 'personalSign',
+            params: {
+              signature,
+            },
+          },
+        },
+      });
+
+      if (res?.status === 'ok') {
+        setClaimMessage('Claimed successfully 🎉');
+      } else {
+        setClaimMessage('Something went wrong 😔');
+      }
+    } catch (error) {
+      setClaimMessage(undefined);
+      console.error(error);
+    }
+  };
   return (
     <Container>
       <Heading>
@@ -220,7 +248,11 @@ const Index = () => {
             <Card
               content={{
                 title: 'Get LXP Address',
-                description: 'Check the wallet address linked to your LXP',
+                description: `${
+                  snapLxpAddress
+                    ? truncateAddress(snapLxpAddress)
+                    : 'Check the wallet address linked to your LXP'
+                }`,
                 button: (
                   <GetLxpAddressButton
                     onClick={handleGetLxpAddress}
@@ -247,9 +279,11 @@ const Index = () => {
             />
             <Card
               content={{
-                title: 'Personal Sign',
-                description:
-                  'Please enter the wallet address linked to your LXP',
+                title: 'Claim your LXP',
+                description: `${
+                  claimMessage ??
+                  'Claim your LXP by signing a message with your wallet'
+                }`,
                 button: (
                   <PersonalSign
                     onClick={handlePersonalSign}
@@ -261,14 +295,6 @@ const Index = () => {
             />
           </>
         )}
-        <Notice>
-          <p>
-            Please note that the <b>snap.manifest.json</b> and{' '}
-            <b>package.json</b> must be located in the server root directory and
-            the bundle must be hosted at the location specified by the location
-            field.
-          </p>
-        </Notice>
       </CardContainer>
     </Container>
   );
