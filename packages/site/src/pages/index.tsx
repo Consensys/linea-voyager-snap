@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import {
@@ -84,6 +84,7 @@ const Index = () => {
   const [lxpAddressValue, lxpAddressSetValue] = useState('');
   const [claimMessage, setClaimMessage] = useState<string>();
   const [snapLxpAddress, setSnapLxpAddress] = useState<string>();
+  const [connectedAccount, setConnectedAccount] = useState<string>();
 
   const isMetaMaskReady = isLocalSnap(defaultSnapOrigin)
     ? state.isFlask
@@ -149,23 +150,11 @@ const Index = () => {
   const handlePersonalSign = async () => {
     setClaimMessage('Pending...');
     try {
-      const accounts = await window.ethereum
-        .request<string[]>({ method: 'eth_requestAccounts' })
-        .catch((error) => {
-          console.error(error);
-        });
-
-      if (!accounts) {
-        return;
-      }
-
-      const account = accounts[0];
-
       const message = `0x${stringToHex('Example message.')}`;
 
       const signature = await window.ethereum.request({
         method: 'personal_sign',
-        params: [message, account],
+        params: [message, connectedAccount],
       });
 
       const res = await window.ethereum.request<{
@@ -194,6 +183,60 @@ const Index = () => {
       console.error(error);
     }
   };
+
+  useEffect(() => {
+    const connectAccount = async () => {
+      if (state.installedSnap) {
+        const accounts = await window.ethereum
+          .request<string[]>({ method: 'eth_requestAccounts' })
+          .catch((error) => {
+            console.error(error);
+          });
+
+        if (!accounts) {
+          return;
+        }
+
+        setConnectedAccount(accounts[0]);
+
+        await handleGetLxpAddress();
+      }
+    };
+
+    connectAccount().then().catch(console.error);
+  }, [state.installedSnap]);
+
+  const isClaimDisabled = (
+    installedSnap: boolean,
+    lxpAddressInSnap?: string,
+    connectedAccountInDapp?: string,
+  ) => {
+    return (
+      !installedSnap ||
+      !lxpAddressInSnap ||
+      !connectedAccountInDapp ||
+      lxpAddressInSnap.toLowerCase() !== connectedAccountInDapp.toLowerCase()
+    );
+  };
+
+  const getClaimDescription = (message?: string) => {
+    if (message) {
+      return message;
+    } else if (!state.installedSnap) {
+      return 'You need to install the LXP Snap first';
+    } else if (!connectedAccount) {
+      return 'You need to connect your wallet first';
+    } else if (!snapLxpAddress) {
+      return 'You need to set your LXP address first';
+    } else if (
+      snapLxpAddress.toLowerCase() !== connectedAccount.toLowerCase()
+    ) {
+      return 'You need to connect with the same wallet as the one set in the LXP Snap';
+    }
+
+    return 'Claim your LXP by signing a message with your wallet';
+  };
+
   return (
     <Container>
       <Heading>
@@ -283,18 +326,23 @@ const Index = () => {
             <Card
               content={{
                 title: 'Claim your LXP',
-                description: `${
-                  claimMessage ??
-                  'Claim your LXP by signing a message with your wallet'
-                }`,
+                description: getClaimDescription(claimMessage),
                 button: (
                   <PersonalSign
                     onClick={handlePersonalSign}
-                    disabled={!state.installedSnap}
+                    disabled={isClaimDisabled(
+                      Boolean(state.installedSnap),
+                      snapLxpAddress,
+                      connectedAccount,
+                    )}
                   />
                 ),
               }}
-              disabled={!state.installedSnap}
+              disabled={isClaimDisabled(
+                Boolean(state.installedSnap),
+                snapLxpAddress,
+                connectedAccount,
+              )}
             />
           </>
         )}
