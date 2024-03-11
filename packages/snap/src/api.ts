@@ -32,7 +32,7 @@ export const fetchPohStatus = async (address: string) => {
 
 export const fetchLxpActivations = async () => {
   const result = await getData(
-    'https://lxp-snap.netlify.app/.netlify/functions/api',
+    'https://lxp-snap-api.netlify.app/.netlify/functions/api',
   );
   return result.lxpActivations;
 };
@@ -41,8 +41,11 @@ export const postAddressRegistration = async (
   signature: string,
   address: string,
 ) => {
-  return await postData('https://lxp-snap.netlify.app/.netlify/functions/api', {
-    signature,
-    address,
-  });
+  return await postData(
+    'https://lxp-snap-api.netlify.app/.netlify/functions/api',
+    {
+      signature,
+      address,
+    },
+  );
 };
