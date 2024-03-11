@@ -79,6 +79,7 @@ export async function getCurrentActivations() {
 /**
  * Registers the address as using the snap.
  * @param signature - The signature to check before registering the address.
+ * @returns The status of the registration.
  */
 export async function registerAddress(signature: string) {
   const { lxpAddress } = await getState();
@@ -87,5 +88,5 @@ export async function registerAddress(signature: string) {
     throw new Error('No LXP address found.');
   }
 
-  await postAddressRegistration(signature, lxpAddress);
+  return await postAddressRegistration(signature, lxpAddress);
 }

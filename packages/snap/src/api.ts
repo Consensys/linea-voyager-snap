@@ -7,7 +7,7 @@ const getData = async (url: string) => {
 };
 
 const postData = async (url: string, data: unknown) => {
-  const response = await fetch(url, {
+  return await fetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -15,7 +15,6 @@ const postData = async (url: string, data: unknown) => {
     body: JSON.stringify(data),
     mode: 'cors',
   });
-  return response.json();
 };
 
 export const fetchBalanceFromLineascan = async (address: string) => {
@@ -41,11 +40,18 @@ export const postAddressRegistration = async (
   signature: string,
   address: string,
 ) => {
-  return await postData(
+  const response = await postData(
     'https://lxp-snap-api.netlify.app/.netlify/functions/api',
     {
       signature,
       address,
     },
   );
+
+  if (response.status === 201) {
+    return { status: 'ok' };
+  }
+
+  const body = await response.json();
+  return { status: 'error', message: body.message ?? 'Unknown error' };
 };
