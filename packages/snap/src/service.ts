@@ -4,6 +4,7 @@ import {
   fetchPohStatus,
   postAddressRegistration,
 } from './api';
+import type { Payload } from './types';
 import { convertBalanceToDisplay, getState } from './utils';
 
 /**
@@ -79,14 +80,15 @@ export async function getCurrentActivations() {
 /**
  * Registers the address as using the snap.
  * @param signature - The signature to check before registering the address.
+ * @param payload - The content of the message that was signed.
  * @returns The status of the registration.
  */
-export async function registerAddress(signature: string) {
+export async function registerAddress(signature: string, payload: Payload) {
   const { lxpAddress } = await getState();
 
   if (!lxpAddress) {
     throw new Error('No LXP address found.');
   }
 
-  return await postAddressRegistration(signature, lxpAddress);
+  return await postAddressRegistration(signature, payload);
 }

@@ -66,8 +66,8 @@ export const onRpcRequest: OnRpcRequestHandler = async ({ request }) => {
     }
 
     case 'personalSign': {
-      const { signature } = params;
-      return registerAddress(signature);
+      const { signature, payload } = params;
+      return registerAddress(signature, payload);
     }
 
     default:

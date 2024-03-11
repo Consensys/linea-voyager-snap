@@ -1,3 +1,5 @@
+import type { Payload } from './types';
+
 const getData = async (url: string) => {
   const response = await fetch(url, {
     method: 'GET',
@@ -38,13 +40,13 @@ export const fetchLxpActivations = async () => {
 
 export const postAddressRegistration = async (
   signature: string,
-  address: string,
+  payload: Payload,
 ) => {
   const response = await postData(
     'https://lxp-snap-api.netlify.app/.netlify/functions/api',
     {
       signature,
-      address,
+      payload,
     },
   );
 
