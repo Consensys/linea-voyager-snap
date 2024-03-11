@@ -39,6 +39,7 @@ const Button = styled.button`
   align-items: center;
   justify-content: center;
   margin-top: auto;
+
   ${({ theme }) => theme.mediaQueries.small} {
     width: 100%;
   }
@@ -117,7 +118,7 @@ export const PersonalSign = (props: ComponentProps<typeof Button>) => {
   return (
     <Button {...props}>
       <FlaskFox />
-      <ButtonText>Sign message</ButtonText>
+      <ButtonText>Claim LXP</ButtonText>
     </Button>
   );
 };

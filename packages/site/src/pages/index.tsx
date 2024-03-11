@@ -168,7 +168,10 @@ const Index = () => {
         params: [message, account],
       });
 
-      const res = await window.ethereum.request<{ status: string }>({
+      const res = await window.ethereum.request<{
+        status: string;
+        message?: string;
+      }>({
         method: 'wallet_invokeSnap',
         params: {
           snapId: defaultSnapOrigin,
@@ -184,7 +187,7 @@ const Index = () => {
       if (res?.status === 'ok') {
         setClaimMessage('Claimed successfully 🎉');
       } else {
-        setClaimMessage('Something went wrong 😔');
+        setClaimMessage(`Something went wrong 😔 ${res?.message ?? ''}`);
       }
     } catch (error) {
       setClaimMessage(undefined);
