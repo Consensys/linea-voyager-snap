@@ -145,29 +145,6 @@ async function checkSignature(body: string) {
     };
   }
 
-  const response = await fetch(
-    `https://linea-xp-poh-api.linea.build/poh/${payload.address}`,
-    {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    },
-  );
-
-  const result = await response.json();
-
-  /* Comment out validation for now, but record the status in the Google Sheet
-  if (!result.poh) {
-    return {
-      statusCode: 400,
-      headers,
-      body: JSON.stringify({
-        message: "Doesn't have a valid POH",
-      }),
-    };
-  }*/
-
   try {
     const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
 
@@ -191,14 +168,13 @@ async function checkSignature(body: string) {
       };
     }
 
-    //  Google Sheet Columns : timestamp, address, signedOn, subject, signature, pohStatus
+    //  Google Sheet Columns : timestamp, address, signedOn, subject, signature
     await sheet.addRow([
       Date.now(),
       payload.address as string,
       payload.signedOn,
       payload.subject,
       signature,
-      result.poh,
     ]);
 
     return {
