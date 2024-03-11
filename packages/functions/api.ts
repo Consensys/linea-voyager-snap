@@ -138,7 +138,7 @@ async function checkSignature(body: string) {
     };
   }
 
-  const response = await fetch(
+  /* const response = await fetch(
     `https://linea-xp-poh-api.linea.build/poh/${address}`,
     {
       method: 'GET',
@@ -158,7 +158,7 @@ async function checkSignature(body: string) {
         message: "Doesn't have a valid POH",
       }),
     };
-  }
+  }*/
 
   try {
     const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
