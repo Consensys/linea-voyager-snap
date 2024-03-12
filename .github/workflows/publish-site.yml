@@ -1,0 +1,29 @@
+name: Publish site to GitHub Pages
+
+on:
+  workflow_call:
+
+jobs:
+  publish-site-to-gh-pages:
+    name: Publish site to GitHub Pages
+    runs-on: ubuntu-latest
+    environment: github-pages
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'yarn'
+      - name: Install npm dependencies
+        run: yarn --immutable
+      - name: Run build script
+        run: yarn workspace site run
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: packages/site/build

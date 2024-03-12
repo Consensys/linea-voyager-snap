@@ -6,7 +6,7 @@
     "notVerified": "Not verified"
   },
   "lxp": "You have {count} LXP",
-  "balance": "LXP Balance", 
+  "balance": "LXP Balance",
   "address": "Address",
   "pohStatus": "POH Status",
   "activations": {
