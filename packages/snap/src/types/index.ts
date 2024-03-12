@@ -1,3 +1,5 @@
+import type { Address } from '@metamask/snaps-sdk';
+
 export type Captions = {
   locale: string;
   poh: {
@@ -44,4 +46,10 @@ export type SnapState = {
   myLxpBalance?: number;
   myPohStatus?: boolean;
   activations?: Activation[];
+};
+
+export type Payload = {
+  address: Address;
+  signedOn: number;
+  subject: string;
 };

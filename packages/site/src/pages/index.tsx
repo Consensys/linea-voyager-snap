@@ -150,7 +150,12 @@ const Index = () => {
   const handlePersonalSign = async () => {
     setClaimMessage('Pending...');
     try {
-      const message = `0x${stringToHex('Example message.')}`;
+      const payload = {
+        address: connectedAccount,
+        signedOn: Date.now(),
+        subject: 'LXP Snap Activation',
+      };
+      const message = `0x${stringToHex(JSON.stringify(payload))}`;
 
       const signature = await window.ethereum.request({
         method: 'personal_sign',
@@ -168,6 +173,7 @@ const Index = () => {
             method: 'personalSign',
             params: {
               signature,
+              payload,
             },
           },
         },

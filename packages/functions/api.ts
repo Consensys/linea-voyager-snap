@@ -11,6 +11,12 @@ const headers = {
   'Content-Type': 'application/json',
 };
 
+export type Payload = {
+  address: Address;
+  signedOn: number;
+  subject: string;
+};
+
 /**
  * This function is called on every network call.
  * @param event - The event object.
@@ -109,22 +115,23 @@ async function checkSignature(body: string) {
     };
   }
 
-  const { signature, address }: { signature: Hex; address: Address } =
+  const { signature, payload }: { signature: Hex; payload: Payload } =
     JSON.parse(body);
 
-  if (!signature || !address) {
+  if (!signature || !payload) {
     return {
       statusCode: 400,
       headers,
       body: JSON.stringify({
-        message: 'Signature or address not provided',
+        message: 'Signature or payload not provided',
       }),
     };
   }
 
+  const message = JSON.stringify(payload);
   const valid = await verifyMessage({
-    address,
-    message: 'Example message.',
+    address: payload.address,
+    message,
     signature,
   });
 
@@ -137,28 +144,6 @@ async function checkSignature(body: string) {
       }),
     };
   }
-
-  /* const response = await fetch(
-    `https://linea-xp-poh-api.linea.build/poh/${address}`,
-    {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    },
-  );
-
-  const result = await response.json();
-
-  if (!result.poh) {
-    return {
-      statusCode: 400,
-      headers,
-      body: JSON.stringify({
-        message: "Doesn't have a valid POH",
-      }),
-    };
-  }*/
 
   try {
     const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
@@ -183,7 +168,14 @@ async function checkSignature(body: string) {
       };
     }
 
-    await sheet.addRow([Date.now(), address as string]);
+    //  Google Sheet Columns : timestamp, address, signedOn, subject, signature
+    await sheet.addRow([
+      Date.now(),
+      payload.address as string,
+      payload.signedOn,
+      payload.subject,
+      signature,
+    ]);
 
     return {
       statusCode: 201,
