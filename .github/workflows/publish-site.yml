@@ -1,7 +1,7 @@
 name: Publish site to GitHub Pages
 
 on:
-  workflow_call:
+  workflow_dispatch:
 
 jobs:
   publish-site-to-gh-pages:
