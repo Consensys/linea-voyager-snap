@@ -38,5 +38,6 @@ module.exports = {
     '**/build',
     '**/public',
     '**/.cache',
+    'packages/functions',
   ],
 };
