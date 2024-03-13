@@ -81,7 +81,7 @@ const ErrorMessage = styled.div`
 
 const Index = () => {
   const { state, dispatch, provider } = useContext(MetaMaskContext);
-  const [lxpAddressValue, lxpAddressSetValue] = useState('');
+  const [lxpAddressValue, setLxpAddressValue] = useState<string>();
   const [claimMessage, setClaimMessage] = useState<string>();
   const [snapLxpAddress, setSnapLxpAddress] = useState<string>();
   const [connectedAccount, setConnectedAccount] = useState<string>();
@@ -317,9 +317,8 @@ const Index = () => {
             <Card
               content={{
                 title: 'Set LXP Address',
-                description:
-                  'Please enter the wallet address linked to your LXP',
-                input: <LxpAddressInput onChangeHandler={lxpAddressSetValue} />,
+                description: 'Please enter the wallet address holding your LXP',
+                input: <LxpAddressInput onChangeHandler={setLxpAddressValue} />,
                 button: (
                   <SetLxpAddressButton
                     onClick={handleSetLxpAddress}
