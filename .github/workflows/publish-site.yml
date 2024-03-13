@@ -2,7 +2,7 @@ name: Publish site to GitHub Pages
 
 on:
   workflow_dispatch:
-
+  pull_request:
 jobs:
   publish-site-to-gh-pages:
     name: Publish site to GitHub Pages
@@ -13,6 +13,8 @@ jobs:
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
@@ -22,6 +24,10 @@ jobs:
         run: yarn --immutable
       - name: Run build script
         run: yarn workspace site build
+      - name: Check generated folder
+        run: ls -la packages/site
+      - name: Check generated files
+        run: ls -la packages/site/public
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
