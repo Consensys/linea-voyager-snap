@@ -9,7 +9,7 @@ import {
   text,
 } from '@metamask/snaps-sdk';
 
-import { getState } from './utils';
+import { getState, truncateString } from './utils';
 
 /**
  * Render the main UI.
@@ -32,6 +32,21 @@ export async function renderMainUi(myAccount: string) {
       : `❌ ${captions?.poh.notVerified as string}`
   }`;
 
+  console.log(activations);
+
+  let activationsList = []; 
+
+  if(activations?.length > 0) { 
+    activationsList.push(divider()); 
+    const activationsCount = activations.length == 1 ? 
+      captions?.activations.one.replace('{count}', `${activations.length}`) 
+      : captions?.activations.number.replace('{count}', `${activations.length}`); 
+    activationsList.push(text(`**${activationsCount}**`)); 
+    for(const a of activations) { 
+      activationsList.push(text(`&bull; [${truncateString(a.fields.title['en-US'],30)}](${a.fields.url['en-US']})`));
+    }
+  }
+
   const activationsToDisplay =
     activations?.length > 0
       ? captions?.activations.number.replace('{count}', `${activations.length}`)
@@ -45,6 +60,7 @@ export async function renderMainUi(myAccount: string) {
       row(labelAddress, address(myAccount)),
       row(labelBalance, text(`${lxpBalance}`)),
       row(labelPohStatus, text(`${pohStatus}`)),
+      ...activationsList, 
       divider(),
       text(
         '_LXP earned in activations may not arrive in your wallet until the activation is complete._',
@@ -54,9 +70,8 @@ export async function renderMainUi(myAccount: string) {
       ),
       text('&bull; [Complete Proof of Humanity](https://poh.linea.build)'),
       text(
-        '&bull; [Explore Linea Activations](https://linea.build/activations)',
+        '&bull; [Explore All Linea Activations](https://linea.build/activations)',
       ),
-      heading(activationsToDisplay as string),
     ]),
   };
 }
