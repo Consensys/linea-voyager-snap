@@ -11,7 +11,7 @@
   "pohStatus": "Estado de POH",
   "activations": {
     "number": "Hay {count} activaciones de LXP activas",
-    "none": "No hay activas activaciones de LXP", 
+    "none": "No hay activas activaciones de LXP",
     "one": "Hay {count} activacion de LXP activa"
   },
   "lxpAddress": {

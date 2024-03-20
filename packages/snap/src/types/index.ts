@@ -36,12 +36,12 @@ export type Activation = {
     tags: {
       'en-US': Tag[];
     };
-    title: { 
+    title: {
       'en-US': string;
-    }; 
-    url: { 
+    };
+    url: {
       'en-US': string;
-    }
+    };
   };
 };
 

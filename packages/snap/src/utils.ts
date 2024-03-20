@@ -98,14 +98,14 @@ export async function loadCaptions(force = false) {
 }
 
 /**
- * Simple string truncation with ellipsis 
- * @param input - The input to be truncated 
- * @param maxLength - The size of the string to truncate 
- * @returns The truncated string or the original string if shorter than maxLength
+ * Simple string truncation with ellipsis.
+ * @param input - The input to be truncated.
+ * @param maxLength - The size of the string to truncate.
+ * @returns The truncated string or the original string if shorter than maxLength.
  */
-export function truncateString(input:string, maxLength:number):string {
-  if(input.length > maxLength) { 
-    return `${input.substring(0, maxLength)}...`; 
+export function truncateString(input: string, maxLength: number): string {
+  if (input.length > maxLength) {
+    return `${input.substring(0, maxLength)}...`;
   }
-  return input; 
+  return input;
 }
