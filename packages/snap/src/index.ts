@@ -29,7 +29,7 @@ export const onInstall: OnInstallHandler = async () => {
         lxpAddress: lxpAddressStr,
       });
     } else {
-      console.error(`${lxpAddress} is not a valid address`);
+      console.error(`${lxpAddressStr} is not a valid address`);
     }
   }
 };
@@ -76,7 +76,7 @@ export const onRpcRequest: OnRpcRequestHandler = async ({ request }) => {
           });
           return lxpAddress;
         }
-        console.error(`${lxpAddress} is not a valid address`);
+        console.error(`${lxpAddressStr} is not a valid address`);
         return null;
       }
       console.error(`No address provided.`);
