@@ -4,6 +4,7 @@ import type {
   OnRpcRequestHandler,
   OnUpdateHandler,
 } from '@metamask/snaps-sdk';
+import { isValidHexAddress } from '@metamask/utils';
 
 import {
   getCurrentActivations,
@@ -21,9 +22,16 @@ export const onInstall: OnInstallHandler = async () => {
     params: await renderPromptLxpAddress(),
   });
 
-  await setState({
-    lxpAddress: lxpAddress?.toString() as string,
-  });
+  if (lxpAddress) {
+    const lxpAddressStr = lxpAddress as `0x${string}`;
+    if (isValidHexAddress(lxpAddressStr)) {
+      await setState({
+        lxpAddress: lxpAddressStr,
+      });
+    } else {
+      console.error(`${lxpAddressStr} is not a valid address`);
+    }
+  }
 };
 
 export const onUpdate: OnUpdateHandler = async () => {
@@ -59,10 +67,20 @@ export const onRpcRequest: OnRpcRequestHandler = async ({ request }) => {
 
     case 'setLxpAddress': {
       const { lxpAddress } = params;
-      await setState({
-        lxpAddress,
-      });
-      return lxpAddress;
+
+      if (lxpAddress) {
+        const lxpAddressStr = lxpAddress as `0x${string}`;
+        if (isValidHexAddress(lxpAddressStr)) {
+          await setState({
+            lxpAddress: lxpAddressStr,
+          });
+          return lxpAddress;
+        }
+        console.error(`${lxpAddressStr} is not a valid address`);
+        return null;
+      }
+      console.error(`No address provided.`);
+      return null;
     }
 
     case 'personalSign': {
