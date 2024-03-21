@@ -86,7 +86,7 @@ jobs:
           key: snap-${{ runner.os }}-${{ github.sha }}
       - run: yarn install --immutable
       - name: Run e2e tests
-        run: yarn workspace lxp-snap run test
+        run: yarn workspace @consensys/lxp-snap run test
       - name: Require clean working directory
         shell: bash
         run: |
