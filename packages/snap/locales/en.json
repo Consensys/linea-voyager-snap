@@ -12,7 +12,7 @@
   "activations": {
     "number": "There are {count} active LXP activations",
     "none": "There are no current activations",
-    "one": "There is 1 active LXP activation"
+    "one": "There is {count} active LXP activation"
   },
   "lxpAddress": {
     "heading": "LXP wallet address",
