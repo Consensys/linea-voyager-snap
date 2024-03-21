@@ -1,6 +1,6 @@
 import { JWT } from 'google-auth-library';
 import { GoogleSpreadsheet } from 'google-spreadsheet';
-import type { Activation } from 'lxp-snap/src/types';
+import type { Activation } from '@consensys/lxp-snap/src/types';
 import type { Address, Hex } from 'viem';
 import { verifyMessage } from 'viem';
 
