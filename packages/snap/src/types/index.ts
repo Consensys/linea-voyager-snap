@@ -14,6 +14,7 @@ export type Captions = {
   activations: {
     number: string;
     none: string;
+    one: string;
   };
   lxpAddress: {
     heading: string;
@@ -28,14 +29,18 @@ export type Tag = {
 };
 
 export type Activation = {
-  title: string;
-  url: string;
   fields: {
     endDate: {
       'en-US': string;
     };
     tags: {
       'en-US': Tag[];
+    };
+    title: {
+      'en-US': string;
+    };
+    url: {
+      'en-US': string;
     };
   };
 };

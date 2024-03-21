@@ -11,7 +11,8 @@
   "pohStatus": "Statut POH",
   "activations": {
     "number": "Il y a {count} activations LXP actives",
-    "none": "Il n'y a pas d'activation active"
+    "none": "Il n'y a pas d'activation active",
+    "one": "Il y a {count} activation LXP active"
   },
   "lxpAddress": {
     "heading": "fr-LXP wallet address",
