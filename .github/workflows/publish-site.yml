@@ -3,13 +3,22 @@ name: Publish site to GitHub Pages
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: 'pages'
+  cancel-in-progress: true
+
 jobs:
   publish-site-to-gh-pages:
     name: Publish site to GitHub Pages
     runs-on: ubuntu-latest
-    environment: github-pages
-    permissions:
-      contents: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v3
@@ -22,8 +31,17 @@ jobs:
         run: yarn --immutable
       - name: Run build script
         run: yarn workspace site build
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Prepare for deployment
+        run: |
+          echo "lxp-snap.linea.build" > packages/site/public/CNAME
+          echo "User-Agent: *" > packages/site/public/robots.txt
+          echo "Disallow: /" >> packages/site/public/robots.txt
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./packages/site/public
+          path: './packages/site/public'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
