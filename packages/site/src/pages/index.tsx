@@ -282,75 +282,73 @@ const Index = () => {
           />
         )}
         {shouldDisplayReconnectButton(state.installedSnap) && (
-          <>
-            <Card
-              content={{
-                title: 'Reconnect',
-                description:
-                  'While connected to a local running snap this button will always be displayed in order to update the snap if a change is made.',
-                button: (
-                  <ReconnectButton
-                    onClick={handleConnectClick}
-                    disabled={!state.installedSnap}
-                  />
-                ),
-              }}
-              disabled={!state.installedSnap}
-            />
-            <Card
-              content={{
-                title: 'Get LXP Address',
-                description: `${
-                  snapLxpAddress
-                    ? truncateAddress(snapLxpAddress)
-                    : 'Check the wallet address linked to your LXP'
-                }`,
-                button: (
-                  <GetLxpAddressButton
-                    onClick={handleGetLxpAddress}
-                    disabled={!state.installedSnap}
-                  />
-                ),
-              }}
-              disabled={!state.installedSnap}
-            />
-            <Card
-              content={{
-                title: 'Set LXP Address',
-                description: 'Please enter the wallet address holding your LXP',
-                input: <LxpAddressInput onChangeHandler={setLxpAddressValue} />,
-                button: (
-                  <SetLxpAddressButton
-                    onClick={handleSetLxpAddress}
-                    disabled={!state.installedSnap}
-                  />
-                ),
-              }}
-              disabled={!state.installedSnap}
-            />
-            <Card
-              content={{
-                title: 'Claim your LXP',
-                description: getClaimDescription(claimMessage),
-                button: (
-                  <PersonalSign
-                    onClick={handlePersonalSign}
-                    disabled={isClaimDisabled(
-                      Boolean(state.installedSnap),
-                      snapLxpAddress,
-                      connectedAccount,
-                    )}
-                  />
-                ),
-              }}
-              disabled={isClaimDisabled(
-                Boolean(state.installedSnap),
-                snapLxpAddress,
-                connectedAccount,
-              )}
-            />
-          </>
+          <Card
+            content={{
+              title: 'Reconnect',
+              description:
+                'While connected to a local running snap this button will always be displayed in order to update the snap if a change is made.',
+              button: (
+                <ReconnectButton
+                  onClick={handleConnectClick}
+                  disabled={!state.installedSnap}
+                />
+              ),
+            }}
+            disabled={!state.installedSnap}
+          />
         )}
+        <Card
+          content={{
+            title: 'Get LXP Address',
+            description: `${
+              snapLxpAddress
+                ? truncateAddress(snapLxpAddress)
+                : 'Check the wallet address linked to your LXP'
+            }`,
+            button: (
+              <GetLxpAddressButton
+                onClick={handleGetLxpAddress}
+                disabled={!state.installedSnap}
+              />
+            ),
+          }}
+          disabled={!state.installedSnap}
+        />
+        <Card
+          content={{
+            title: 'Set LXP Address',
+            description: 'Please enter the wallet address holding your LXP',
+            input: <LxpAddressInput onChangeHandler={setLxpAddressValue} />,
+            button: (
+              <SetLxpAddressButton
+                onClick={handleSetLxpAddress}
+                disabled={!state.installedSnap}
+              />
+            ),
+          }}
+          disabled={!state.installedSnap}
+        />
+        <Card
+          content={{
+            title: 'Claim your LXP',
+            description: getClaimDescription(claimMessage),
+            button: (
+              <PersonalSign
+                onClick={handlePersonalSign}
+                disabled={isClaimDisabled(
+                  Boolean(state.installedSnap),
+                  snapLxpAddress,
+                  connectedAccount,
+                )}
+              />
+            ),
+          }}
+          disabled={isClaimDisabled(
+            Boolean(state.installedSnap),
+            snapLxpAddress,
+            connectedAccount,
+          )}
+        />
       </CardContainer>
     </Container>
   );
