@@ -7,7 +7,7 @@
     "url": "https://github.com/Consensys/lxp-snap"
   },
   "source": {
-    "shasum": "yXWTJ1K5yj636sebpR+mZxeFeegggEBjeFnfr4FfDHU=",
+    "shasum": "wlgQrcTjUra39G2Y2d4+Y1O7jqyjYhBnIBc+2bH9fTI=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
