@@ -9,9 +9,8 @@ import {
   text,
 } from '@metamask/snaps-sdk';
 
+import header from '../img/header.svg';
 import { getState, truncateString } from './utils';
-
-import header from '../img/header.svg'; 
 
 /**
  * Render the main UI.
