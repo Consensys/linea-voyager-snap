@@ -55,25 +55,18 @@ export async function renderMainUi(myAccount: string) {
     }
   }
 
-  const myData = []; 
+  const myData = [];
 
-  if(!myAccount) { 
+  if (myAccount) {
+    myData.push(row(labelAddress, address(myAccount)));
+    myData.push(row(labelBalance, text(`${lxpBalance}`)));
+    myData.push(row(labelPohStatus, text(`${pohStatus}`)));
+  } else {
     myData.push(
       text(
-        `To view your LXP balance and POH status, [first set your address](https://lxp-snap.linea.build).`
-      )
+        `To view your LXP balance and POH status, [first set your address](https://lxp-snap.linea.build).`,
+      ),
     );
-  }
-  else { 
-    myData.push(
-      row(labelAddress, address(myAccount))
-    ); 
-    myData.push(
-      row(labelBalance, text(`${lxpBalance}`))
-    ); 
-    myData.push(
-      row(labelPohStatus, text(`${pohStatus}`))
-    ); 
   }
 
   return {
