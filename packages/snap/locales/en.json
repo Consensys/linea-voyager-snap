@@ -17,5 +17,13 @@
   "lxpAddress": {
     "heading": "LXP wallet address",
     "prompt": "Please enter the wallet address linked to your LXP"
-  }
+  },
+  "noAddress": {
+    "toSetText": "To view your LXP balance and POH status,",
+    "toSetLink": "first set your address"
+  },
+  "help": "LXP earned in activations may not arrive in your wallet until the activation is complete.",
+  "viewBalance": "View balance on Lineascan",
+  "completePOH": "Complete Proof of Humanity",
+  "exploreAll": "Explore All Linea Activations"
 }

@@ -43,8 +43,10 @@ export const onHomePage: OnHomePageHandler = async () => {
   const chainId = await getChainId();
   const snapState = await getState();
   const myAccount = snapState.lxpAddress as string;
-  const myLxpBalance = await getLxpBalanceForAddress(myAccount, chainId);
-  const myPohStatus = await getPohStatus(myAccount);
+  const myLxpBalance = myAccount
+    ? await getLxpBalanceForAddress(myAccount, chainId)
+    : 0;
+  const myPohStatus = myAccount ? await getPohStatus(myAccount) : false;
   const activations = await getCurrentActivations();
 
   await setState({

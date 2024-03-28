@@ -20,6 +20,14 @@ export type Captions = {
     heading: string;
     prompt: string;
   };
+  noAddress: {
+    toSetText: string;
+    toSetLink: string;
+  };
+  help: string;
+  viewBalance: string;
+  completePOH: string;
+  exploreAll: string;
 };
 
 export type Tag = {
