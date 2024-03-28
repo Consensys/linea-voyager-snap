@@ -62,12 +62,19 @@ export async function renderMainUi(myAccount: string) {
     myData.push(row(labelBalance, text(`${lxpBalance}`)));
     myData.push(row(labelPohStatus, text(`${pohStatus}`)));
   } else {
+    const addressToSetText = captions?.noAddress?.toSetText as string;
+    const addressToSetLink = captions?.noAddress?.toSetLink as string;
     myData.push(
       text(
-        `To view your LXP balance and POH status, [first set your address](https://lxp-snap.linea.build).`,
+        `${addressToSetText} [${addressToSetLink}](https://lxp-snap.linea.build).`,
       ),
     );
   }
+
+  const help = captions?.help as string;
+  const viewBalance = captions?.viewBalance as string;
+  const completePOH = captions?.completePOH as string;
+  const exploreAll = captions?.exploreAll as string;
 
   return {
     content: panel([
@@ -77,16 +84,12 @@ export async function renderMainUi(myAccount: string) {
       ...myData,
       ...activationsList,
       divider(),
+      text(`_${help}_`),
       text(
-        '_LXP earned in activations may not arrive in your wallet until the activation is complete._',
+        `&bull; [${viewBalance}](https://lineascan.build/token/0xd83af4fbd77f3ab65c3b1dc4b38d7e67aecf599a?a=${myAccount})`,
       ),
-      text(
-        `&bull; [View balance on Lineascan](https://lineascan.build/token/0xd83af4fbd77f3ab65c3b1dc4b38d7e67aecf599a?a=${myAccount})`,
-      ),
-      text('&bull; [Complete Proof of Humanity](https://poh.linea.build)'),
-      text(
-        '&bull; [Explore All Linea Activations](https://linea.build/activations)',
-      ),
+      text(`&bull; [${completePOH}](https://poh.linea.build)`),
+      text(`&bull; [${exploreAll}](https://linea.build/activations)'`),
     ]),
   };
 }
