@@ -106,6 +106,14 @@
     
     <script type="text/javascript">
 
+const stringToHex = (input) => {
+  let result = '';
+  for (let i = 0; i < input.length; i++) {
+    result += input.charCodeAt(i).toString(16).padStart(2, '0');
+  }
+  return result;
+};
+
 const snapId = 'npm:@consensys/lxp-snap';
 const snapName = 'LXP Snap'; 
 
@@ -229,7 +237,7 @@ const accountConnected = async (provider, account) => {
 
       const signature = await provider.request({
         method: 'personal_sign',
-        params: [message, connectedAccount],
+        params: [message, account],
       });
 
       const res = await provider.request({
@@ -250,7 +258,7 @@ const accountConnected = async (provider, account) => {
         document.getElementById('loading').textContent = "Claimed successfully 🎉";
       } else {
         document.getElementById('loading').textContent = "Something went wrong 😔 "+res?.message; 
-      }
+      } 
     } catch (error) {
       document.getElementById('loading').textContent = "Something went wrong 😔 "; 
       console.error(error);
