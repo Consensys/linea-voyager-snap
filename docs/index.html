@@ -71,6 +71,10 @@
           font-size:1.125rem;
           font-weight:bold;
         }
+        code { 
+          background:#333; 
+          color:#fff; 
+        }
         #footer { 
           position:fixed;
           width:860px; 
@@ -174,14 +178,6 @@ const snapInstalled = async (provider) => {
       "params": []
     });
     if(accounts.length > 0) { 
-      // get the first entry 
-      const message = document.createElement("p"); 
-      message.textContent = "Connected address: "; 
-      const address = document.createElement("code"); 
-      address.textContent = ''+accounts[0]; 
-      message.appendChild(address); 
-      document.getElementById("context").appendChild(message); 
-
       const response = await ethereum.request({
         method: 'wallet_invokeSnap',
         params: { 
@@ -189,17 +185,78 @@ const snapInstalled = async (provider) => {
           request: { 
             method: 'setLxpAddress', 
             params: { 
-              address: accounts[0]
+              lxpAddress: accounts[0]
             }
           }
         }
       }); 
-      alert(response); 
       if(response===accounts[0]) { 
-        alert("success!"); 
+        // get the first entry 
+        const message = document.createElement("p"); 
+        message.textContent = "Connected address: "; 
+        const address = document.createElement("code"); 
+        address.textContent = ''+accounts[0]; 
+        message.appendChild(address); 
+        document.getElementById("context").appendChild(message); 
+
+        await accountConnected(provider, accounts[0]); 
       }
     }
   }; 
+  document.getElementById('loading').textContent = "";
+  document.getElementById('loading').appendChild(caption); 
+  document.getElementById('loading').appendChild(btn); 
+}; 
+
+const accountConnected = async (provider, account) => { 
+  const btn = document.createElement("button"); 
+  btn.className = "btn btn-primary btn-lg"; 
+  btn.textContent = "Sign Message"; 
+
+  const caption = document.createElement("p"); 
+  caption.className = "caption"; 
+  caption.textContent = "Step 3"; 
+
+  btn.onclick = async (event) => { 
+    document.getElementById('loading').textContent = "Pending..."; 
+    try {
+      const payload = {
+        address: account,
+        signedOn: Date.now(),
+        subject: 'LXP Snap Activation',
+      };
+      const message = `0x${stringToHex(JSON.stringify(payload))}`;
+
+      const signature = await provider.request({
+        method: 'personal_sign',
+        params: [message, connectedAccount],
+      });
+
+      const res = await provider.request({
+        method: 'wallet_invokeSnap',
+        params: {
+          snapId: snapId,
+          request: {
+            method: 'personalSign',
+            params: {
+              signature,
+              payload
+            },
+          },
+        },
+      });
+
+      if (res?.status === 'ok') {
+        document.getElementById('loading').textContent = "Claimed successfully 🎉";
+      } else {
+        document.getElementById('loading').textContent = "Something went wrong 😔 "+res?.message; 
+      }
+    } catch (error) {
+      document.getElementById('loading').textContent = "Something went wrong 😔 "; 
+      console.error(error);
+    }
+  }
+
   document.getElementById('loading').textContent = "";
   document.getElementById('loading').appendChild(caption); 
   document.getElementById('loading').appendChild(btn); 
