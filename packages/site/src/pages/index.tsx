@@ -10,7 +10,6 @@ import {
   ReconnectButton,
   SetLxpAddressButton,
 } from '../components';
-import { LxpAddressInput } from '../components/Other/Input';
 import { defaultSnapOrigin } from '../config';
 import { MetamaskActions, MetaMaskContext } from '../hooks';
 import {
@@ -81,7 +80,6 @@ const ErrorMessage = styled.div`
 
 const Index = () => {
   const { state, dispatch, provider } = useContext(MetaMaskContext);
-  const [lxpAddressValue, setLxpAddressValue] = useState<string>();
   const [claimMessage, setClaimMessage] = useState<string>();
   const [snapLxpAddress, setSnapLxpAddress] = useState<string>();
   const [connectedAccount, setConnectedAccount] = useState<string>();

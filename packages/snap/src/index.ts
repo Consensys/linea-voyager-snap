@@ -12,7 +12,12 @@ import {
   getPohStatus,
   registerAddress,
 } from './service';
-import { renderMainUi, renderPromptLxpAddress, renderPromptLxpAddressError, renderPromptNextSteps } from './ui';
+import {
+  renderMainUi,
+  renderPromptLxpAddress,
+  renderPromptLxpAddressError,
+  renderPromptNextSteps,
+} from './ui';
 import { getChainId, getState, loadCaptions, setState } from './utils';
 
 export const onInstall: OnInstallHandler = async () => {
@@ -29,18 +34,18 @@ export const onUpdate: OnUpdateHandler = async () => {
 
 export const onHomePage: OnHomePageHandler = async () => {
   await loadCaptions();
-  
-  /* make calls in parallel */ 
-  const [chainId, snapState] = await Promise.all([getChainId(), getState()]); 
+
+  /* make calls in parallel */
+  const [chainId, snapState] = await Promise.all([getChainId(), getState()]);
 
   const myAccount = snapState.lxpAddress as string;
-  
+
   /* make calls in parallel */
   const [myLxpBalance, myPohStatus, activations] = await Promise.all([
     getLxpBalanceForAddress(myAccount, chainId),
     getPohStatus(myAccount),
     getCurrentActivations(),
-  ]); 
+  ]);
 
   await setState({
     myLxpBalance,
@@ -83,7 +88,7 @@ export const onRpcRequest: OnRpcRequestHandler = async ({ request }) => {
       return registerAddress(signature, payload);
     }
 
-    case 'watchLxpAddress': { 
+    case 'watchLxpAddress': {
       await loadCaptions();
       const lxpAddress = await snap.request({
         method: 'snap_dialog',
@@ -103,6 +108,7 @@ export const onRpcRequest: OnRpcRequestHandler = async ({ request }) => {
           });
         }
       }
+      return null;
     }
 
     default:

@@ -52,7 +52,7 @@ export async function getChainId() {
 
   if (!chainId) {
     console.error('Something went wrong while getting the chain ID.');
-    chainId = '1'; 
+    chainId = '1';
   }
 
   return chainId;

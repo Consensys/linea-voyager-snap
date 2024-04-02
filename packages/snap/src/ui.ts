@@ -113,7 +113,7 @@ export async function renderPromptLxpAddress() {
 
 /**
  * Render the UI in the onInstall hook.
- * @returns DialogParams UI for onInstall. 
+ * @returns DialogParams UI for onInstall.
  */
 export async function renderPromptNextSteps() {
   const snapState = await getState();
@@ -130,13 +130,17 @@ export async function renderPromptNextSteps() {
 
 /**
  * Render the UI in the onRpcRequest for setting a watch address when an invalid address is provided.
+ * @param lxpAddressStr - The LXP Address.
  * @returns DialogParams UI for onRpcRequest error dialog.
  */
-export async function renderPromptLxpAddressError(lxpAddressStr:string) {
+export async function renderPromptLxpAddressError(lxpAddressStr: string) {
   const snapState = await getState();
   const captions = snapState?.captions;
 
-  const errorMsg = captions?.errors.invalidLxpAddress.replace('{address}', lxpAddressStr); 
+  const errorMsg = captions?.errors.invalidLxpAddress.replace(
+    '{address}',
+    lxpAddressStr,
+  );
 
   return {
     type: 'alert',

@@ -18,7 +18,7 @@
     "heading": "Cuenta que usas para Linea XP",
     "prompt": "Ingresa tu cuenta para ver tu balance"
   },
-  "nextSteps": { 
+  "nextSteps": {
     "heading": "Gracias por instalar LXP Snap",
     "body": "Para ver tu balance de LXP y estado de POH, [ingresa tu cuenta por el sitio web](https://lxp-snap.linea.build/). A cualquier tiempo puedes abrir el menu y seleccionar el Snap para ver tu balance, estado de POH, y activaciones de LXP activas."
   },
@@ -30,7 +30,7 @@
   "viewBalance": "Ve tu balance de LXP en Lineascan",
   "completePOH": "Verfica tu estado de POH",
   "exploreAll": "Explora todas las activaciones",
-  "errors": { 
+  "errors": {
     "heading": "Error",
     "invalidLxpAddress": "{address} no es una cuenta valido. Por favor, inténtelo de nuevo más tarde."
   }

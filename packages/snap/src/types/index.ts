@@ -32,9 +32,9 @@ export type Captions = {
   viewBalance: string;
   completePOH: string;
   exploreAll: string;
-  errors: { 
-    heading: string,
-    invalidLxpAddress: string; 
+  errors: {
+    heading: string;
+    invalidLxpAddress: string;
   };
 };
 
