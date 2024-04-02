@@ -11,7 +11,6 @@ import {
 
 import banner from '../img/banner.svg';
 import { getState, truncateString } from './utils';
-import { error } from '@metamask/snaps-cli/dist/types/utils';
 
 /**
  * Render the main UI.
