@@ -135,10 +135,7 @@ const Index = () => {
         params: {
           snapId: defaultSnapOrigin,
           request: {
-            method: 'setLxpAddress',
-            params: {
-              lxpAddress: lxpAddressValue,
-            },
+            method: 'watchLxpAddress',
           },
         },
       });
@@ -299,15 +296,11 @@ const Index = () => {
         )}
         <Card
           content={{
-            title: 'Get LXP Address',
-            description: `${
-              snapLxpAddress
-                ? truncateAddress(snapLxpAddress)
-                : 'Check the wallet address linked to your LXP'
-            }`,
+            title: 'Set LXP Address',
+            description: 'Please enter the wallet address where you hold LXP.',
             button: (
-              <GetLxpAddressButton
-                onClick={handleGetLxpAddress}
+              <SetLxpAddressButton
+                onClick={handleSetLxpAddress}
                 disabled={!state.installedSnap}
               />
             ),
@@ -316,12 +309,15 @@ const Index = () => {
         />
         <Card
           content={{
-            title: 'Set LXP Address',
-            description: 'Please enter the wallet address holding your LXP',
-            input: <LxpAddressInput onChangeHandler={setLxpAddressValue} />,
+            title: 'Get LXP Address',
+            description: `${
+              snapLxpAddress
+                ? truncateAddress(snapLxpAddress)
+                : 'Check the wallet address linked to your LXP.'
+            }`,
             button: (
-              <SetLxpAddressButton
-                onClick={handleSetLxpAddress}
+              <GetLxpAddressButton
+                onClick={handleGetLxpAddress}
                 disabled={!state.installedSnap}
               />
             ),

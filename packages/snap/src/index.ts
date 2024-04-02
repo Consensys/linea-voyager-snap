@@ -12,26 +12,15 @@ import {
   getPohStatus,
   registerAddress,
 } from './service';
-import { renderMainUi, renderPromptLxpAddress } from './ui';
+import { renderMainUi, renderPromptLxpAddress, renderPromptLxpAddressError, renderPromptNextSteps } from './ui';
 import { getChainId, getState, loadCaptions, setState } from './utils';
 
 export const onInstall: OnInstallHandler = async () => {
   await loadCaptions(true);
-  const lxpAddress = await snap.request({
+  await snap.request({
     method: 'snap_dialog',
-    params: await renderPromptLxpAddress(),
+    params: await renderPromptNextSteps(),
   });
-
-  if (lxpAddress) {
-    const lxpAddressStr = lxpAddress as `0x${string}`;
-    if (isValidHexAddress(lxpAddressStr)) {
-      await setState({
-        lxpAddress: lxpAddressStr,
-      });
-    } else {
-      console.error(`${lxpAddressStr} is not a valid address`);
-    }
-  }
 };
 
 export const onUpdate: OnUpdateHandler = async () => {
@@ -39,15 +28,19 @@ export const onUpdate: OnUpdateHandler = async () => {
 };
 
 export const onHomePage: OnHomePageHandler = async () => {
-  await loadCaptions(true);
-  const chainId = await getChainId();
-  const snapState = await getState();
+  await loadCaptions();
+  
+  /* make calls in parallel */ 
+  const [chainId, snapState] = await Promise.all([getChainId(), getState()]); 
+
   const myAccount = snapState.lxpAddress as string;
-  const myLxpBalance = myAccount
-    ? await getLxpBalanceForAddress(myAccount, chainId)
-    : 0;
-  const myPohStatus = myAccount ? await getPohStatus(myAccount) : false;
-  const activations = await getCurrentActivations();
+  
+  /* make calls in parallel */
+  const [myLxpBalance, myPohStatus, activations] = await Promise.all([
+    getLxpBalanceForAddress(myAccount, chainId),
+    getPohStatus(myAccount),
+    getCurrentActivations(),
+  ]); 
 
   await setState({
     myLxpBalance,
@@ -88,6 +81,28 @@ export const onRpcRequest: OnRpcRequestHandler = async ({ request }) => {
     case 'personalSign': {
       const { signature, payload } = params;
       return registerAddress(signature, payload);
+    }
+
+    case 'watchLxpAddress': { 
+      await loadCaptions();
+      const lxpAddress = await snap.request({
+        method: 'snap_dialog',
+        params: await renderPromptLxpAddress(),
+      });
+
+      if (lxpAddress) {
+        const lxpAddressStr = lxpAddress as `0x${string}`;
+        if (isValidHexAddress(lxpAddressStr)) {
+          await setState({
+            lxpAddress: lxpAddressStr,
+          });
+        } else {
+          await snap.request({
+            method: 'snap_dialog',
+            params: await renderPromptLxpAddressError(lxpAddressStr),
+          });
+        }
+      }
     }
 
     default:

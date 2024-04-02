@@ -15,8 +15,12 @@
     "one": "There is {count} active LXP activation"
   },
   "lxpAddress": {
-    "heading": "LXP wallet address",
+    "heading": "Linea XP wallet address",
     "prompt": "Please enter the wallet address linked to your LXP"
+  },
+  "nextSteps": { 
+    "heading": "Thank you for installing the LXP Snap",
+    "body": "Next, set your address with the [companion site](https://lxp-snap.linea.build/) to track your Linea XP balance. At any time you can open the Snaps menu and click on LXP to view your balance, Proof of Humanity status, and current activations."
   },
   "noAddress": {
     "toSetText": "To view your LXP balance and POH status,",
@@ -25,5 +29,9 @@
   "help": "LXP earned in activations may not arrive in your wallet until the activation is complete.",
   "viewBalance": "View balance on Lineascan",
   "completePOH": "Complete Proof of Humanity",
-  "exploreAll": "Explore All Linea Activations"
+  "exploreAll": "Explore All Linea Activations",
+  "errors": { 
+    "heading": "Error",
+    "invalidLxpAddress": "{address} is not a valid address. Please try again."
+  }
 }

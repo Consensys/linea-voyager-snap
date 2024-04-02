@@ -46,12 +46,13 @@ export async function setState(state: SnapState): Promise<void> {
  * @returns The current chain ID.
  */
 export async function getChainId() {
-  const chainId = await ethereum.request<string>({
+  let chainId = await ethereum.request<string>({
     method: 'eth_chainId',
   });
 
   if (!chainId) {
-    throw new Error('Something went wrong while getting the chain ID.');
+    console.error('Something went wrong while getting the chain ID.');
+    chainId = '1'; 
   }
 
   return chainId;
