@@ -22,9 +22,9 @@
         #page { 
           width:760px;
         }
-        #screenshot { 
-          float:left;
-          margin-right:36px; 
+        #demo { 
+          float:right;
+          margin-left:36px; 
         }
         #icon { 
           border-radius:32px; 
@@ -50,15 +50,19 @@
           background-color:#fff !important;
           border-color:#fff !important;
         }
-        #screenshot img { 
-          border:1px solid #777; 
+        p.caption { 
+          text-transform:uppercase;
+          font-size:0.825rem;
+          margin-bottom:0.125rem; 
+        }
+        #demo video { 
           border-radius:12px; 
         }
         h1 { 
           font-size:1.5rem;
           line-height:64px; 
           padding:0;
-          margin-bottom:72px; 
+          margin-bottom:64px; 
         }
         h1 img { 
           vertical-align:top;
@@ -66,6 +70,10 @@
         h2 { 
           font-size:1.125rem;
           font-weight:bold;
+        }
+        code { 
+          background:#333; 
+          color:#fff; 
         }
         #footer { 
           position:fixed;
@@ -80,13 +88,16 @@
   </head>
   <body>
     <div id="page">
-      <div id="screenshot">
-        <!-- img src="screenshot.jpg" width="338" height="594" alt="Screenshot of FarFeed" -->
+      <div id="demo">
+        <video width="300" height="500" autoplay loop muted>
+          <source src="demo.mp4" type="video/mp4" />
+        </video>
       </div>
       <h1><img src="icon.png" width="64" height="64" alt="" id="icon"> LXP Snap</h1>
-      <h2>Follow your LXP journey.</h2>
-      <p>View your Linea XP balance right inside of MetaMask!</p>
+      <h2>Follow your Linea Voyage</h2>
+      <p>View your Linea XP balance, POH status, and current activations inside of MetaMask!</p>
       <p id="loading">Loading...</p>
+      <div id="context"></div>
       <p>After installing the Snap, open the Snaps menu in MetaMask and click on LXP to view your Linea XP balance, Proof of Humanity status, and current activations.</p>
     </div>
     <div id="footer">
@@ -94,6 +105,14 @@
     </div>
     
     <script type="text/javascript">
+
+const stringToHex = (input) => {
+  let result = '';
+  for (let i = 0; i < input.length; i++) {
+    result += input.charCodeAt(i).toString(16).padStart(2, '0');
+  }
+  return result;
+};
 
 const snapId = 'npm:@consensys/lxp-snap';
 const snapName = 'LXP Snap'; 
@@ -109,6 +128,10 @@ const MetaMaskFound = async (providerDetail) => {
   const btn = document.createElement("button"); 
   btn.className = "btn btn-primary btn-lg"; 
   btn.textContent = "Install "+snapName; 
+
+  const caption = document.createElement("p"); 
+  caption.className = "caption"; 
+  caption.textContent = "Step 1"; 
 
   const provider = providerDetail.provider; 
 
@@ -129,10 +152,8 @@ const MetaMaskFound = async (providerDetail) => {
             method: 'wallet_getSnaps',
           }); 
           if( Object.keys(snaps).includes(snapId) ) { 
-            // the snap is installed and connected 
-            btn.textContent = "Installed!"; 
-            btn.onclick = null; 
-            btn.disabled = true; 
+            // snap installed, go to step 2
+            await snapInstalled(provider); 
           }
           else { 
             // the snap was not installed 
@@ -144,8 +165,109 @@ const MetaMaskFound = async (providerDetail) => {
     catch { }
   }; 
   document.getElementById('loading').textContent = "";
+  document.getElementById('loading').appendChild(caption); 
   document.getElementById('loading').appendChild(btn); 
 
+}; 
+
+const snapInstalled = async (provider) => { 
+  const btn = document.createElement("button"); 
+  btn.className = "btn btn-primary btn-lg"; 
+  btn.textContent = "Connect Account"; 
+
+  const caption = document.createElement("p"); 
+  caption.className = "caption"; 
+  caption.textContent = "Step 2"; 
+
+  btn.onclick = async (event) => { 
+    event.preventDefault(); 
+    const accounts = await window.ethereum.request({
+      "method": "eth_requestAccounts",
+      "params": []
+    });
+    if(accounts.length > 0) { 
+      const response = await ethereum.request({
+        method: 'wallet_invokeSnap',
+        params: { 
+          snapId: snapId, 
+          request: { 
+            method: 'setLxpAddress', 
+            params: { 
+              lxpAddress: accounts[0]
+            }
+          }
+        }
+      }); 
+      if(response===accounts[0]) { 
+        // get the first entry 
+        const message = document.createElement("p"); 
+        message.textContent = "Connected address: "; 
+        const address = document.createElement("code"); 
+        address.textContent = ''+accounts[0]; 
+        message.appendChild(address); 
+        document.getElementById("context").appendChild(message); 
+
+        await accountConnected(provider, accounts[0]); 
+      }
+    }
+  }; 
+  document.getElementById('loading').textContent = "";
+  document.getElementById('loading').appendChild(caption); 
+  document.getElementById('loading').appendChild(btn); 
+}; 
+
+const accountConnected = async (provider, account) => { 
+  const btn = document.createElement("button"); 
+  btn.className = "btn btn-primary btn-lg"; 
+  btn.textContent = "Sign Message"; 
+
+  const caption = document.createElement("p"); 
+  caption.className = "caption"; 
+  caption.textContent = "Step 3"; 
+
+  btn.onclick = async (event) => { 
+    document.getElementById('loading').textContent = "Pending..."; 
+    try {
+      const payload = {
+        address: account,
+        signedOn: Date.now(),
+        subject: 'LXP Snap Activation',
+      };
+      const message = `0x${stringToHex(JSON.stringify(payload))}`;
+
+      const signature = await provider.request({
+        method: 'personal_sign',
+        params: [message, account],
+      });
+
+      const res = await provider.request({
+        method: 'wallet_invokeSnap',
+        params: {
+          snapId: snapId,
+          request: {
+            method: 'personalSign',
+            params: {
+              signature,
+              payload
+            },
+          },
+        },
+      });
+
+      if (res?.status === 'ok') {
+        document.getElementById('loading').textContent = "Claimed successfully 🎉";
+      } else {
+        document.getElementById('loading').textContent = "Something went wrong 😔 "+res?.message; 
+      } 
+    } catch (error) {
+      document.getElementById('loading').textContent = "Something went wrong 😔 "; 
+      console.error(error);
+    }
+  }
+
+  document.getElementById('loading').textContent = "";
+  document.getElementById('loading').appendChild(caption); 
+  document.getElementById('loading').appendChild(btn); 
 }; 
 
 window.onload = function() {
