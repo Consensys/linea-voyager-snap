@@ -94,8 +94,8 @@ export async function renderMainUi(myAccount: string) {
 }
 
 /**
- * Render the UI in the onInstall hook.
- * @returns DialogParams UI for onInstall.
+ * Render the UI in the onRpcRequest for setting a watch address.
+ * @returns DialogParams UI for onRpcRequest dialog.
  */
 export async function renderPromptLxpAddress() {
   const snapState = await getState();
@@ -108,5 +108,45 @@ export async function renderPromptLxpAddress() {
       text(captions?.lxpAddress.prompt),
     ]),
     placeholder: '0x123...',
+  } as DialogParams;
+}
+
+/**
+ * Render the UI in the onInstall hook.
+ * @returns DialogParams UI for onInstall.
+ */
+export async function renderPromptNextSteps() {
+  const snapState = await getState();
+  const captions = snapState?.captions;
+
+  return {
+    type: 'alert',
+    content: panel([
+      heading(captions?.nextSteps.heading as string),
+      text(captions?.nextSteps.body as string),
+    ]),
+  } as DialogParams;
+}
+
+/**
+ * Render the UI in the onRpcRequest for setting a watch address when an invalid address is provided.
+ * @param lxpAddressStr - The LXP Address.
+ * @returns DialogParams UI for onRpcRequest error dialog.
+ */
+export async function renderPromptLxpAddressError(lxpAddressStr: string) {
+  const snapState = await getState();
+  const captions = snapState?.captions;
+
+  const errorMsg = captions?.errors.invalidLxpAddress.replace(
+    '{address}',
+    lxpAddressStr,
+  );
+
+  return {
+    type: 'alert',
+    content: panel([
+      heading(captions?.errors.heading as string),
+      text(errorMsg),
+    ]),
   } as DialogParams;
 }

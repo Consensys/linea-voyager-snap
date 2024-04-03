@@ -20,6 +20,10 @@ export type Captions = {
     heading: string;
     prompt: string;
   };
+  nextSteps: {
+    heading: string;
+    body: string;
+  };
   noAddress: {
     toSetText: string;
     toSetLink: string;
@@ -28,6 +32,10 @@ export type Captions = {
   viewBalance: string;
   completePOH: string;
   exploreAll: string;
+  errors: {
+    heading: string;
+    invalidLxpAddress: string;
+  };
 };
 
 export type Tag = {
