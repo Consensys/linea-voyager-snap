@@ -26,7 +26,7 @@
     "toSetText": "Para ver tu balance de LXP y estado de POH,",
     "toSetLink": "primero ingresa tu cuenta"
   },
-  "help": "Es posible que LXP obtenido en activaciones no llegue a su cuenta hasta que se complete la activación.",
+  "help": "Tu balance de LXP solo incluye entregas completadas. No incluye entregas pendientes de finalizar.",
   "viewBalance": "Ve tu balance de LXP en Lineascan",
   "completePOH": "Verfica tu estado de POH",
   "exploreAll": "Explora todas las activaciones",

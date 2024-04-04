@@ -26,7 +26,7 @@
     "toSetText": "Pour votre votre balance de LXP et votre statut de POH,",
     "toSetLink": "commencez par définir votre adresse"
   },
-  "help": "Les LXP gagnés dans les activations ne vous seront probablement pas crédités avant la fin de celle-ci.",
+  "help": "fr-Your LXP balance shows only completed onchain drops. It does not include activations pending drops.",
   "viewBalance": "Voir votre balance sur Lineascan",
   "completePOH": "Réalisez votre POH",
   "exploreAll": "Explorez les Activations Linea",
