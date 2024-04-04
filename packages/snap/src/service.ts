@@ -13,8 +13,14 @@ import { convertBalanceToDisplay, getState } from './utils';
  * @returns The LXP balance for the address.
  */
 async function getLxpBalanceFromLineascan(address: string) {
-  const rawBalance = await fetchBalanceFromLineascan(address);
-  return convertBalanceToDisplay(rawBalance);
+  let rawBalance;
+
+  try {
+    rawBalance = await fetchBalanceFromLineascan(address);
+    return convertBalanceToDisplay(rawBalance);
+  } catch (error) {
+    return 0;
+  }
 }
 
 /**
@@ -65,8 +71,13 @@ export async function getPohStatus(address: string) {
   if (!address) {
     return false;
   }
-  const pohStatus = await fetchPohStatus(address);
-  return pohStatus.poh as boolean;
+
+  try {
+    const pohStatus = await fetchPohStatus(address);
+    return pohStatus.poh as boolean;
+  } catch (error) {
+    return false;
+  }
 }
 
 /**
@@ -74,7 +85,11 @@ export async function getPohStatus(address: string) {
  * @returns The current activations.
  */
 export async function getCurrentActivations() {
-  return fetchLxpActivations();
+  try {
+    return fetchLxpActivations();
+  } catch (error) {
+    return [];
+  }
 }
 
 /**

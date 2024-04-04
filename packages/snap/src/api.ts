@@ -5,6 +5,11 @@ const getData = async (url: string) => {
     method: 'GET',
   });
 
+  if (!response.ok) {
+    console.error(`Call to ${url} failed with status ${response.status}`);
+    throw new Error(`HTTP error! Status: ${response.status}`);
+  }
+
   return response.json();
 };
 
@@ -55,5 +60,7 @@ export const postAddressRegistration = async (
   }
 
   const body = await response.json();
-  return { status: 'error', message: body.message ?? 'Unknown error' };
+  const message = body.message ?? 'Unknown error';
+  console.error(`Failed to register address: ${message as string}`);
+  return { status: 'error', message };
 };
