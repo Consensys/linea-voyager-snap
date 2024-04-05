@@ -1,5 +1,5 @@
 {
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "View your minted Linea XP balance, POH status, and current activations.",
   "proposedName": "LXP",
   "repository": {
@@ -7,7 +7,7 @@
     "url": "https://github.com/Consensys/lxp-snap"
   },
   "source": {
-    "shasum": "JyPHZzSi3CcB///9M3ATXFjNmrCCfQbxyEgnKIH6UC0=",
+    "shasum": "nB3iq1i7Yb1W5MXJUZe+n4dYf1xkjUfybNlv4IdZvYk=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",

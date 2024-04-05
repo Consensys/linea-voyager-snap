@@ -22,26 +22,17 @@ jobs:
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v3
-      - name: Use Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version-file: '.nvmrc'
-          cache: 'yarn'
-      - name: Install npm dependencies
-        run: yarn --immutable
-      - name: Run build script
-        run: yarn workspace site build
       - name: Prepare for deployment
         run: |
-          echo "lxp-snap.linea.build" > packages/site/public/CNAME
-          echo "User-Agent: *" > packages/site/public/robots.txt
-          echo "Disallow: /" >> packages/site/public/robots.txt
+          echo "lxp-snap.linea.build" > packages/site/src/CNAME
+          echo "User-Agent: *" > packages/site/src/robots.txt
+          echo "Disallow: /" >> packages/site/src/robots.txt
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
-          path: './packages/site/public'
+          path: './packages/site/src'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
