@@ -1,5 +1,3 @@
-import type { Payload } from './types';
-
 const getData = async (url: string) => {
   const response = await fetch(url, {
     method: 'GET',
@@ -11,17 +9,6 @@ const getData = async (url: string) => {
   }
 
   return response.json();
-};
-
-const postData = async (url: string, data: unknown) => {
-  return await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-    mode: 'cors',
-  });
 };
 
 export const fetchBalanceFromLineascan = async (address: string) => {
@@ -41,26 +28,4 @@ export const fetchLxpActivations = async () => {
     'https://lxp-snap-api.netlify.app/.netlify/functions/api',
   );
   return result.lxpActivations;
-};
-
-export const postAddressRegistration = async (
-  signature: string,
-  payload: Payload,
-) => {
-  const response = await postData(
-    'https://lxp-snap-api.netlify.app/.netlify/functions/api',
-    {
-      signature,
-      payload,
-    },
-  );
-
-  if (response.status === 201) {
-    return { status: 'ok' };
-  }
-
-  const body = await response.json();
-  const message = body.message ?? 'Unknown error';
-  console.error(`Failed to register address: ${message as string}`);
-  return { status: 'error', message };
 };

@@ -10,7 +10,6 @@ import {
   getCurrentActivations,
   getLxpBalanceForAddress,
   getPohStatus,
-  registerAddress,
 } from './service';
 import {
   renderMainUi,
@@ -81,11 +80,6 @@ export const onRpcRequest: OnRpcRequestHandler = async ({ request }) => {
       }
       console.error(`No address provided.`);
       return null;
-    }
-
-    case 'personalSign': {
-      const { signature, payload } = params;
-      return registerAddress(signature, payload);
     }
 
     case 'watchLxpAddress': {
