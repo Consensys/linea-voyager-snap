@@ -95,13 +95,15 @@ export const onRpcRequest: OnRpcRequestHandler = async ({ request }) => {
           await setState({
             lxpAddress: lxpAddressStr,
           });
-        } else {
-          await snap.request({
-            method: 'snap_dialog',
-            params: await renderPromptLxpAddressError(lxpAddressStr),
-          });
+          return lxpAddressStr;
         }
+
+        await snap.request({
+          method: 'snap_dialog',
+          params: await renderPromptLxpAddressError(lxpAddressStr),
+        });
       }
+
       return null;
     }
 
