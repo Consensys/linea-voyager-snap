@@ -7,7 +7,8 @@
     "allow-scripts": "yarn workspace root allow-scripts",
     "lint": "yarn lint:misc --check",
     "lint:fix": "yarn lint:misc --write",
-    "lint:misc": "prettier '**/*.html' '**/*.json' '**/*.md'"
+    "lint:misc": "prettier '**/*.html' '**/*.json' '**/*.md'",
+    "start": "serve src"
   },
   "devDependencies": {
     "@metamask/eslint-config": "^12.2.0",
@@ -21,6 +22,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-promise": "^6.1.1",
     "prettier": "^2.7.1",
-    "prettier-plugin-packagejson": "^2.2.18"
+    "prettier-plugin-packagejson": "^2.2.18",
+    "serve": "^14.2.1"
   }
 }
