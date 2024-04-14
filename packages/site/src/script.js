@@ -1,11 +1,3 @@
-const stringToHex = (input) => {
-  let result = '';
-  for (let i = 0; i < input.length; i++) {
-    result += input.charCodeAt(i).toString(16).padStart(2, '0');
-  }
-  return result;
-};
-
 const snapId = 'npm:@consensys/lxp-snap';
 
 /*
@@ -23,7 +15,7 @@ const MetaMaskFound = async (providerDetail) => {
   caption.className = 'caption';
   caption.textContent = 'Step 1';
 
-  const provider = providerDetail.provider;
+  const { provider } = providerDetail;
 
   btn.onclick = async (event) => {
     event.preventDefault();
@@ -46,9 +38,9 @@ const MetaMaskFound = async (providerDetail) => {
           } else {
             // the snap was not installed
           }
-        } catch {}
+        } catch (error) {}
       }
-    } catch {}
+    } catch (error) {}
   };
   document.getElementById('loading').textContent = '';
   document.getElementById('loading').appendChild(caption);
@@ -76,7 +68,7 @@ const snapInstalled = async (provider) => {
     const response = await provider.request({
       method: 'wallet_invokeSnap',
       params: {
-        snapId: snapId,
+        snapId,
         request: {
           method: 'watchLxpAddress',
         },
@@ -87,7 +79,7 @@ const snapInstalled = async (provider) => {
       // get the watched address
       message.textContent = 'Watched address: ';
       const address = document.createElement('code');
-      address.textContent = '' + response;
+      address.textContent = `${response}`;
       message.appendChild(address);
     } else {
       message.textContent = 'Failed to watch address';
@@ -106,7 +98,7 @@ const snapInstalled = async (provider) => {
       const response = await provider.request({
         method: 'wallet_invokeSnap',
         params: {
-          snapId: snapId,
+          snapId,
           request: {
             method: 'setLxpAddress',
             params: {
@@ -120,7 +112,7 @@ const snapInstalled = async (provider) => {
         // get the first entry
         message.textContent = 'Connected address: ';
         const address = document.createElement('code');
-        address.textContent = '' + accounts[0];
+        address.textContent = `${accounts[0]}`;
         message.appendChild(address);
       } else {
         message.textContent = 'Failed to connect address';
@@ -161,7 +153,7 @@ window.onload = function () {
   window.dispatchEvent(new Event('eip6963:requestProvider'));
 
   setTimeout(() => {
-    if ('found' !== document.getElementById('loading').className) {
+    if (document.getElementById('loading').className !== 'found') {
       /* Assume MetaMask was not detected */
       document.getElementById('loading').textContent = '';
       document
