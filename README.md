@@ -11,7 +11,7 @@ and set up the development environment:
 yarn install && yarn start
 ```
 
-Open your browser and navigate to `http://localhost:3000` to access the dapp.
+Open your browser and navigate to `http://localhost:3000` to access the production dapp or `http://localhost:8000` to access the development dapp.
 
 ## Cloning
 
