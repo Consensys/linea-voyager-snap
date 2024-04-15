@@ -24,7 +24,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Prepare for deployment
         run: |
-          echo "lxp-snap.linea.build" > packages/site/src/CNAME
+          echo "voyager-snap.linea.build" > packages/site/src/CNAME
           echo "User-Agent: *" > packages/site/src/robots.txt
           echo "Disallow: /" >> packages/site/src/robots.txt
       - name: Setup Pages

@@ -1635,9 +1635,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@consensys/lxp-snap@workspace:packages/snap":
+"@consensys/linea-voyager@workspace:packages/snap":
   version: 0.0.0-use.local
-  resolution: "@consensys/lxp-snap@workspace:packages/snap"
+  resolution: "@consensys/linea-voyager@workspace:packages/snap"
   dependencies:
     "@jest/globals": ^29.5.0
     "@metamask/auto-changelog": 3.4.4

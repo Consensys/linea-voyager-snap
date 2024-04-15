@@ -22,7 +22,7 @@ jobs:
           VERSION=$(node -p "require('./packages/snap/package.json').version")
 
           npm --prefix ./packages/snap version --new-version "${VERSION}" --no-git-tag-version --allow-same-version
-          yarn workspace @consensys/lxp-snap build
+          yarn workspace @consensys/linea-voyager build
 
           npm publish ./packages/snap --tag latest --access public > /dev/null 2>&1
         env:

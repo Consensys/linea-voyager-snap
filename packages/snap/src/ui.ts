@@ -67,7 +67,7 @@ export async function renderMainUi(myAccount: string) {
     const addressToSetLink = captions?.noAddress?.toSetLink as string;
     myData.push(
       text(
-        `${addressToSetText} [${addressToSetLink}](https://lxp-snap.linea.build).`,
+        `${addressToSetText} [${addressToSetLink}](https://voyager-snap.linea.build).`,
       ),
     );
   }
