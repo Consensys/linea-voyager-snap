@@ -1,4 +1,4 @@
-const snapId = 'npm:@consensys/lxp-snap';
+const snapId = 'npm:@consensys/linea-voyager';
 
 /*
  * Use EIP-6963 to detect MetaMask
