@@ -15,8 +15,9 @@ Open your browser and navigate to `http://localhost:3000` to access the producti
 ## Cloning
 
 This repository contains GitHub Actions that you may find useful, see
-`.github/workflows` and [Releasing & Publishing](https://github.com/MetaMask/template-snap-monorepo/edit/main/README.md#releasing--publishing)
-below for more information.
+`.github/workflows` and 
+[Releasing & Publishing](https://github.com/MetaMask/template-snap-monorepo/edit/main/README.md#releasing--publishing) 
+for more information.
 
 If you clone or create this repository outside the MetaMask GitHub organization,
 you probably want to run `./scripts/cleanup.sh` to remove some files that will
