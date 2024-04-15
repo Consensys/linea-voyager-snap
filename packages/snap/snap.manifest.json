@@ -4,10 +4,10 @@
   "proposedName": "Linea Voyager",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Consensys/lxp-snap"
+    "url": "https://github.com/Consensys/linea-voyager-snap"
   },
   "source": {
-    "shasum": "0As+/qCqYhn9Ff03C0Zg1/zKnUkJFAKAF3wjOWgmcKk=",
+    "shasum": "iwHflWvsc+/uiVx5cVg7edstgwbAM5Upf9BbjjFS2tU=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",

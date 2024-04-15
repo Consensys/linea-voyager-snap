@@ -5,11 +5,11 @@
   "description": "",
   "homepage": "https://voyager-snap.linea.build",
   "bugs": {
-    "url": "https://github.com/Consensys/lxp-snap/issues"
+    "url": "https://github.com/Consensys/linea-voyager-snap/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Consensys/lxp-snap.git"
+    "url": "git+https://github.com/Consensys/linea-voyager-snap.git"
   },
   "license": "(MIT-0 OR Apache-2.0)",
   "author": "",
