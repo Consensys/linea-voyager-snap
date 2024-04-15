@@ -1,11 +1,10 @@
-# Linea XP Snap
+# Linea Voyager Snap
 
 View your Linea XP balance, Proof of Humanity status, and current LXP Activations right inside of MetaMask!
 
 ## Getting Started
 
-Clone the template-snap repository [using this template](https://github.com/MetaMask/template-snap-monorepo/generate)
-and set up the development environment:
+Clone this repository to your local machine and set up the development environment:
 
 ```shell
 yarn install && yarn start
