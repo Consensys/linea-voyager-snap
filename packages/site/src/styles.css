@@ -1,0 +1,116 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: rgb(18, 18, 18) url(overlay.png) top right no-repeat;
+  color: #fff;
+  font-family: 'DM Sans', sans-serif;
+}
+
+#page {
+  width: 760px;
+}
+
+#demo {
+  float: right;
+  margin-left: 36px;
+}
+
+#icon {
+  border-radius: 32px;
+  margin-right: 0.5rem;
+}
+
+a,
+a:link,
+a:visited,
+a:focus,
+a:hover,
+a:active {
+  color: rgb(97, 223, 255) !important;
+}
+
+a:hover {
+  color: #fff !important;
+}
+
+button.btn,
+button.btn-primary {
+  background-color: rgb(97, 223, 255) !important;
+  border-color: rgb(97, 223, 255) !important;
+  color: #000 !important;
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+  border-radius: 9999px !important;
+  font-weight: 500 !important;
+  text-transform: uppercase !important;
+}
+
+button.btn:hover,
+button.btn-primary:hover {
+  background-color: #fff !important;
+  border-color: #fff !important;
+}
+
+p.caption {
+  text-transform: uppercase;
+  font-size: 0.825rem;
+  margin-bottom: 0.125rem;
+}
+
+p.alt {
+  margin-top: 0.5rem;
+}
+
+p.alt a:hover {
+  cursor: pointer;
+}
+
+#demo video {
+  border-radius: 12px;
+}
+
+h1 {
+  font-size: 1.5rem;
+  line-height: 64px;
+  padding: 0;
+  margin-bottom: 64px;
+}
+
+h1 img {
+  vertical-align: top;
+}
+
+h2 {
+  font-size: 1.125rem;
+  font-weight: bold;
+}
+
+code {
+  background: #333;
+  color: #fff;
+}
+
+#mobileCallout { 
+  display:none; 
+}
+
+#footer {
+  position: fixed;
+  width: 860px;
+  bottom: 0;
+  left: 50%;
+  margin-left: -430px;
+  padding-bottom: 24px;
+  text-align: right;
+}
+
+@media (max-width: 767px) {
+  #demo { 
+    display:none; 
+  }
+  #mobileCallout { 
+    display:block; 
+  }
+}
