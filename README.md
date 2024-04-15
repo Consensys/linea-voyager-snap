@@ -2,6 +2,8 @@
 
 View your Linea XP balance, Proof of Humanity status, and current LXP Activations right inside of MetaMask!
 
+Powered by https://lineascan.build APIs and [MetaMask Snaps](https://metamask.io/snaps).
+
 ## Getting Started
 
 Clone this repository to your local machine and set up the development environment:
