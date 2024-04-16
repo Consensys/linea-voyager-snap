@@ -77,6 +77,19 @@ export async function renderMainUi(myAccount: string) {
   const completePOH = captions?.completePOH as string;
   const exploreAll = captions?.exploreAll as string;
 
+  const extraLinks = [];
+  extraLinks.push(
+    text(
+      `&bull; [${viewBalance}](https://lineascan.build/token/0xd83af4fbd77f3ab65c3b1dc4b38d7e67aecf599a?a=${myAccount})`,
+    ),
+  );
+  if (!snapState?.myPohStatus) {
+    extraLinks.push(text(`&bull; [${completePOH}](https://poh.linea.build)`));
+  }
+  extraLinks.push(
+    text(`&bull; [${exploreAll}](https://linea.build/activations)`),
+  );
+
   return {
     content: panel([
       image(banner),
@@ -84,11 +97,7 @@ export async function renderMainUi(myAccount: string) {
       ...activationsList,
       divider(),
       text(`_${help}_`),
-      text(
-        `&bull; [${viewBalance}](https://lineascan.build/token/0xd83af4fbd77f3ab65c3b1dc4b38d7e67aecf599a?a=${myAccount})`,
-      ),
-      text(`&bull; [${completePOH}](https://poh.linea.build)`),
-      text(`&bull; [${exploreAll}](https://linea.build/activations)'`),
+      ...extraLinks,
     ]),
   };
 }
