@@ -7,6 +7,21 @@ const snapId = 'npm:@consensys/linea-voyager';
 const MetaMaskFound = async (providerDetail) => {
   document.getElementById('loading').className = 'found';
 
+  const { provider } = providerDetail;
+
+  /* first let's see if the Snap is already installed */
+  try {
+    const snaps = await provider.request({
+      method: 'wallet_getSnaps',
+    });
+    if (Object.keys(snaps).includes(snapId)) {
+      // snap installed, go to step 2
+      return await snapAlreadyInstalled(provider);
+    } else {
+      // the snap was not installed
+    }
+  } catch (error) {}
+
   const btn = document.createElement('button');
   btn.className = 'btn btn-primary btn-lg';
   btn.textContent = 'Install Snap';
@@ -14,8 +29,6 @@ const MetaMaskFound = async (providerDetail) => {
   const caption = document.createElement('p');
   caption.className = 'caption';
   caption.textContent = 'Step 1';
-
-  const { provider } = providerDetail;
 
   btn.onclick = async (event) => {
     event.preventDefault();
@@ -47,7 +60,30 @@ const MetaMaskFound = async (providerDetail) => {
   document.getElementById('loading').appendChild(btn);
 };
 
-const snapInstalled = async (provider) => {
+const snapAlreadyInstalled = async (provider) => { 
+  const response = await provider.request({
+    method: 'wallet_invokeSnap',
+    params: {
+      snapId,
+      request: {
+        method: 'getLxpAddress',
+      },
+    },
+  });
+  if (response !== null) {
+    // get the watched address
+    const message = document.createElement('p');
+    message.textContent = 'Watched address: ';
+    const address = document.createElement('code');
+    address.textContent = `${response}`;
+    message.appendChild(address);
+    document.getElementById('context').textContent = '';
+    document.getElementById('context').appendChild(message);
+  } else {}
+  await snapInstalled(provider, true); 
+}; 
+
+const snapInstalled = async (provider, skippedStep1 = false) => {
   const btn = document.createElement('button');
   btn.className = 'btn btn-primary btn-lg';
   btn.textContent = 'Connect Account';
@@ -122,7 +158,7 @@ const snapInstalled = async (provider) => {
     }
   };
   document.getElementById('loading').textContent = '';
-  document.getElementById('loading').appendChild(caption);
+  if(!skippedStep1) document.getElementById('loading').appendChild(caption);
   document.getElementById('loading').appendChild(btn);
   document.getElementById('loading').appendChild(alternate);
 };
