@@ -132,6 +132,18 @@ const snapInstalled = async (provider, skippedStep1 = false) => {
 
   btn.onclick = async (event) => {
     event.preventDefault();
+    if (isAccountConnected) { 
+      // need to disconnect first 
+      await window.ethereum.request({
+        "method": "wallet_revokePermissions",
+        "params": [
+          {
+            "eth_accounts": {}
+          }
+        ]
+      });
+      isAccountConnected = false;
+    }
     const accounts = await provider.request({
       method: 'eth_requestAccounts',
       params: [],
