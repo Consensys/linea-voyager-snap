@@ -1,6 +1,6 @@
 const snapId = 'npm:@consensys/linea-voyager';
-const snapVersion = "^0.7.0"; 
-var isAccountConnected = false; 
+const snapVersion = '^0.7.1';
+let isAccountConnected = false;
 
 /*
  * Use EIP-6963 to detect MetaMask
@@ -19,9 +19,8 @@ const MetaMaskFound = async (providerDetail) => {
     if (Object.keys(snaps).includes(snapId)) {
       // snap installed, go to step 2
       return await snapAlreadyInstalled(provider);
-    } else {
-      // the snap was not installed
     }
+    // the snap was not installed
   } catch (error) {}
 
   const btn = document.createElement('button');
@@ -39,7 +38,7 @@ const MetaMaskFound = async (providerDetail) => {
         method: 'wallet_requestSnaps',
         params: {
           [snapId]: {
-            "version": snapVersion
+            version: snapVersion,
           },
         },
       });
@@ -64,7 +63,7 @@ const MetaMaskFound = async (providerDetail) => {
   document.getElementById('loading').appendChild(btn);
 };
 
-const snapAlreadyInstalled = async (provider) => { 
+const snapAlreadyInstalled = async (provider) => {
   const response = await provider.request({
     method: 'wallet_invokeSnap',
     params: {
@@ -83,16 +82,17 @@ const snapAlreadyInstalled = async (provider) => {
     message.appendChild(address);
     document.getElementById('context').textContent = '';
     document.getElementById('context').appendChild(message);
-    isAccountConnected = true; 
-  } else {}
-  await snapInstalled(provider, true); 
-}; 
+    isAccountConnected = true;
+  } else {
+  }
+  await snapInstalled(provider, true);
+};
 
 const snapInstalled = async (provider, skippedStep1 = false) => {
   const btn = document.createElement('button');
-  btn.id = 'accountConnectionButton'; 
+  btn.id = 'accountConnectionButton';
   btn.className = 'btn btn-primary btn-lg';
-  btn.textContent = isAccountConnected? 'Change Account' : 'Connect Account';
+  btn.textContent = isAccountConnected ? 'Change Account' : 'Connect Account';
 
   const caption = document.createElement('p');
   caption.className = 'caption';
@@ -156,25 +156,27 @@ const snapInstalled = async (provider, skippedStep1 = false) => {
         const address = document.createElement('code');
         address.textContent = `${accounts[0]}`;
         message.appendChild(address);
-        isAccountConnected = true; 
+        isAccountConnected = true;
         try {
-          document.getElementById('accountConnectionButton').textContent = 'Change Address'; 
-        }
-        catch (error) {}
+          document.getElementById('accountConnectionButton').textContent =
+            'Change Address';
+        } catch (error) {}
       } else {
         message.textContent = 'Failed to connect address';
-        isAccountConnected = false; 
+        isAccountConnected = false;
         try {
-          document.getElementById('accountConnectionButton').textContent = 'Connect Address'; 
-        }
-        catch (error) {}
+          document.getElementById('accountConnectionButton').textContent =
+            'Connect Address';
+        } catch (error) {}
       }
       document.getElementById('context').textContent = '';
       document.getElementById('context').appendChild(message);
     }
   };
   document.getElementById('loading').textContent = '';
-  if(!skippedStep1) document.getElementById('loading').appendChild(caption);
+  if (!skippedStep1) {
+    document.getElementById('loading').appendChild(caption);
+  }
   document.getElementById('loading').appendChild(btn);
   document.getElementById('loading').appendChild(alternate);
 };
