@@ -1,4 +1,5 @@
 const snapId = 'npm:@consensys/linea-voyager';
+const snapVersion = "^0.7.0"; 
 var isAccountConnected = false; 
 
 /*
@@ -38,7 +39,7 @@ const MetaMaskFound = async (providerDetail) => {
         method: 'wallet_requestSnaps',
         params: {
           [snapId]: {
-            "version": "^0.7.0"
+            "version": snapVersion
           },
         },
       });
