@@ -1,4 +1,6 @@
 const snapId = 'npm:@consensys/linea-voyager';
+const snapVersion = "^0.7.0"; 
+var isAccountConnected = false; 
 
 /*
  * Use EIP-6963 to detect MetaMask
@@ -36,7 +38,9 @@ const MetaMaskFound = async (providerDetail) => {
       const result = await provider.request({
         method: 'wallet_requestSnaps',
         params: {
-          [snapId]: {},
+          [snapId]: {
+            "version": snapVersion
+          },
         },
       });
 
@@ -79,14 +83,16 @@ const snapAlreadyInstalled = async (provider) => {
     message.appendChild(address);
     document.getElementById('context').textContent = '';
     document.getElementById('context').appendChild(message);
+    isAccountConnected = true; 
   } else {}
   await snapInstalled(provider, true); 
 }; 
 
 const snapInstalled = async (provider, skippedStep1 = false) => {
   const btn = document.createElement('button');
+  btn.id = 'accountConnectionButton'; 
   btn.className = 'btn btn-primary btn-lg';
-  btn.textContent = 'Connect Account';
+  btn.textContent = isAccountConnected? 'Change Account' : 'Connect Account';
 
   const caption = document.createElement('p');
   caption.className = 'caption';
@@ -150,8 +156,18 @@ const snapInstalled = async (provider, skippedStep1 = false) => {
         const address = document.createElement('code');
         address.textContent = `${accounts[0]}`;
         message.appendChild(address);
+        isAccountConnected = true; 
+        try {
+          document.getElementById('accountConnectionButton').textContent = 'Change Address'; 
+        }
+        catch (error) {}
       } else {
         message.textContent = 'Failed to connect address';
+        isAccountConnected = false; 
+        try {
+          document.getElementById('accountConnectionButton').textContent = 'Connect Address'; 
+        }
+        catch (error) {}
       }
       document.getElementById('context').textContent = '';
       document.getElementById('context').appendChild(message);
