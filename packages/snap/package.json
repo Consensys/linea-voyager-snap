@@ -1,6 +1,6 @@
 {
   "name": "@consensys/linea-voyager",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "View your minted Linea XP balance, POH status, and current activations.",
   "repository": {
     "type": "git",
