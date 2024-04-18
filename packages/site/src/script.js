@@ -134,7 +134,7 @@ const snapInstalled = async (provider, skippedStep1 = false) => {
     event.preventDefault();
     if (isAccountConnected) { 
       // need to disconnect first 
-      await window.ethereum.request({
+      await provider.request({
         "method": "wallet_revokePermissions",
         "params": [
           {
