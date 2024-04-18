@@ -2,12 +2,32 @@ const snapId = 'npm:@consensys/linea-voyager';
 const snapVersion = '^0.7.1';
 let isAccountConnected = false;
 
+const isLatestVersion = (installedVersion) => {
+  const cleanedSnapVersion = snapVersion.replace('^', '');
+
+  const [majorSnap, minorSnap, patchSnap] = installedVersion
+    .split('.')
+    .map(Number);
+  const [majorVersion, minorVersion, patchVersion] = cleanedSnapVersion
+    .split('.')
+    .map(Number);
+
+  return (
+    majorSnap > majorVersion ||
+    (majorSnap === majorVersion && minorSnap > minorVersion) ||
+    (majorSnap === majorVersion &&
+      minorSnap === minorVersion &&
+      patchSnap >= patchVersion)
+  );
+};
+
 /*
  * Use EIP-6963 to detect MetaMask
  */
 
 const MetaMaskFound = async (providerDetail) => {
   document.getElementById('loading').className = 'found';
+  let buttonLabel = 'Install Snap';
 
   const { provider } = providerDetail;
 
@@ -16,16 +36,22 @@ const MetaMaskFound = async (providerDetail) => {
     const snaps = await provider.request({
       method: 'wallet_getSnaps',
     });
+
     if (Object.keys(snaps).includes(snapId)) {
-      // snap installed, go to step 2
-      return await snapAlreadyInstalled(provider);
+      // snap installed, check its version
+      if (isLatestVersion(snaps[snapId].version)) {
+        // snap is the latest version, go to step 2
+        return await snapAlreadyInstalled(provider);
+      }
+
+      buttonLabel = 'Update Snap';
     }
     // the snap was not installed
   } catch (error) {}
 
   const btn = document.createElement('button');
   btn.className = 'btn btn-primary btn-lg';
-  btn.textContent = 'Install Snap';
+  btn.textContent = buttonLabel;
 
   const caption = document.createElement('p');
   caption.className = 'caption';
@@ -132,15 +158,15 @@ const snapInstalled = async (provider, skippedStep1 = false) => {
 
   btn.onclick = async (event) => {
     event.preventDefault();
-    if (isAccountConnected) { 
-      // need to disconnect first 
+    if (isAccountConnected) {
+      // need to disconnect first
       await provider.request({
-        "method": "wallet_revokePermissions",
-        "params": [
+        method: 'wallet_revokePermissions',
+        params: [
           {
-            "eth_accounts": {}
-          }
-        ]
+            eth_accounts: {},
+          },
+        ],
       });
       isAccountConnected = false;
     }
@@ -204,13 +230,13 @@ window.onload = function () {
      * or prompt the user to choose which MetaMask flavor they want to use
      * in case they have multiple MetaMask extensions installed at the same time
      */
-    if (providerDetail.info.rdns == 'io.metamask') {
+    if (providerDetail.info.rdns === 'io.metamask') {
       /* this is MetaMask */
       MetaMaskFound(providerDetail);
-    } else if (providerDetail.info.rdns == 'io.metamask.flask') {
+    } else if (providerDetail.info.rdns === 'io.metamask.flask') {
       /* this is MetaMask Flask */
       MetaMaskFound(providerDetail);
-    } else if (providerDetail.info.rdns == 'io.metamask.mmi') {
+    } else if (providerDetail.info.rdns === 'io.metamask.mmi') {
       /* this is MetaMask Institutional */
       MetaMaskFound(providerDetail);
     }
