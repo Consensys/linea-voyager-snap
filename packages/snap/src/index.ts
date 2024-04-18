@@ -9,6 +9,7 @@ import { isValidHexAddress } from '@metamask/utils';
 import {
   getCurrentActivations,
   getLxpBalanceForAddress,
+  getLxpLBalanceForAddress,
   getPohStatus,
 } from './service';
 import {
@@ -40,14 +41,17 @@ export const onHomePage: OnHomePageHandler = async () => {
   const myAccount = snapState.lxpAddress as string;
 
   /* make calls in parallel */
-  const [myLxpBalance, myPohStatus, activations] = await Promise.all([
-    getLxpBalanceForAddress(myAccount, chainId),
-    getPohStatus(myAccount),
-    getCurrentActivations(),
-  ]);
+  const [myLxpBalance, myLxpLBalance, myPohStatus, activations] =
+    await Promise.all([
+      getLxpBalanceForAddress(myAccount, chainId),
+      getLxpLBalanceForAddress(myAccount, chainId),
+      getPohStatus(myAccount),
+      getCurrentActivations(),
+    ]);
 
   await setState({
     myLxpBalance,
+    myLxpLBalance,
     myPohStatus,
     activations,
   });

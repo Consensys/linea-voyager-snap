@@ -6,7 +6,8 @@
     "notVerified": "Non vérifié"
   },
   "lxp": "Vous avez {count} LXP",
-  "balance": "Quantité LXP",
+  "balance": "Balance LXP",
+  "balanceLxpL": "Balance LXP-L",
   "address": "Adresse",
   "pohStatus": "Statut POH",
   "activations": {
@@ -27,7 +28,8 @@
     "toSetLink": "commencez par définir votre adresse"
   },
   "help": "Votre balance de LXP ne montre que les drops onchain terminés. Elle n'inclut pas les activations en attente de drops.",
-  "viewBalance": "Voir votre balance sur Lineascan",
+  "viewBalance": "Voir votre balance de LXP sur Lineascan",
+  "viewLxpLBalance": "Voir votre balance de LXP-L sur Lineascan",
   "completePOH": "Réalisez votre POH",
   "exploreAll": "Explorez les Activations Linea",
   "errors": {

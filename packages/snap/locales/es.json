@@ -7,6 +7,7 @@
   },
   "lxp": "Tienes {count} LXP",
   "balance": "Balance LXP",
+  "balanceLxpL": "Balance LXP-L",
   "address": "Cuenta",
   "pohStatus": "Estado de POH",
   "activations": {
@@ -28,6 +29,7 @@
   },
   "help": "Tu balance de LXP solo incluye entregas completadas. No incluye entregas pendientes de finalizar.",
   "viewBalance": "Ve tu balance de LXP en Lineascan",
+  "viewLxpLBalance": "Ve tu balance de LXP-L en Lineascan",
   "completePOH": "Verfica tu estado de POH",
   "exploreAll": "Explora todas las activaciones",
   "errors": {

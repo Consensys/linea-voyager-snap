@@ -7,6 +7,7 @@
   },
   "lxp": "You have {count} LXP",
   "balance": "LXP Balance",
+  "balanceLxpL": "LXP-L Balance",
   "address": "Address",
   "pohStatus": "POH Status",
   "activations": {
@@ -27,7 +28,8 @@
     "toSetLink": "first set your address"
   },
   "help": "Your LXP balance shows only completed onchain drops. It does not include activations pending drops.",
-  "viewBalance": "View balance on Lineascan",
+  "viewBalance": "View LXP balance on Lineascan",
+  "viewLxpLBalance": "View LXP-L balance on Lineascan",
   "completePOH": "Complete Proof of Humanity",
   "exploreAll": "Explore All Linea Activations",
   "errors": {
