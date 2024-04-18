@@ -2,30 +2,55 @@ const snapId = 'npm:@consensys/linea-voyager';
 const snapVersion = '^0.7.1';
 let isAccountConnected = false;
 
+const isLatestVersion = (installedVersion) => {
+  const cleanedSnapVersion = snapVersion.replace('^', '');
+
+  const [majorSnap, minorSnap, patchSnap] = installedVersion
+    .split('.')
+    .map(Number);
+  const [majorVersion, minorVersion, patchVersion] = cleanedSnapVersion
+    .split('.')
+    .map(Number);
+
+  return (
+    majorSnap > majorVersion ||
+    (majorSnap === majorVersion && minorSnap > minorVersion) ||
+    (majorSnap === majorVersion &&
+      minorSnap === minorVersion &&
+      patchSnap >= patchVersion)
+  );
+};
+
 /*
  * Use EIP-6963 to detect MetaMask
  */
 
 const MetaMaskFound = async (providerDetail) => {
   document.getElementById('loading').className = 'found';
+  let buttonLabel = 'Install Snap';
 
   const { provider } = providerDetail;
 
   /* first let's see if the Snap is already installed */
-  try {
-    const snaps = await provider.request({
-      method: 'wallet_getSnaps',
-    });
-    if (Object.keys(snaps).includes(snapId)) {
-      // snap installed, go to step 2
-      return await snapAlreadyInstalled(provider);
+  const snaps = await provider.request({
+    method: 'wallet_getSnaps',
+  });
+
+  if (Object.keys(snaps).includes(snapId)) {
+    // Snap installed, check its version
+    if (isLatestVersion(snaps[snapId].version)) {
+      // Snap is the latest version, go to step 2
+      snapAlreadyInstalled(provider);
+      return; 
     }
-    // the snap was not installed
-  } catch (error) {}
+    // the user is not on the latest version of the Snap 
+    buttonLabel = 'Update Snap';
+  }
+  // the Snap was not installed, proceed
 
   const btn = document.createElement('button');
   btn.className = 'btn btn-primary btn-lg';
-  btn.textContent = 'Install Snap';
+  btn.textContent = buttonLabel;
 
   const caption = document.createElement('p');
   caption.className = 'caption';
@@ -44,19 +69,22 @@ const MetaMaskFound = async (providerDetail) => {
       });
 
       if (result) {
-        try {
-          const snaps = await provider.request({
-            method: 'wallet_getSnaps',
-          });
-          if (Object.keys(snaps).includes(snapId)) {
-            // snap installed, go to step 2
-            await snapInstalled(provider);
-          } else {
-            // the snap was not installed
-          }
-        } catch (error) {}
+        const snaps = await provider.request({
+          method: 'wallet_getSnaps',
+        });
+        if (Object.keys(snaps).includes(snapId)) {
+          // snap installed, go to step 2
+          snapInstalled(provider);
+        } else {
+          // the snap was not installed
+        }
       }
-    } catch (error) {}
+    } catch (error) {
+      const errorMessage = document.createElement('p'); 
+      errorMessage.textContent = `${error.message}`; 
+      document.getElementById('context').textContent = '';
+      document.getElementById('context').appendChild(errorMessage);
+    }
   };
   document.getElementById('loading').textContent = '';
   document.getElementById('loading').appendChild(caption);
@@ -132,15 +160,15 @@ const snapInstalled = async (provider, skippedStep1 = false) => {
 
   btn.onclick = async (event) => {
     event.preventDefault();
-    if (isAccountConnected) { 
-      // need to disconnect first 
+    if (isAccountConnected) {
+      // need to disconnect first
       await provider.request({
-        "method": "wallet_revokePermissions",
-        "params": [
+        method: 'wallet_revokePermissions',
+        params: [
           {
-            "eth_accounts": {}
-          }
-        ]
+            eth_accounts: {},
+          },
+        ],
       });
       isAccountConnected = false;
     }
@@ -204,13 +232,13 @@ window.onload = function () {
      * or prompt the user to choose which MetaMask flavor they want to use
      * in case they have multiple MetaMask extensions installed at the same time
      */
-    if (providerDetail.info.rdns == 'io.metamask') {
+    if (providerDetail.info.rdns === 'io.metamask') {
       /* this is MetaMask */
       MetaMaskFound(providerDetail);
-    } else if (providerDetail.info.rdns == 'io.metamask.flask') {
+    } else if (providerDetail.info.rdns === 'io.metamask.flask') {
       /* this is MetaMask Flask */
       MetaMaskFound(providerDetail);
-    } else if (providerDetail.info.rdns == 'io.metamask.mmi') {
+    } else if (providerDetail.info.rdns === 'io.metamask.mmi') {
       /* this is MetaMask Institutional */
       MetaMaskFound(providerDetail);
     }
