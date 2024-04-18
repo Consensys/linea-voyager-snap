@@ -9,6 +9,7 @@ export type Captions = {
   };
   lxp: string;
   balance: string;
+  balanceLxpL: string;
   address: string;
   pohStatus: string;
   activations: {
@@ -30,6 +31,7 @@ export type Captions = {
   };
   help: string;
   viewBalance: string;
+  viewLxpLBalance: string;
   completePOH: string;
   exploreAll: string;
   errors: {
@@ -65,6 +67,7 @@ export type SnapState = {
   captions?: Captions;
   lxpAddress?: string;
   myLxpBalance?: number;
+  myLxpLBalance?: number;
   myPohStatus?: boolean;
   activations?: Activation[];
 };

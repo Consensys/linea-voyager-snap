@@ -3,18 +3,26 @@ import {
   fetchLxpActivations,
   fetchPohStatus,
 } from './api';
-import { convertBalanceToDisplay } from './utils';
+import {
+  convertBalanceToDisplay,
+  LXP_CONTRACT_ADDRESS,
+  LXP_L_CONTRACT_ADDRESS,
+} from './utils';
 
 /**
  * Get the LXP balance for an address from Lineascan.
+ * @param tokenAddress - The address of the token contract.
  * @param address - The address to get the LXP balance for.
  * @returns The LXP balance for the address.
  */
-async function getLxpBalanceFromLineascan(address: string) {
+async function getTokenBalanceFromLineascan(
+  tokenAddress: string,
+  address: string,
+) {
   let rawBalance;
 
   try {
-    rawBalance = await fetchBalanceFromLineascan(address);
+    rawBalance = await fetchBalanceFromLineascan(tokenAddress, address);
     return convertBalanceToDisplay(rawBalance);
   } catch (error) {
     return 0;
@@ -22,15 +30,16 @@ async function getLxpBalanceFromLineascan(address: string) {
 }
 
 /**
- * Get the LXP balance for an address from the chain.
+ * Get token balance for an address from the chain.
+ * @param tokenAddress - The address of the token contract.
  * @param address - The address to get the LXP balance for.
  * @returns The LXP balance for the address.
  */
-async function getLxpBalanceFromChain(address: string) {
+async function getTokenBalanceFromChain(tokenAddress: string, address: string) {
   const method = 'eth_call';
   const params = [
     {
-      to: '0xd83af4fbD77f3AB65C3B1Dc4B38D7e67AEcf599A',
+      to: tokenAddress,
       data: `0x70a08231000000000000000000000000${address.slice(2)}`,
     },
     'latest',
@@ -55,9 +64,28 @@ export async function getLxpBalanceForAddress(
     return 0;
   }
   if (chainId === '0xe708') {
-    return getLxpBalanceFromChain(address);
+    return getTokenBalanceFromChain(LXP_CONTRACT_ADDRESS, address);
   }
-  return getLxpBalanceFromLineascan(address);
+  return getTokenBalanceFromLineascan(LXP_CONTRACT_ADDRESS, address);
+}
+
+/**
+ * Get the LXP-L balance for an address.
+ * @param address - The address to get the LXP-L balance for.
+ * @param chainId - The chain ID.
+ * @returns The LXP balance for the address.
+ */
+export async function getLxpLBalanceForAddress(
+  address: string,
+  chainId: string,
+) {
+  if (!address) {
+    return 0;
+  }
+  if (chainId === '0xe708') {
+    return getTokenBalanceFromChain(LXP_L_CONTRACT_ADDRESS, address);
+  }
+  return getTokenBalanceFromLineascan(LXP_L_CONTRACT_ADDRESS, address);
 }
 
 /**
