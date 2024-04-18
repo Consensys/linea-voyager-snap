@@ -32,22 +32,21 @@ const MetaMaskFound = async (providerDetail) => {
   const { provider } = providerDetail;
 
   /* first let's see if the Snap is already installed */
-  try {
-    const snaps = await provider.request({
-      method: 'wallet_getSnaps',
-    });
+  const snaps = await provider.request({
+    method: 'wallet_getSnaps',
+  });
 
-    if (Object.keys(snaps).includes(snapId)) {
-      // snap installed, check its version
-      if (isLatestVersion(snaps[snapId].version)) {
-        // snap is the latest version, go to step 2
-        return await snapAlreadyInstalled(provider);
-      }
-
-      buttonLabel = 'Update Snap';
+  if (Object.keys(snaps).includes(snapId)) {
+    // Snap installed, check its version
+    if (isLatestVersion(snaps[snapId].version)) {
+      // Snap is the latest version, go to step 2
+      snapAlreadyInstalled(provider);
+      return; 
     }
-    // the snap was not installed
-  } catch (error) {}
+    // the user is not on the latest version of the Snap 
+    buttonLabel = 'Update Snap';
+  }
+  // the Snap was not installed, proceed
 
   const btn = document.createElement('button');
   btn.className = 'btn btn-primary btn-lg';
@@ -70,19 +69,22 @@ const MetaMaskFound = async (providerDetail) => {
       });
 
       if (result) {
-        try {
-          const snaps = await provider.request({
-            method: 'wallet_getSnaps',
-          });
-          if (Object.keys(snaps).includes(snapId)) {
-            // snap installed, go to step 2
-            await snapInstalled(provider);
-          } else {
-            // the snap was not installed
-          }
-        } catch (error) {}
+        const snaps = await provider.request({
+          method: 'wallet_getSnaps',
+        });
+        if (Object.keys(snaps).includes(snapId)) {
+          // snap installed, go to step 2
+          snapInstalled(provider);
+        } else {
+          // the snap was not installed
+        }
       }
-    } catch (error) {}
+    } catch (error) {
+      const errorMessage = document.createElement('p'); 
+      errorMessage.textContent = `${error.message}`; 
+      document.getElementById('context').textContent = '';
+      document.getElementById('context').appendChild(errorMessage);
+    }
   };
   document.getElementById('loading').textContent = '';
   document.getElementById('loading').appendChild(caption);
