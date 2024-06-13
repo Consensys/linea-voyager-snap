@@ -1,8 +1,5 @@
-import {
-  fetchBalanceFromLineascan,
-  fetchLxpActivations,
-  fetchPohStatus,
-} from './api';
+import { callGlobalApi } from './api';
+import type { UserData } from './types';
 import {
   convertBalanceToDisplay,
   LXP_CONTRACT_ADDRESS,
@@ -10,22 +7,39 @@ import {
 } from './utils';
 
 /**
- * Get the LXP balance for an address from Lineascan.
- * @param tokenAddress - The address of the token contract.
- * @param address - The address to get the LXP balance for.
- * @returns The LXP balance for the address.
+ * Fetch all the relevant data for the user.
+ * @param address - The address to get the data for.
+ * @param chainId - The chain ID.
+ * @returns The data for the user.
  */
-async function getTokenBalanceFromLineascan(
-  tokenAddress: string,
+export async function getDataForUser(
   address: string,
-) {
-  let rawBalance;
-
+  chainId: string,
+): Promise<UserData> {
   try {
-    rawBalance = await fetchBalanceFromLineascan(tokenAddress, address);
-    return convertBalanceToDisplay(rawBalance);
+    const isLineascan = chainId !== '0xe708';
+    const [userData, lxpBalanceRaw, lxpLBalanceRaw] = await Promise.all([
+      callGlobalApi(address, isLineascan),
+      isLineascan ? 0 : getBalanceFromChain(LXP_CONTRACT_ADDRESS, address),
+      isLineascan ? 0 : getBalanceFromChain(LXP_L_CONTRACT_ADDRESS, address),
+    ]);
+
+    userData.lxpBalance = isLineascan
+      ? convertBalanceToDisplay(userData.lxpBalance.toString())
+      : lxpBalanceRaw;
+    userData.lxpLBalance = isLineascan
+      ? convertBalanceToDisplay(userData.lxpLBalance.toString())
+      : lxpLBalanceRaw;
+
+    return userData;
   } catch (error) {
-    return 0;
+    return {
+      openBlockScore: 0,
+      lxpBalance: 0,
+      lxpLBalance: 0,
+      pohStatus: false,
+      activations: [],
+    };
   }
 }
 
@@ -35,7 +49,7 @@ async function getTokenBalanceFromLineascan(
  * @param address - The address to get the LXP balance for.
  * @returns The LXP balance for the address.
  */
-async function getTokenBalanceFromChain(tokenAddress: string, address: string) {
+async function getBalanceFromChain(tokenAddress: string, address: string) {
   const method = 'eth_call';
   const params = [
     {
@@ -48,72 +62,4 @@ async function getTokenBalanceFromChain(tokenAddress: string, address: string) {
   const rawBalance = await ethereum.request<string>({ method, params });
 
   return convertBalanceToDisplay(rawBalance);
-}
-
-/**
- * Get the LXP balance for an address.
- * @param address - The address to get the LXP balance for.
- * @param chainId - The chain ID.
- * @returns The LXP balance for the address.
- */
-export async function getLxpBalanceForAddress(
-  address: string,
-  chainId: string,
-) {
-  if (!address) {
-    return 0;
-  }
-  if (chainId === '0xe708') {
-    return getTokenBalanceFromChain(LXP_CONTRACT_ADDRESS, address);
-  }
-  return getTokenBalanceFromLineascan(LXP_CONTRACT_ADDRESS, address);
-}
-
-/**
- * Get the LXP-L balance for an address.
- * @param address - The address to get the LXP-L balance for.
- * @param chainId - The chain ID.
- * @returns The LXP balance for the address.
- */
-export async function getLxpLBalanceForAddress(
-  address: string,
-  chainId: string,
-) {
-  if (!address) {
-    return 0;
-  }
-  if (chainId === '0xe708') {
-    return getTokenBalanceFromChain(LXP_L_CONTRACT_ADDRESS, address);
-  }
-  return getTokenBalanceFromLineascan(LXP_L_CONTRACT_ADDRESS, address);
-}
-
-/**
- * Get the POH status for an address.
- * @param address - The address to get the POH status for.
- * @returns The POH status for the address.
- */
-export async function getPohStatus(address: string) {
-  if (!address) {
-    return false;
-  }
-
-  try {
-    const pohStatus = await fetchPohStatus(address);
-    return pohStatus.poh as boolean;
-  } catch (error) {
-    return false;
-  }
-}
-
-/**
- * Get the current activations.
- * @returns The current activations.
- */
-export async function getCurrentActivations() {
-  try {
-    return fetchLxpActivations();
-  } catch (error) {
-    return [];
-  }
 }

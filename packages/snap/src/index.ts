@@ -6,12 +6,7 @@ import type {
 } from '@metamask/snaps-sdk';
 import { isValidHexAddress } from '@metamask/utils';
 
-import {
-  getCurrentActivations,
-  getLxpBalanceForAddress,
-  getLxpLBalanceForAddress,
-  getPohStatus,
-} from './service';
+import { getDataForUser } from './service';
 import {
   renderMainUi,
   renderPromptLxpAddress,
@@ -40,19 +35,14 @@ export const onHomePage: OnHomePageHandler = async () => {
 
   const myAccount = snapState.lxpAddress as string;
 
-  /* make calls in parallel */
-  const [myLxpBalance, myLxpLBalance, myPohStatus, activations] =
-    await Promise.all([
-      getLxpBalanceForAddress(myAccount, chainId),
-      getLxpLBalanceForAddress(myAccount, chainId),
-      getPohStatus(myAccount),
-      getCurrentActivations(),
-    ]);
+  const { lxpBalance, lxpLBalance, openBlockScore, pohStatus, activations } =
+    await getDataForUser(myAccount, chainId);
 
   await setState({
-    myLxpBalance,
-    myLxpLBalance,
-    myPohStatus,
+    myLxpBalance: lxpBalance,
+    myLxpLBalance: lxpLBalance,
+    myOpenBlockScore: openBlockScore,
+    myPohStatus: pohStatus,
     activations,
   });
 

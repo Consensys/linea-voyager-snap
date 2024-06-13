@@ -8,6 +8,7 @@
   "lxp": "Tienes {count} LXP",
   "balance": "Balance LXP",
   "balanceLxpL": "Balance LXP-L",
+  "pendingBalanceLxpL": "Pendiente LXP-L",
   "address": "Cuenta",
   "pohStatus": "Estado de POH",
   "activations": {
@@ -16,7 +17,7 @@
     "one": "Hay {count} activacion de LXP activa"
   },
   "lxpAddress": {
-    "heading": "Cuenta que usas para Linea XP",
+    "heading": "Cuenta que usas para LXP",
     "prompt": "Ingresa tu cuenta para ver tu balance"
   },
   "nextSteps": {
