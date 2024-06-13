@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import styled, { useTheme } from 'styled-components';
 
 import { MetamaskActions, MetaMaskContext } from '../hooks';
-import { connectSnap, getThemePreference, getSnap } from '../utils';
+import { connectSnap, getSnap, getThemePreference } from '../utils';
 import { HeaderButtons } from './Buttons';
 import { SnapLogo } from './SnapLogo';
 import { Toggle } from './Toggle';
@@ -21,6 +21,7 @@ const Title = styled.p`
   font-weight: bold;
   margin: 0;
   margin-left: 1.2rem;
+
   ${({ theme }) => theme.mediaQueries.small} {
     display: none;
   }
@@ -67,7 +68,7 @@ export const Header = ({
     <HeaderWrapper>
       <LogoWrapper>
         <SnapLogo color={theme.colors.icon?.default} size={36} />
-        <Title>LXP Snap</Title>
+        <Title>Linea Voyager Snap</Title>
       </LogoWrapper>
       <RightContainer>
         <Toggle

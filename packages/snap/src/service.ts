@@ -1,3 +1,6 @@
+import { decode } from '@metamask/abi-utils';
+import type { Hex } from '@metamask/utils';
+
 import { callGlobalApi } from './api';
 import type { UserData } from './types';
 import {
@@ -18,10 +21,16 @@ export async function getDataForUser(
 ): Promise<UserData> {
   try {
     const isLineascan = chainId !== '0xe708';
-    const [userData, lxpBalanceRaw, lxpLBalanceRaw] = await Promise.all([
+
+    const [userData, lxpBalanceRaw, lxpLBalanceRaw, name] = await Promise.all([
       callGlobalApi(address, isLineascan),
-      isLineascan ? 0 : getBalanceFromChain(LXP_CONTRACT_ADDRESS, address),
-      isLineascan ? 0 : getBalanceFromChain(LXP_L_CONTRACT_ADDRESS, address),
+      isLineascan
+        ? Promise.resolve(0)
+        : getBalanceFromChain(LXP_CONTRACT_ADDRESS, address),
+      isLineascan
+        ? Promise.resolve(0)
+        : getBalanceFromChain(LXP_L_CONTRACT_ADDRESS, address),
+      isLineascan ? Promise.resolve('') : getNameFromChain(address),
     ]);
 
     userData.lxpBalance = isLineascan
@@ -30,6 +39,7 @@ export async function getDataForUser(
     userData.lxpLBalance = isLineascan
       ? convertBalanceToDisplay(userData.lxpLBalance.toString())
       : lxpLBalanceRaw;
+    userData.name = isLineascan ? userData.name : name;
 
     return userData;
   } catch (error) {
@@ -39,6 +49,7 @@ export async function getDataForUser(
       lxpLBalance: 0,
       pohStatus: false,
       activations: [],
+      name: '',
     };
   }
 }
@@ -62,4 +73,52 @@ async function getBalanceFromChain(tokenAddress: string, address: string) {
   const rawBalance = await ethereum.request<string>({ method, params });
 
   return convertBalanceToDisplay(rawBalance);
+}
+
+/**
+ * Get the Linea ENS node hash from the chain.
+ * @param address - The address to get the Linea ENS node hash for.
+ * @returns The Linea ENS node hash for the address.
+ */
+async function getNodeHashFromChain(address: string) {
+  const method = 'eth_call';
+  const params = [
+    {
+      to: '0x08D3fF6E65f680844fd2465393ff6f0d742b67D5',
+      data: `0xbffbe61c000000000000000000000000${address.slice(2)}`,
+    },
+    'latest',
+  ];
+
+  return ethereum.request<string>({ method, params });
+}
+
+/**
+ * Get the Linea ENS domain name for an address from the chain.
+ * @param address - The address to get the Linea ENS domain name for.
+ * @returns The Linea ENS domain name for the address.
+ */
+async function getNameFromChain(address: string): Promise<string> {
+  const nodeHash = await getNodeHashFromChain(address);
+
+  if (!nodeHash || nodeHash === '0x') {
+    return '';
+  }
+
+  const method = 'eth_call';
+  const params = [
+    {
+      to: '0x86c5AED9F27837074612288610fB98ccC1733126',
+      data: `0x691f3431${nodeHash.slice(2)}`,
+    },
+    'latest',
+  ];
+
+  const rawName = await ethereum.request<string>({ method, params });
+
+  if (!rawName || rawName === '0x') {
+    return '';
+  }
+
+  return decode(['string'], rawName.toString() as Hex)[0] as string;
 }

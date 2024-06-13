@@ -16,6 +16,7 @@
     "none": "There are no current activations",
     "one": "There is {count} active LXP activation"
   },
+  "lineaEns": "Linea ENS domain",
   "lxpAddress": {
     "heading": "LXP wallet address",
     "prompt": "Please enter the wallet address linked to your LXP"
@@ -33,6 +34,8 @@
   "viewLxpLBalance": "View LXP-L balance on Lineascan",
   "completePOH": "Complete Proof of Humanity",
   "exploreAll": "Explore All Linea Activations",
+  "manageLineaEns": "Manage your Linea ENS domain",
+  "getLineaEns": "Get your Linea ENS domain",
   "errors": {
     "heading": "Error",
     "invalidLxpAddress": "{address} is not a valid address. Please try again."

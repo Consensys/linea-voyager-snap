@@ -28,6 +28,8 @@ export async function renderMainUi(myAccount: string) {
   const lxpLBalance = snapState?.myLxpLBalance ?? 0;
   const openBlockScore = snapState?.myOpenBlockScore ?? 0;
   const activations = snapState?.activations ?? [];
+  const name = snapState?.myLineaEns ?? '';
+
   const captions = snapState?.captions;
 
   const labelBalance = captions?.balance;
@@ -35,6 +37,7 @@ export async function renderMainUi(myAccount: string) {
   const labelPendingLxpLBalance = captions?.pendingBalanceLxpL;
   const labelAddress = captions?.address;
   const labelPohStatus = captions?.pohStatus;
+  const labelLineaEns = captions?.lineaEns;
 
   const pohStatus = `${
     snapState?.myPohStatus
@@ -70,10 +73,12 @@ export async function renderMainUi(myAccount: string) {
   if (myAccount) {
     myData.push(row(labelAddress, address(myAccount as `0x${string}`)));
     myData.push(row(labelBalance, text(`${lxpBalance}`)));
-    myData.push(row(labelLxpLBalance, text(`${lxpLBalance}`)));
-    myData.push(
-      row(labelPendingLxpLBalance, text(`${openBlockScore - lxpLBalance}`)),
-    );
+    if (lxpLBalance > 0) {
+      myData.push(row(labelLxpLBalance, text(`${lxpLBalance}`)));
+      myData.push(
+        row(labelPendingLxpLBalance, text(`${openBlockScore - lxpLBalance}`)),
+      );
+    }
     myData.push(row(labelPohStatus, text(`${pohStatus}`)));
   } else {
     const addressToSetText = captions?.noAddress?.toSetText as string;
@@ -85,11 +90,17 @@ export async function renderMainUi(myAccount: string) {
     );
   }
 
+  if (name && name !== '') {
+    myData.push(row(labelLineaEns, text(name)));
+  }
+
   const help = captions?.help as string;
   const viewBalance = captions?.viewBalance as string;
   const viewLxpLBalance = captions?.viewLxpLBalance as string;
   const completePOH = captions?.completePOH as string;
   const exploreAll = captions?.exploreAll as string;
+  const manageLineaEns = captions?.manageLineaEns as string;
+  const getLineaEns = captions?.getLineaEns as string;
 
   const extraLinks = [];
   extraLinks.push(
@@ -97,11 +108,23 @@ export async function renderMainUi(myAccount: string) {
       `&bull; [${viewBalance}](https://lineascan.build/token/${LXP_CONTRACT_ADDRESS}?a=${myAccount})`,
     ),
   );
+
+  if (lxpLBalance > 0) {
+    extraLinks.push(
+      text(
+        `&bull; [${viewLxpLBalance}](https://lineascan.build/token/${LXP_L_CONTRACT_ADDRESS}?a=${myAccount})`,
+      ),
+    );
+  }
+
   extraLinks.push(
     text(
-      `&bull; [${viewLxpLBalance}](https://lineascan.build/token/${LXP_L_CONTRACT_ADDRESS}?a=${myAccount})`,
+      `&bull; [${
+        name && name !== '' ? manageLineaEns : getLineaEns
+      }](https://names.linea.build/)`,
     ),
   );
+
   if (!snapState?.myPohStatus) {
     extraLinks.push(text(`&bull; [${completePOH}](https://poh.linea.build)`));
   }

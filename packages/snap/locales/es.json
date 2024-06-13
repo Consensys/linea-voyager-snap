@@ -16,6 +16,7 @@
     "none": "No hay activas activaciones de LXP",
     "one": "Hay {count} activacion de LXP activa"
   },
+  "lineaEns": "Dominio Linea ENS",
   "lxpAddress": {
     "heading": "Cuenta que usas para LXP",
     "prompt": "Ingresa tu cuenta para ver tu balance"
@@ -31,8 +32,10 @@
   "help": "Tu balance de LXP solo incluye entregas completadas. No incluye entregas pendientes de finalizar.",
   "viewBalance": "Ve tu balance de LXP en Lineascan",
   "viewLxpLBalance": "Ve tu balance de LXP-L en Lineascan",
-  "completePOH": "Verfica tu estado de POH",
+  "completePOH": "Verifica tu estado de POH",
   "exploreAll": "Explora todas las activaciones",
+  "manageLineaEns": "Gestiona tu dominio Linea ENS",
+  "getLineaEns": "Consigue tu dominio Linea ENS",
   "errors": {
     "heading": "Error",
     "invalidLxpAddress": "{address} no es una cuenta valido. Por favor, inténtelo de nuevo más tarde."

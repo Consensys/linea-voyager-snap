@@ -16,6 +16,7 @@ export type Captions = {
     none: string;
     one: string;
   };
+  lineaEns: string;
   lxpAddress: {
     heading: string;
     prompt: string;
@@ -33,6 +34,8 @@ export type Captions = {
   viewLxpLBalance: string;
   completePOH: string;
   exploreAll: string;
+  manageLineaEns: string;
+  getLineaEns: string;
   errors: {
     heading: string;
     invalidLxpAddress: string;
@@ -68,6 +71,7 @@ export type UserData = {
   openBlockScore: number;
   lxpBalance: number;
   lxpLBalance: number;
+  name: string;
 };
 
 export type SnapState = {
@@ -78,4 +82,5 @@ export type SnapState = {
   myOpenBlockScore?: number;
   myPohStatus?: boolean;
   activations?: Activation[];
+  myLineaEns?: string;
 };

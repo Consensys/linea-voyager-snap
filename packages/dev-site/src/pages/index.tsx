@@ -141,7 +141,7 @@ const Index = () => {
   return (
     <Container>
       <Heading>
-        <Span>LXP Snap</Span>
+        <Span>Linea Voyager Snap</Span>
       </Heading>
       <CardContainer>
         {state.error && (

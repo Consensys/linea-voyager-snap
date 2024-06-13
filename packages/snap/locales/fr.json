@@ -16,6 +16,7 @@
     "none": "Il n'y a pas d'activation active",
     "one": "Il y a {count} activation LXP active"
   },
+  "lineaEns": "Domaine Linea ENS",
   "lxpAddress": {
     "heading": "Adresse du portefeuille LXP",
     "prompt": "Veuillez saisir l'adresse de votre wallet lié à vos LXP"
@@ -33,6 +34,8 @@
   "viewLxpLBalance": "Voir votre balance de LXP-L sur Lineascan",
   "completePOH": "Réalisez votre POH",
   "exploreAll": "Explorez les Activations Linea",
+  "manageLineaEns": "Gérez votre domaine Linea ENS",
+  "getLineaEns": "Obtenez votre domaine Linea ENS",
   "errors": {
     "heading": "Erreur",
     "invalidLxpAddress": "{address} n'est pas une adresse valide. Veuillez réessayer."
