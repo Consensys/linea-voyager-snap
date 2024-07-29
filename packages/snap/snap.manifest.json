@@ -7,7 +7,7 @@
     "url": "https://github.com/Consensys/linea-voyager-snap"
   },
   "source": {
-    "shasum": "+DMYZw9ssIhE8euRRxVkqAdUTE1uxgZ1lA0fhC0r7Sc=",
+    "shasum": "oIZBQ1pqMiZJJvAIDJuYAHRvPR3AIB2Hlt99G27DP+E=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
