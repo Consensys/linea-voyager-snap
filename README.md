@@ -1,6 +1,7 @@
 # Linea Voyager Snap
 
-View your Linea XP balance, Proof of Humanity status, and current LXP Activations right inside of MetaMask!
+View your minted LXP and LXP-L balances, POH status, Linea ENS domain and current LXP activations. right inside of
+MetaMask!
 
 Powered by https://lineascan.build APIs and [MetaMask Snaps](https://metamask.io/snaps).
 
@@ -12,7 +13,8 @@ Clone this repository to your local machine and set up the development environme
 yarn install && yarn start
 ```
 
-Open your browser and navigate to `http://localhost:3000` to access the production dapp or `http://localhost:8000` to access the development dapp.
+Open your browser and navigate to `http://localhost:3000` to access the production dapp or `http://localhost:8000` to
+access the development dapp.
 
 ## Cloning
 
@@ -43,5 +45,6 @@ Scripts are disabled by default for security reasons. If you need to use NPM
 packages with scripts, you can run `yarn allow-scripts auto`, and enable the
 script in the `lavamoat.allowScripts` section of `package.json`.
 
-See the documentation for [@lavamoat/allow-scripts](https://github.com/LavaMoat/LavaMoat/tree/main/packages/allow-scripts)
+See the documentation
+for [@lavamoat/allow-scripts](https://github.com/LavaMoat/LavaMoat/tree/main/packages/allow-scripts)
 for more information.

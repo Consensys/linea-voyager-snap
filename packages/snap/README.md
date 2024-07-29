@@ -1,3 +1,4 @@
 # Linea Voyager Snap
 
-View your Linea XP balance, Proof of Humanity status, and current LXP Activations right inside of MetaMask!
+View your minted LXP and LXP-L balances, POH status, Linea ENS domain and current LXP activations right inside of
+MetaMask!
