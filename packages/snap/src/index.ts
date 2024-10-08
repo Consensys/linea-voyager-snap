@@ -42,6 +42,7 @@ export const onHomePage: OnHomePageHandler = async () => {
     pohStatus,
     activations,
     name,
+    proposals,
   } = await getDataForUser(myAccount, chainId);
 
   await setState({
@@ -51,6 +52,7 @@ export const onHomePage: OnHomePageHandler = async () => {
     myPohStatus: pohStatus,
     activations,
     myLineaEns: name,
+    proposals,
   });
 
   return renderMainUi(myAccount);
