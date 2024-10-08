@@ -35,8 +35,14 @@ export const onHomePage: OnHomePageHandler = async () => {
 
   const myAccount = snapState.lxpAddress as string;
 
-  const { lxpBalance, openBlockScore, pohStatus, activations, name } =
-    await getDataForUser(myAccount, chainId);
+  const {
+    lxpBalance,
+    openBlockScore,
+    pohStatus,
+    activations,
+    name,
+    proposals,
+  } = await getDataForUser(myAccount, chainId);
 
   await setState({
     myLxpBalance: lxpBalance,
@@ -44,6 +50,7 @@ export const onHomePage: OnHomePageHandler = async () => {
     myPohStatus: pohStatus,
     activations,
     myLineaEns: name,
+    proposals,
   });
 
   return renderMainUi(myAccount);

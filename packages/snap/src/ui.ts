@@ -23,6 +23,7 @@ export async function renderMainUi(myAccount: string) {
   const openBlockScore = snapState?.myOpenBlockScore ?? 0;
   const activations = snapState?.activations ?? [];
   const name = snapState?.myLineaEns ?? '';
+  const proposals = snapState?.proposals ?? [];
 
   const captions = snapState?.captions;
 
@@ -82,6 +83,29 @@ export async function renderMainUi(myAccount: string) {
     myData.push(row(labelLineaEns, text(name)));
   }
 
+  const governanceData = [];
+
+  if (proposals.length > 0) {
+    governanceData.push(divider());
+    governanceData.push(text(`**Active Governance Proposals:**`));
+    for (const proposal of proposals) {
+      governanceData.push(
+        text(`${truncateString(proposal.metadata.title, 30)}`),
+      );
+      governanceData.push(
+        text(`Start: ${new Date(proposal.start.timestamp).toLocaleString()}`),
+      );
+      governanceData.push(
+        text(`End: ${new Date(proposal.end.timestamp).toLocaleString()}`),
+      );
+      governanceData.push(
+        text(
+          `[See details](https://www.tally.xyz/gov/lil-nouns/proposal/${proposal.onchainId})`,
+        ),
+      );
+    }
+  }
+
   const help = captions?.help as string;
   const viewBalance = captions?.viewBalance as string;
   const viewLxpLBalance = captions?.viewLxpLBalance as string;
@@ -123,6 +147,7 @@ export async function renderMainUi(myAccount: string) {
       image(banner),
       ...myData,
       ...activationsList,
+      ...governanceData,
       divider(),
       text(`_${help}_`),
       ...extraLinks,
