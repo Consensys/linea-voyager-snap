@@ -1,0 +1,43 @@
+{
+  "locale": "si",
+  "poh": {
+    "status": "ඔබේ POH තත්වය:",
+    "verified": "වලංගුයි",
+    "notVerified": "වලංගු නැත"
+  },
+  "lxp": "ඔබ සතුව LXP {count} ක් ඇත",
+  "balance": "LXP ප්‍රමාණය",
+  "balanceLxpL": "LXP-L ප්‍රමාණය",
+  "pendingBalanceLxpL": "පොරොත්තු LXP-L",
+  "address": "ලිපිනය",
+  "pohStatus": "POH තත්වය",
+  "activations": {
+    "number": "මේ අවස්ථාවේ LXP සක්‍රීය කිරීම් {count} ක් ඇත",
+    "none": "මේ අවස්ථාවේ LXP සක්‍රීය කිරීම් නොමැත",
+    "one": "මේ අවස්ථාවේ {count} LXP සක්‍රීය කිරීමක් ඇත"
+  },
+  "lineaEns": "Linea ENS ඩොමේනය",
+  "lxpAddress": {
+    "heading": "LXP පසුම්බි ලිපිනය",
+    "prompt": "කරුණාකර ඔබේ LXP හා සබැඳි පසුම්බි ලිපිනය ඇතුලත් කරන්න "
+  },
+  "nextSteps": {
+    "heading": "Linea ගවේෂක ස්නැපය ස්ථාපනය කළාට ස්තූතියි",
+    "body": "මීලඟට, ඔබේ LXP ප්‍රමාණය පරීක්ෂා කිරීමට [සහය අඩවිය](https://voyager-snap.linea.build/) වෙත පිවිස ඔබේ ලිපිනය යොදන්න. ඔබට ඕනෑම විටකදී මෙටාමාස්ක් ස්නැප් මෙනුව විවෘත කර Linea Voyager මත ක්ලික් කිරීම මගින් ඔබේ LXP ප්‍රමාණය, POH තත්වය හා LXP සක්‍රීය කිරීම් බැලිය හැක."
+  },
+  "noAddress": {
+    "toSetText": "ඔබේ LXP ප්‍රමාණය හා POH තත්වය බැලීම සඳහා,",
+    "toSetLink": "පළමුව ඔබේ ලිපිනය යොදන්න"
+  },
+  "help": "ඔබේ LXP ප්‍රමාණය ලෙස පෙන්වන්නේ බ්ලොක්චේන් තුළදී බෙදාහැරීම් පමණි. එයට ඉදිරියේදී බෙදාහැරීමට නියමිත ප්‍රමාණ අඩංගු නොවේ.",
+  "viewBalance": "LXP ප්‍රමාණය Lineascan හි බලන්න",
+  "viewLxpLBalance": "LXP-L ප්‍රමාණය Lineascan හි බලන්න",
+  "completePOH": "POH සම්පූර්ණ කරන්න",
+  "exploreAll": "සියලු Linea සක්‍රීය කිරීම් බලන්න",
+  "manageLineaEns": "ඔබේ Linea ENS ඩොමේනය කළමණාකරනය",
+  "getLineaEns": "ඔබේ Linea ENS ඩොමේනය ලබාගන්න",
+  "errors": {
+    "heading": "දෝෂයක්",
+    "invalidLxpAddress": "{address} වලංගු ලිපිනයක් නොවේ. කරුණාකර නැවත උත්සාහ කරන්න."
+  }
+}
