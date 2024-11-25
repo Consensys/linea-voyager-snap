@@ -8,7 +8,6 @@
   "lxp": "Vous avez {count} LXP",
   "balance": "Balance LXP",
   "balanceLxpL": "Balance LXP-L",
-  "pendingBalanceLxpL": "LXP-L en attente",
   "address": "Adresse",
   "pohStatus": "Statut POH",
   "activations": {
@@ -31,7 +30,7 @@
   },
   "help": "Votre balance de LXP ne montre que les drops onchain terminés. Elle n'inclut pas les activations en attente de drops.",
   "viewBalance": "Voir votre balance de LXP sur Lineascan",
-  "viewLxpLBalance": "Voir votre balance de LXP-L sur Lineascan",
+  "viewLxpLBalance": "Voir votre balance de LXP-L sur OpenBlock",
   "completePOH": "Réalisez votre POH",
   "exploreAll": "Explorez les Activations Linea",
   "manageLineaEns": "Gérez votre domaine Linea ENS",

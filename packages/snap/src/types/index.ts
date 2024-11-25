@@ -8,7 +8,6 @@ export type Captions = {
   lxp: string;
   balance: string;
   balanceLxpL: string;
-  pendingBalanceLxpL: string;
   address: string;
   pohStatus: string;
   activations: {
@@ -70,7 +69,6 @@ export type UserData = {
   pohStatus: boolean;
   openBlockScore: number;
   lxpBalance: number;
-  lxpLBalance: number;
   name: string;
 };
 
@@ -78,7 +76,6 @@ export type SnapState = {
   captions?: Captions;
   lxpAddress?: string;
   myLxpBalance?: number;
-  myLxpLBalance?: number;
   myOpenBlockScore?: number;
   myPohStatus?: boolean;
   activations?: Activation[];

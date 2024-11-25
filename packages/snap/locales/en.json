@@ -8,7 +8,6 @@
   "lxp": "You have {count} LXP",
   "balance": "LXP Balance",
   "balanceLxpL": "LXP-L Balance",
-  "pendingBalanceLxpL": "Pending LXP-L",
   "address": "Address",
   "pohStatus": "POH Status",
   "activations": {
@@ -31,7 +30,7 @@
   },
   "help": "Your LXP balance shows only completed onchain drops. It does not include activations pending drops.",
   "viewBalance": "View LXP balance on Lineascan",
-  "viewLxpLBalance": "View LXP-L balance on Lineascan",
+  "viewLxpLBalance": "View LXP-L balance on OpenBlock",
   "completePOH": "Complete Proof of Humanity",
   "exploreAll": "Explore All Linea Activations",
   "manageLineaEns": "Manage your Linea ENS domain",

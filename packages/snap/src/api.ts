@@ -5,7 +5,7 @@ export const callGlobalApi = async (
   isLineascan: boolean,
 ): Promise<UserData> => {
   const response = await fetch(
-    `https://lxp-snap-api.netlify.app/.netlify/functions/global-api?address=${address}&isLineascan=${isLineascan}`,
+    `https://lxp-snap-api.netlify.app/.netlify/functions/global-api-v3?address=${address}&isLineascan=${isLineascan}`,
     {
       method: 'GET',
     },
