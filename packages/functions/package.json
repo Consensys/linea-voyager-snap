@@ -9,8 +9,6 @@
     "allow-scripts": "yarn workspace root allow-scripts"
   },
   "dependencies": {
-    "google-auth-library": "^9.6.3",
-    "google-spreadsheet": "^4.1.1",
-    "viem": "^2.7.22"
+    "viem": "^2.21.50"
   }
 }

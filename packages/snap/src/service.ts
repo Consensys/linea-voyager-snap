@@ -3,11 +3,7 @@ import type { Hex } from '@metamask/utils';
 
 import { callGlobalApi } from './api';
 import type { UserData } from './types';
-import {
-  convertBalanceToDisplay,
-  LXP_CONTRACT_ADDRESS,
-  LXP_L_CONTRACT_ADDRESS,
-} from './utils';
+import { convertBalanceToDisplay, LXP_CONTRACT_ADDRESS } from './utils';
 
 /**
  * Fetch all the relevant data for the user.
@@ -22,23 +18,17 @@ export async function getDataForUser(
   try {
     const isLineascan = chainId !== '0xe708';
 
-    const [userData, lxpBalanceRaw, lxpLBalanceRaw, name] = await Promise.all([
+    const [userData, lxpBalanceRaw, name] = await Promise.all([
       callGlobalApi(address, isLineascan),
       isLineascan
         ? Promise.resolve(0)
         : getBalanceFromChain(LXP_CONTRACT_ADDRESS, address),
-      isLineascan
-        ? Promise.resolve(0)
-        : getBalanceFromChain(LXP_L_CONTRACT_ADDRESS, address),
       isLineascan ? Promise.resolve('') : getNameFromChain(address),
     ]);
 
     userData.lxpBalance = isLineascan
       ? convertBalanceToDisplay(userData.lxpBalance.toString())
       : lxpBalanceRaw;
-    userData.lxpLBalance = isLineascan
-      ? convertBalanceToDisplay(userData.lxpLBalance.toString())
-      : lxpLBalanceRaw;
     userData.name = isLineascan ? userData.name : name;
 
     return userData;
@@ -46,7 +36,6 @@ export async function getDataForUser(
     return {
       openBlockScore: 0,
       lxpBalance: 0,
-      lxpLBalance: 0,
       pohStatus: false,
       activations: [],
       name: '',
