@@ -115,7 +115,7 @@ export async function renderMainUi(myAccount: string) {
     extraLinks.push(text(`&bull; [${completePOH}](https://poh.linea.build)`));
   }
   extraLinks.push(
-    text(`&bull; [${exploreAll}](https://linea.build/activations)`),
+    text(`&bull; [${exploreAll}](https://linea.build/ecosystem)`),
   );
 
   return {

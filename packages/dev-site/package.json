@@ -10,7 +10,7 @@
     "lint": "yarn lint:eslint && yarn lint:misc --check",
     "lint:eslint": "eslint . --cache --ext js,ts",
     "lint:fix": "yarn lint:eslint --fix && yarn lint:misc --write",
-    "lint:misc": "prettier '**/*.{json,md}' '**/*.md' '!CHANGELOG.md' --ignore-path ../../.gitignore",
+    "lint:misc": "prettier '**/*.json' '**/*.md' '!CHANGELOG.md' --ignore-path .gitignore",
     "start": "GATSBY_TELEMETRY_DISABLED=1 gatsby develop"
   },
   "browserslist": {
@@ -26,7 +26,7 @@
     ]
   },
   "dependencies": {
-    "@metamask/providers": "^15.0.0",
+    "@metamask/providers": "^16.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-is": "^18.2.0",
