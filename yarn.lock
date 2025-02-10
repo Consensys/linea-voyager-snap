@@ -2959,17 +2959,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@metamask/base-controller@npm:^7.0.2":
-  version: 7.0.2
-  resolution: "@metamask/base-controller@npm:7.0.2"
-  dependencies:
-    "@metamask/utils": ^10.0.0
-    immer: ^9.0.6
-  checksum: c9c706077af613e704d166a1795c94e2b92e6da304514994bbc6903c4796f9a752028b86a08cf4ece43ab069d5232af468e5d7b571a85d18b80a5072619ba5cb
-  languageName: node
-  linkType: hard
-
-"@metamask/base-controller@npm:^7.0.3, @metamask/base-controller@npm:^7.1.1":
+"@metamask/base-controller@npm:^7.0.2, @metamask/base-controller@npm:^7.0.3, @metamask/base-controller@npm:^7.1.1":
   version: 7.1.1
   resolution: "@metamask/base-controller@npm:7.1.1"
   dependencies:
@@ -3624,23 +3614,6 @@ __metadata:
   version: 3.1.0
   resolution: "@metamask/superstruct@npm:3.1.0"
   checksum: 00e4d0c0aae8b25ccc1885c1db0bb4ed1590010570140c255e4deee3bf8a10c859c8fce5e475b4ae09c8a56316207af87585b91f7f5a5c028d668ccd111f19e3
-  languageName: node
-  linkType: hard
-
-"@metamask/utils@npm:^10.0.0":
-  version: 10.0.1
-  resolution: "@metamask/utils@npm:10.0.1"
-  dependencies:
-    "@ethereumjs/tx": ^4.2.0
-    "@metamask/superstruct": ^3.1.0
-    "@noble/hashes": ^1.3.1
-    "@scure/base": ^1.1.3
-    "@types/debug": ^4.1.7
-    debug: ^4.3.4
-    pony-cause: ^2.1.10
-    semver: ^7.5.4
-    uuid: ^9.0.1
-  checksum: 4c350c7a1c881c6af446319942392e6eb62411bff9c512166d816d39702c7b4926a982ebfd56ada317f9332a5416b3211c09e022674cee8272228658977ba851
   languageName: node
   linkType: hard
 
