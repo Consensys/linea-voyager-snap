@@ -1,6 +1,6 @@
 {
   "name": "@consensys/linea-voyager",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "View your minted LXP and LXP-L balances, POH status, Linea ENS domain and current LXP activations.",
   "repository": {
     "type": "git",
@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@metamask/abi-utils": "^3.0.0",
-    "@metamask/snaps-sdk": "^6.14.0",
+    "@metamask/snaps-sdk": "6.13.0",
     "@metamask/utils": "^11.1.0",
     "buffer": "^6.0.3"
   },
