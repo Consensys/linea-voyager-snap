@@ -1,5 +1,5 @@
 {
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "View your minted LXP and LXP-L balances, POH status, Linea ENS domain and current LXP activations.",
   "proposedName": "Linea Voyager",
   "repository": {
@@ -7,7 +7,7 @@
     "url": "https://github.com/Consensys/linea-voyager-snap"
   },
   "source": {
-    "shasum": "/yO/zfYso4wuYEu+SNXjhMwbpdotjh4IzAaF69Nkj4s=",
+    "shasum": "Ih2eqTo1AaFFuNsxQ6h8iQmd9Yr2jf9VbvtvrtS5nQo=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
@@ -32,6 +32,6 @@
     "endowment:lifecycle-hooks": {},
     "snap_dialog": {}
   },
-  "platformVersion": "6.17.1",
+  "platformVersion": "6.13.0",
   "manifestVersion": "0.1"
 }
