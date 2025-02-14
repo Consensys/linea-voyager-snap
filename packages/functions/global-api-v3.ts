@@ -11,6 +11,7 @@ export const LXP_CONTRACT_ADDRESS =
   '0xd83af4fbD77f3AB65C3B1Dc4B38D7e67AEcf599A';
 
 const LINEASCAN_API_KEY = process.env.LINEASCAN_API_KEY;
+const THE_GRAPH_API_KEY = process.env.THE_GRAPH_API_KEY;
 
 /**
  * This function is called on every network call.
@@ -38,6 +39,15 @@ export async function handler(event: {
         statusCode: 500,
         body: JSON.stringify({
           message: 'Lineascan API key not set',
+        }),
+      };
+    }
+
+    if (!THE_GRAPH_API_KEY) {
+      return {
+        statusCode: 500,
+        body: JSON.stringify({
+          message: 'The Graph API key not set',
         }),
       };
     }
@@ -210,14 +220,31 @@ async function fetchPohStatus(address: string) {
 
 async function fetchLineaEns(address: string) {
   try {
+    const query = `query {
+      domains(
+        first: 10,
+        where: {
+          and: [
+            { or: [{ owner: "${address}" }, { registrant: "${address}" }, { wrappedOwner: "${address}" }] },
+            { parent_not: "0x91d1777781884d03a6757a803996e38de2a42967fb37eeaca72729271025a9e2" },
+            { or: [{ expiryDate_gt: "${Math.floor(
+              Date.now() / 1000,
+            )}" }, { expiryDate: null }] },
+            { or: [{ owner_not: "0x0000000000000000000000000000000000000000" }, { resolver_not: null }, { registrant_not: null }] }
+          ]
+        }
+      ) {
+        name
+      }
+    }`;
+
     const res = await postData(
-      `https://api.studio.thegraph.com/query/69290/ens-linea-mainnet/version/latest`,
-      {
-        query: `query getNamesForAddress {domains(first: 1, where: {and: [{or: [{owner: \"${address}\"}, {registrant: \"${address}\"}, {wrappedOwner: \"${address}\"}]}, {parent_not: \"0x91d1777781884d03a6757a803996e38de2a42967fb37eeaca72729271025a9e2\"}, {or: [{expiryDate_gt: \"1721033912\"}, {expiryDate: null}]}, {or: [{owner_not: \"0x0000000000000000000000000000000000000000\"}, {resolver_not: null}, {and: [{registrant_not: \"0x0000000000000000000000000000000000000000\"}, {registrant_not: null}]}]}]}) {...DomainDetailsWithoutParent}} fragment DomainDetailsWithoutParent on Domain {name}`,
-      },
+      `https://gateway.thegraph.com/api/${THE_GRAPH_API_KEY}/subgraphs/id/G5YH6BWrybbfua5sngRQ7Ku1LRCVx4qf5zjkqWG9FSuV`,
+      { query },
     );
-    return res.data.domains[0].name as string;
-  } catch (e) {
+
+    return res?.data?.domains?.at(-1)?.name ?? undefined;
+  } catch {
     return undefined;
   }
 }
