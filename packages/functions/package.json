@@ -10,5 +10,8 @@
   },
   "dependencies": {
     "viem": "^2.22.23"
+  },
+  "devDependencies": {
+    "netlify-cli": "^18.0.4"
   }
 }
