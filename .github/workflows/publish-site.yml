@@ -21,16 +21,16 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Prepare for deployment
         run: |
           echo "voyager-snap.linea.build" > packages/site/src/CNAME
           echo "User-Agent: *" > packages/site/src/robots.txt
           echo "Disallow: /" >> packages/site/src/robots.txt
       - name: Setup Pages
-        uses: actions/configure-pages@v3
+        uses: actions/configure-pages@v5
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3
         with:
           path: './packages/site/src'
       - name: Deploy to GitHub Pages
