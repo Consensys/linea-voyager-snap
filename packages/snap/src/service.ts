@@ -2,7 +2,7 @@ import { decode } from '@metamask/abi-utils';
 import type { Hex } from '@metamask/utils';
 
 import { callGlobalApi } from './api';
-import type { UserData } from './types';
+import type { Proposal, UserData } from './types';
 import { convertBalanceToDisplay, LXP_CONTRACT_ADDRESS } from './utils';
 
 /**
@@ -30,6 +30,16 @@ export async function getDataForUser(
       ? convertBalanceToDisplay(userData.lxpBalance.toString())
       : lxpBalanceRaw;
     userData.name = isLineascan ? userData.name : name;
+    userData.proposals = userData.proposals.map((proposal: Proposal) => {
+      return {
+        ...proposal,
+        metadata: {
+          ...proposal.metadata,
+          title: proposal.metadata.title.replace(/^#\s*/u, ''),
+          description: proposal.metadata.description.replace(/^#\s*/u, ''),
+        },
+      };
+    });
 
     return userData;
   } catch (error) {
@@ -39,6 +49,7 @@ export async function getDataForUser(
       pohStatus: false,
       activations: [],
       name: '',
+      proposals: [],
     };
   }
 }

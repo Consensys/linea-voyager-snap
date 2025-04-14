@@ -70,6 +70,7 @@ export type UserData = {
   openBlockScore: number;
   lxpBalance: number;
   name: string;
+  proposals: Proposal[];
 };
 
 export type SnapState = {
@@ -80,4 +81,29 @@ export type SnapState = {
   myPohStatus?: boolean;
   activations?: Activation[];
   myLineaEns?: string;
+  proposals?: Proposal[];
+};
+
+export type Proposal = {
+  id: string;
+  onchainId: string;
+  status: ProposalStatus;
+  metadata: {
+    title: string;
+    description: string;
+  };
+  start: BlockTime;
+  end: BlockTime;
+};
+
+export enum ProposalStatus {
+  Active = 'active',
+  Canceled = 'canceled',
+  Executed = 'executed',
+  Queued = 'queued',
+}
+
+export type BlockTime = {
+  id: string;
+  timestamp: Date;
 };
