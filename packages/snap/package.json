@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@metamask/abi-utils": "^3.0.0",
-    "@metamask/snaps-sdk": "6.13.0",
+    "@metamask/snaps-sdk": "6.22.1",
     "@metamask/utils": "^11.1.0",
     "buffer": "^6.0.3"
   },
