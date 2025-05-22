@@ -10,7 +10,7 @@ import {
 } from '@metamask/snaps-sdk';
 
 import banner from '../img/banner.svg';
-import { getState, LXP_CONTRACT_ADDRESS, truncateString } from './utils';
+import { getState, LXP_CONTRACT_ADDRESS } from './utils';
 
 /**
  * Render the main UI.
