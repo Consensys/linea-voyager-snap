@@ -21,7 +21,6 @@ export async function renderMainUi(myAccount: string) {
   const snapState = await getState();
   const lxpBalance = snapState?.myLxpBalance ?? 0;
   const openBlockScore = snapState?.myOpenBlockScore ?? 0;
-  const activations = snapState?.activations ?? [];
   const name = snapState?.myLineaEns ?? '';
 
   const captions = snapState?.captions;
@@ -37,29 +36,6 @@ export async function renderMainUi(myAccount: string) {
       ? `✅ ${captions?.poh.verified as string}`
       : `❌ ${captions?.poh.notVerified as string}`
   }`;
-
-  const activationsList = [];
-
-  if (activations?.length > 0) {
-    activationsList.push(divider());
-    const activationsCount =
-      activations.length === 1
-        ? captions?.activations.one.replace('{count}', `${activations.length}`)
-        : captions?.activations.number.replace(
-            '{count}',
-            `${activations.length}`,
-          );
-    activationsList.push(text(`**${activationsCount as string}**`));
-    for (const a of activations) {
-      activationsList.push(
-        text(
-          `&bull; [${truncateString(a.fields.title['en-US'], 30)}](${
-            a.fields.url['en-US']
-          })`,
-        ),
-      );
-    }
-  }
 
   const myData = [];
 
@@ -82,7 +58,6 @@ export async function renderMainUi(myAccount: string) {
     myData.push(row(labelLineaEns, text(name)));
   }
 
-  const help = captions?.help as string;
   const viewBalance = captions?.viewBalance as string;
   const viewLxpLBalance = captions?.viewLxpLBalance as string;
   const completePOH = captions?.completePOH as string;
@@ -122,9 +97,7 @@ export async function renderMainUi(myAccount: string) {
     content: panel([
       image(banner),
       ...myData,
-      ...activationsList,
       divider(),
-      text(`_${help}_`),
       ...extraLinks,
     ]),
   };

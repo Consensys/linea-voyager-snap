@@ -22,7 +22,7 @@
   },
   "nextSteps": {
     "heading": "Merci d'avoir installé le Snap Linea Voyager",
-    "body": "Ensuite, définissez votre adresse avec le [site web](https://voyager-snap.linea.build/) pour suivre votre solde LXP. À tout moment, vous pouvez ouvrir le menu Snaps et cliquer sur Linea Voyager pour voir votre solde, votre statut de POH, et les activations actuelles."
+    "body": "Ensuite, définissez votre adresse avec le [site web](https://voyager-snap.linea.build/) pour suivre votre solde LXP. À tout moment, vous pouvez ouvrir le menu Snaps et cliquer sur Linea Voyager pour voir votre solde, votre statut de POH, et votre domaine Linea ENS."
   },
   "noAddress": {
     "toSetText": "Pour votre votre balance de LXP et votre statut de POH,",
@@ -32,7 +32,7 @@
   "viewBalance": "Voir votre balance de LXP sur Lineascan",
   "viewLxpLBalance": "Voir votre balance de LXP-L sur OpenBlock",
   "completePOH": "Réalisez votre POH",
-  "exploreAll": "Explorez les Activations Linea",
+  "exploreAll": "Explorez le Linea Hub",
   "manageLineaEns": "Gérez votre domaine Linea ENS",
   "getLineaEns": "Obtenez votre domaine Linea ENS",
   "errors": {

@@ -22,7 +22,7 @@
   },
   "nextSteps": {
     "heading": "Gracias por instalar Linea Voyager Snap",
-    "body": "Para ver tu balance de LXP y estado de POH, [ingresa tu cuenta por el sitio web](https://voyager-snap.linea.build/). A cualquier tiempo puedes abrir el menu y seleccionar el Linea Voyager Snap para ver tu balance, estado de POH, y activaciones de LXP activas."
+    "body": "Para ver tu balance de LXP y estado de POH, [ingresa tu cuenta por el sitio web](https://voyager-snap.linea.build/). A cualquier tiempo puedes abrir el menu y seleccionar el Linea Voyager Snap para ver tu balance, estado de POH, y dominio Linea ENS."
   },
   "noAddress": {
     "toSetText": "Para ver tu balance de LXP y estado de POH,",
@@ -32,7 +32,7 @@
   "viewBalance": "Ve tu balance de LXP en Lineascan",
   "viewLxpLBalance": "Ve tu balance de LXP-L en OpenBlock",
   "completePOH": "Verifica tu estado de POH",
-  "exploreAll": "Explora todas las activaciones",
+  "exploreAll": "Explora el Linea Hub",
   "manageLineaEns": "Gestiona tu dominio Linea ENS",
   "getLineaEns": "Consigue tu dominio Linea ENS",
   "errors": {
