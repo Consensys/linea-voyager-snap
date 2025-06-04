@@ -94,12 +94,7 @@ export async function renderMainUi(myAccount: string) {
   );
 
   return {
-    content: panel([
-      image(banner),
-      ...myData,
-      divider(),
-      ...extraLinks,
-    ]),
+    content: panel([image(banner), ...myData, divider(), ...extraLinks]),
   };
 }
 
