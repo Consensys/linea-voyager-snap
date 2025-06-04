@@ -7,7 +7,7 @@
     "url": "https://github.com/Consensys/linea-voyager-snap"
   },
   "source": {
-    "shasum": "tQ5ZTvtkwCP2uTN38MK5ipnm+GySGRr7mVRfZvDI+xM=",
+    "shasum": "Czp4CT9pWrVyFWJmnjra1rDWeSwakxtT+XerK/dkc8A=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
@@ -32,6 +32,6 @@
     "endowment:lifecycle-hooks": {},
     "snap_dialog": {}
   },
-  "platformVersion": "6.13.0",
+  "platformVersion": "7.1.0",
   "manifestVersion": "0.1"
 }
