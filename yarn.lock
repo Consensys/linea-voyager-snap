@@ -2097,7 +2097,7 @@ __metadata:
     "@metamask/eslint-config-jest": ^12.1.0
     "@metamask/eslint-config-nodejs": ^12.1.0
     "@metamask/eslint-config-typescript": ^12.1.0
-    "@metamask/snaps-cli": ^7.2.0
+    "@metamask/snaps-cli": ^8.2.0
     "@metamask/snaps-jest": ^8.9.0
     "@metamask/snaps-sdk": 7.1.0
     "@metamask/utils": ^11.1.0
@@ -2190,6 +2190,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@endo/cache-map@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "@endo/cache-map@npm:1.1.0"
+  checksum: 51a1690a6d189a060876abfbb497094efb8e0de328709882777963a7a69f6786a4bbf56bcc87bc8513ffd4a415062928acd4e0e49a89af58061734c7498eb086
+  languageName: node
+  linkType: hard
+
+"@endo/env-options@npm:^1.1.11":
+  version: 1.1.11
+  resolution: "@endo/env-options@npm:1.1.11"
+  checksum: 599634509b28f005d12aaf2d7a2500ef222f6ce72889ba70a7306fb6fbed84b1bada2de29f5d3d0e48af22dbb41794d69d5df5ce91a94d791fe34d9abd3b5cb7
+  languageName: node
+  linkType: hard
+
 "@endo/env-options@npm:^1.1.9":
   version: 1.1.9
   resolution: "@endo/env-options@npm:1.1.9"
@@ -2201,6 +2215,13 @@ __metadata:
   version: 1.1.0
   resolution: "@endo/immutable-arraybuffer@npm:1.1.0"
   checksum: 98d998f585a4b3e16b828cbcf615f654a7c6fb505ecad997b4f93d1936b46945a84ea1a7670632d9dc1f1cbd439f7f838dd4290d9f68df9cfd544ddc7f0cdf5b
+  languageName: node
+  linkType: hard
+
+"@endo/immutable-arraybuffer@npm:^1.1.2":
+  version: 1.1.2
+  resolution: "@endo/immutable-arraybuffer@npm:1.1.2"
+  checksum: 7a71573e09cbf0099d329957cb943384038c21c0be9834817af8291ae4cc08dd8bbded30b4e106232f26740df22a421b1aeac3a072bdb7b0303423c44c872963
   languageName: node
   linkType: hard
 
@@ -4141,6 +4162,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@metamask/rpc-errors@npm:^7.0.3":
+  version: 7.0.3
+  resolution: "@metamask/rpc-errors@npm:7.0.3"
+  dependencies:
+    "@metamask/utils": ^11.4.2
+    fast-safe-stringify: ^2.0.6
+  checksum: 274ec61d1a567a0a34cda6202af8e91dc2822dc24f0280358c6efedbca8bda1bfb87609fb448ee90652bc597be6a3d678da315ca3ead92f90a89933975c98107
+  languageName: node
+  linkType: hard
+
 "@metamask/safe-event-emitter@npm:^3.0.0, @metamask/safe-event-emitter@npm:^3.1.1":
   version: 3.1.2
   resolution: "@metamask/safe-event-emitter@npm:3.1.2"
@@ -4172,18 +4203,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@metamask/snaps-cli@npm:^7.2.0":
-  version: 7.2.0
-  resolution: "@metamask/snaps-cli@npm:7.2.0"
+"@metamask/snaps-cli@npm:^8.2.0":
+  version: 8.2.0
+  resolution: "@metamask/snaps-cli@npm:8.2.0"
   dependencies:
-    "@metamask/snaps-rpc-methods": ^12.4.0
+    "@metamask/snaps-rpc-methods": ^13.5.0
     "@metamask/snaps-sandbox": ^1.0.0
-    "@metamask/snaps-sdk": ^7.1.0
-    "@metamask/snaps-utils": ^9.4.0
-    "@metamask/snaps-webpack-plugin": ^4.3.0
+    "@metamask/snaps-sdk": ^9.3.0
+    "@metamask/snaps-utils": ^11.4.0
+    "@metamask/snaps-webpack-plugin": ^5.1.0
     "@metamask/superstruct": ^3.2.1
-    "@metamask/utils": ^11.4.0
-    "@swc/core": 1.3.78
+    "@metamask/utils": ^11.4.2
+    "@swc/core": 1.11.31
     assert: ^2.0.0
     browserify-zlib: ^0.2.0
     buffer: ^6.0.3
@@ -4208,7 +4239,7 @@ __metadata:
     stream-http: ^3.2.0
     string_decoder: ^1.3.0
     strip-ansi: ^6.0.1
-    swc-loader: ^0.2.3
+    swc-loader: ^0.2.6
     terser-webpack-plugin: ^5.3.9
     timers-browserify: ^2.0.12
     tty-browserify: ^0.0.1
@@ -4221,7 +4252,7 @@ __metadata:
     yargs: ^17.7.1
   bin:
     mm-snap: ./dist/main.mjs
-  checksum: b20072fe65f81e9c95fedfbe78d895fb946fd2b2ba7365dce1d1907b6b40e022f57694f3d3e953860cdd902178d067311ce79644f6250981b207066594b05768
+  checksum: 1f04baae454d5e53245958df69848f325a2056ec7694d5db7afb1efd857a21493b6d84ef07fa1925573e09a40de7061f1cfbda6f3dc5d140dc42946a6e26122b
   languageName: node
   linkType: hard
 
@@ -4391,6 +4422,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@metamask/snaps-rpc-methods@npm:^13.5.0":
+  version: 13.5.0
+  resolution: "@metamask/snaps-rpc-methods@npm:13.5.0"
+  dependencies:
+    "@metamask/key-tree": ^10.1.1
+    "@metamask/permission-controller": ^11.0.6
+    "@metamask/rpc-errors": ^7.0.3
+    "@metamask/snaps-sdk": ^9.3.0
+    "@metamask/snaps-utils": ^11.3.0
+    "@metamask/superstruct": ^3.2.1
+    "@metamask/utils": ^11.4.2
+    "@noble/hashes": ^1.7.1
+  checksum: 1a58cc0c1434da1f603dbcd28693aedc1476940a91e4851ac13c2624f3adce4db0f5ff56eace1da605e8cf04da319fba949c83630213fbbc0a1c1ab4f30206b8
+  languageName: node
+  linkType: hard
+
 "@metamask/snaps-sandbox@npm:^1.0.0":
   version: 1.0.0
   resolution: "@metamask/snaps-sandbox@npm:1.0.0"
@@ -4437,6 +4484,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@metamask/snaps-sdk@npm:^9.3.0":
+  version: 9.3.0
+  resolution: "@metamask/snaps-sdk@npm:9.3.0"
+  dependencies:
+    "@metamask/key-tree": ^10.1.1
+    "@metamask/providers": ^22.1.0
+    "@metamask/rpc-errors": ^7.0.3
+    "@metamask/superstruct": ^3.2.1
+    "@metamask/utils": ^11.4.2
+  checksum: 0ddffc266c3802ab97724af94d07356ac8e55d91030d3f246e5f2c9154c61e8eae6f0b320cafd9bd8eca245d83c5603d0aae8c7426ed12496d512728970f4153
+  languageName: node
+  linkType: hard
+
 "@metamask/snaps-simulation@npm:^2.1.0":
   version: 2.7.0
   resolution: "@metamask/snaps-simulation@npm:2.7.0"
@@ -4461,6 +4521,38 @@ __metadata:
     readable-stream: ^3.6.2
     redux-saga: ^1.2.3
   checksum: 147f67e0ffca5f5f51f3f7d4c704a547dca012bfa2698286d51f0ccedd4014751d81d92019b01ef2cf4af2d13660c5bbf41d3eb36b891a3cd2458bbdd8023b95
+  languageName: node
+  linkType: hard
+
+"@metamask/snaps-utils@npm:^11.3.0, @metamask/snaps-utils@npm:^11.4.0":
+  version: 11.4.0
+  resolution: "@metamask/snaps-utils@npm:11.4.0"
+  dependencies:
+    "@babel/core": ^7.23.2
+    "@babel/types": ^7.23.0
+    "@metamask/base-controller": ^8.0.1
+    "@metamask/key-tree": ^10.1.1
+    "@metamask/permission-controller": ^11.0.6
+    "@metamask/rpc-errors": ^7.0.3
+    "@metamask/slip44": ^4.2.0
+    "@metamask/snaps-registry": ^3.2.3
+    "@metamask/snaps-sdk": ^9.3.0
+    "@metamask/superstruct": ^3.2.1
+    "@metamask/utils": ^11.4.2
+    "@noble/hashes": ^1.7.1
+    "@scure/base": ^1.1.1
+    chalk: ^4.1.2
+    cron-parser: ^4.5.0
+    fast-deep-equal: ^3.1.3
+    fast-json-stable-stringify: ^2.1.0
+    fast-xml-parser: ^4.4.1
+    luxon: ^3.5.0
+    marked: ^12.0.1
+    rfdc: ^1.3.0
+    semver: ^7.5.4
+    ses: ^1.14.0
+    validate-npm-package-name: ^5.0.0
+  checksum: 1265717dabe5e42ee7a97be5614793de4e1b07afcb3ea07239baca2daab9cedf3e8061acafee82be995acc684284b2506c75cdfbfc7770152b9a823be07f4194
   languageName: node
   linkType: hard
 
@@ -4527,17 +4619,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@metamask/snaps-webpack-plugin@npm:^4.3.0":
-  version: 4.3.0
-  resolution: "@metamask/snaps-webpack-plugin@npm:4.3.0"
+"@metamask/snaps-webpack-plugin@npm:^5.1.0":
+  version: 5.1.0
+  resolution: "@metamask/snaps-webpack-plugin@npm:5.1.0"
   dependencies:
-    "@metamask/snaps-rpc-methods": ^12.4.0
-    "@metamask/snaps-sdk": ^7.1.0
-    "@metamask/snaps-utils": ^9.4.0
-    "@metamask/utils": ^11.4.0
+    "@metamask/snaps-rpc-methods": ^13.5.0
+    "@metamask/snaps-sdk": ^9.3.0
+    "@metamask/snaps-utils": ^11.4.0
+    "@metamask/utils": ^11.4.2
     chalk: ^4.1.2
     webpack-sources: ^3.2.3
-  checksum: dfe4561e49637e89ff467ee188e02375bb38ea6cbc2644a4f8d9f6c407f03d51a3a0ca3128125f1b7f6b95223f1909330efc336ccb6417c6bc4584457b8884b5
+  checksum: 314d0fdcd886612191c05177193825ccf415276c1c0bc98f060ae472ecf089525ef4116c61f1cb8494d53d2ab2670e1b1eb98a9843b3fdd74a43469dc1c26692
   languageName: node
   linkType: hard
 
@@ -4569,6 +4661,24 @@ __metadata:
     semver: ^7.5.4
     uuid: ^9.0.1
   checksum: 18f4ac60221b4651a4c64fe9b2985092537248662634e8c6757afaef752b9dc400bd13fb7f4e8172823f5e5ec96ea129d7622c0fb2f3b9abfec2af8b466fff92
+  languageName: node
+  linkType: hard
+
+"@metamask/utils@npm:^11.4.2":
+  version: 11.4.2
+  resolution: "@metamask/utils@npm:11.4.2"
+  dependencies:
+    "@ethereumjs/tx": ^4.2.0
+    "@metamask/superstruct": ^3.1.0
+    "@noble/hashes": ^1.3.1
+    "@scure/base": ^1.1.3
+    "@types/debug": ^4.1.7
+    debug: ^4.3.4
+    lodash.memoize: ^4.1.2
+    pony-cause: ^2.1.10
+    semver: ^7.5.4
+    uuid: ^9.0.1
+  checksum: 11061a93f49684563a14caaaab2d8dbb969c907dbc24358cf188dd10ec00ac91e5d04369ef605e9d78e75f8ad53d9a0fbdb65f2325b12ef6c8db85bb46160dff
   languageName: node
   linkType: hard
 
@@ -6693,92 +6803,94 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@swc/core-darwin-arm64@npm:1.3.78":
-  version: 1.3.78
-  resolution: "@swc/core-darwin-arm64@npm:1.3.78"
+"@swc/core-darwin-arm64@npm:1.11.31":
+  version: 1.11.31
+  resolution: "@swc/core-darwin-arm64@npm:1.11.31"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"@swc/core-darwin-x64@npm:1.3.78":
-  version: 1.3.78
-  resolution: "@swc/core-darwin-x64@npm:1.3.78"
+"@swc/core-darwin-x64@npm:1.11.31":
+  version: 1.11.31
+  resolution: "@swc/core-darwin-x64@npm:1.11.31"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@swc/core-linux-arm-gnueabihf@npm:1.3.78":
-  version: 1.3.78
-  resolution: "@swc/core-linux-arm-gnueabihf@npm:1.3.78"
+"@swc/core-linux-arm-gnueabihf@npm:1.11.31":
+  version: 1.11.31
+  resolution: "@swc/core-linux-arm-gnueabihf@npm:1.11.31"
   conditions: os=linux & cpu=arm
   languageName: node
   linkType: hard
 
-"@swc/core-linux-arm64-gnu@npm:1.3.78":
-  version: 1.3.78
-  resolution: "@swc/core-linux-arm64-gnu@npm:1.3.78"
+"@swc/core-linux-arm64-gnu@npm:1.11.31":
+  version: 1.11.31
+  resolution: "@swc/core-linux-arm64-gnu@npm:1.11.31"
   conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@swc/core-linux-arm64-musl@npm:1.3.78":
-  version: 1.3.78
-  resolution: "@swc/core-linux-arm64-musl@npm:1.3.78"
+"@swc/core-linux-arm64-musl@npm:1.11.31":
+  version: 1.11.31
+  resolution: "@swc/core-linux-arm64-musl@npm:1.11.31"
   conditions: os=linux & cpu=arm64 & libc=musl
   languageName: node
   linkType: hard
 
-"@swc/core-linux-x64-gnu@npm:1.3.78":
-  version: 1.3.78
-  resolution: "@swc/core-linux-x64-gnu@npm:1.3.78"
+"@swc/core-linux-x64-gnu@npm:1.11.31":
+  version: 1.11.31
+  resolution: "@swc/core-linux-x64-gnu@npm:1.11.31"
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@swc/core-linux-x64-musl@npm:1.3.78":
-  version: 1.3.78
-  resolution: "@swc/core-linux-x64-musl@npm:1.3.78"
+"@swc/core-linux-x64-musl@npm:1.11.31":
+  version: 1.11.31
+  resolution: "@swc/core-linux-x64-musl@npm:1.11.31"
   conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
 
-"@swc/core-win32-arm64-msvc@npm:1.3.78":
-  version: 1.3.78
-  resolution: "@swc/core-win32-arm64-msvc@npm:1.3.78"
+"@swc/core-win32-arm64-msvc@npm:1.11.31":
+  version: 1.11.31
+  resolution: "@swc/core-win32-arm64-msvc@npm:1.11.31"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"@swc/core-win32-ia32-msvc@npm:1.3.78":
-  version: 1.3.78
-  resolution: "@swc/core-win32-ia32-msvc@npm:1.3.78"
+"@swc/core-win32-ia32-msvc@npm:1.11.31":
+  version: 1.11.31
+  resolution: "@swc/core-win32-ia32-msvc@npm:1.11.31"
   conditions: os=win32 & cpu=ia32
   languageName: node
   linkType: hard
 
-"@swc/core-win32-x64-msvc@npm:1.3.78":
-  version: 1.3.78
-  resolution: "@swc/core-win32-x64-msvc@npm:1.3.78"
+"@swc/core-win32-x64-msvc@npm:1.11.31":
+  version: 1.11.31
+  resolution: "@swc/core-win32-x64-msvc@npm:1.11.31"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
 
-"@swc/core@npm:1.3.78":
-  version: 1.3.78
-  resolution: "@swc/core@npm:1.3.78"
+"@swc/core@npm:1.11.31":
+  version: 1.11.31
+  resolution: "@swc/core@npm:1.11.31"
   dependencies:
-    "@swc/core-darwin-arm64": 1.3.78
-    "@swc/core-darwin-x64": 1.3.78
-    "@swc/core-linux-arm-gnueabihf": 1.3.78
-    "@swc/core-linux-arm64-gnu": 1.3.78
-    "@swc/core-linux-arm64-musl": 1.3.78
-    "@swc/core-linux-x64-gnu": 1.3.78
-    "@swc/core-linux-x64-musl": 1.3.78
-    "@swc/core-win32-arm64-msvc": 1.3.78
-    "@swc/core-win32-ia32-msvc": 1.3.78
-    "@swc/core-win32-x64-msvc": 1.3.78
+    "@swc/core-darwin-arm64": 1.11.31
+    "@swc/core-darwin-x64": 1.11.31
+    "@swc/core-linux-arm-gnueabihf": 1.11.31
+    "@swc/core-linux-arm64-gnu": 1.11.31
+    "@swc/core-linux-arm64-musl": 1.11.31
+    "@swc/core-linux-x64-gnu": 1.11.31
+    "@swc/core-linux-x64-musl": 1.11.31
+    "@swc/core-win32-arm64-msvc": 1.11.31
+    "@swc/core-win32-ia32-msvc": 1.11.31
+    "@swc/core-win32-x64-msvc": 1.11.31
+    "@swc/counter": ^0.1.3
+    "@swc/types": ^0.1.21
   peerDependencies:
-    "@swc/helpers": ^0.5.0
+    "@swc/helpers": ">=0.5.17"
   dependenciesMeta:
     "@swc/core-darwin-arm64":
       optional: true
@@ -6803,7 +6915,7 @@ __metadata:
   peerDependenciesMeta:
     "@swc/helpers":
       optional: true
-  checksum: b7494c4ca9a2e968cd00430c9dbb5cc4f0c3dd3baaf66d129185c5a8816caf6424a2da8e0f181ed94e7c0c39f76046ee995d6c5ec08198d5f5d6f60735ffb1ab
+  checksum: 37c2b34e8f9f6ffc2511e724171077e317596a770014db7edfa9b368eace6dc2a6460fb0d8e7b35b0192dbe4dff0c0818ee61725b08d9af30274acb57db8e469
   languageName: node
   linkType: hard
 
@@ -6821,6 +6933,15 @@ __metadata:
     legacy-swc-helpers: "npm:@swc/helpers@=0.4.14"
     tslib: ^2.4.0
   checksum: 20b9f021a9711633d709ef1c231423eb079cb7ed14ad191dc9583b0b46684a95d0e87c3efd7472e7673ddbd30eb200c21490ab43ad251df8f845cd09df3d236f
+  languageName: node
+  linkType: hard
+
+"@swc/types@npm:^0.1.21":
+  version: 0.1.24
+  resolution: "@swc/types@npm:0.1.24"
+  dependencies:
+    "@swc/counter": ^0.1.3
+  checksum: b9f186237d082ca9f47457dd46bd294612fbee401b4f181a9afc6f8f802fab161d50ff7024e7bc0d9c4e0ceb9a46a06ea2e5bf14a05412c9e8b7d7e07906d6ec
   languageName: node
   linkType: hard
 
@@ -23286,6 +23407,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ses@npm:^1.14.0":
+  version: 1.14.0
+  resolution: "ses@npm:1.14.0"
+  dependencies:
+    "@endo/cache-map": ^1.1.0
+    "@endo/env-options": ^1.1.11
+    "@endo/immutable-arraybuffer": ^1.1.2
+  checksum: d7340161d4401aea03473960282674b76fdfe23122cae0ec52c3fc5460a2a708bb81f15bd28de4fd8536f64b79360264b0a6f6b864bd1ea0a2d4ba75e96f274b
+  languageName: node
+  linkType: hard
+
 "set-blocking@npm:^2.0.0":
   version: 2.0.0
   resolution: "set-blocking@npm:2.0.0"
@@ -24529,7 +24661,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"swc-loader@npm:^0.2.3":
+"swc-loader@npm:^0.2.6":
   version: 0.2.6
   resolution: "swc-loader@npm:0.2.6"
   dependencies:
